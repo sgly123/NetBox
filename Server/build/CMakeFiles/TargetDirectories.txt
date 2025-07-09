@@ -1,0 +1,9 @@
+/home/sgly/桌面/scaffold/Server/build/CMakeFiles/Scaffold.dir
+/home/sgly/桌面/scaffold/Server/build/CMakeFiles/edit_cache.dir
+/home/sgly/桌面/scaffold/Server/build/CMakeFiles/rebuild_cache.dir
+/home/sgly/桌面/scaffold/Server/build/Proto/CMakeFiles/protocol_Msg.dir
+/home/sgly/桌面/scaffold/Server/build/Proto/CMakeFiles/edit_cache.dir
+/home/sgly/桌面/scaffold/Server/build/Proto/CMakeFiles/rebuild_cache.dir
+/home/sgly/桌面/scaffold/Server/build/Base_tool/CMakeFiles/Base_tool.dir
+/home/sgly/桌面/scaffold/Server/build/Base_tool/CMakeFiles/edit_cache.dir
+/home/sgly/桌面/scaffold/Server/build/Base_tool/CMakeFiles/rebuild_cache.dir

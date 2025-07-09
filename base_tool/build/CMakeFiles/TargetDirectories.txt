@@ -1,0 +1,3 @@
+/home/sgly/桌面/IM_Server/base_tool/build/CMakeFiles/Base_tool.dir
+/home/sgly/桌面/IM_Server/base_tool/build/CMakeFiles/edit_cache.dir
+/home/sgly/桌面/IM_Server/base_tool/build/CMakeFiles/rebuild_cache.dir

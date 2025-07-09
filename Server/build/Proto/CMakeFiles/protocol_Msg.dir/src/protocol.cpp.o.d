@@ -1,0 +1,3 @@
+Proto/CMakeFiles/protocol_Msg.dir/src/protocol.cpp.o: \
+ /home/sgly/桌面/scaffold/proto/src/protocol.cpp \
+ /usr/include/stdc-predef.h

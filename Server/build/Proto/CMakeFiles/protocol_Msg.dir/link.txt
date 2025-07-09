@@ -1,0 +1,2 @@
+/usr/bin/ar qc libprotocol_Msg.a CMakeFiles/protocol_Msg.dir/src/protocol.cpp.o
+/usr/bin/ranlib libprotocol_Msg.a
