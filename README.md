@@ -1,4 +1,5 @@
 # NetBox
+<<<<<<< HEAD
 
 ## 一。需求分析
 
@@ -98,3 +99,6 @@
 ### 说明
 
 本次需求分析聚焦 MVP 阶段的 “可实现目标”，通过黑盒封装隐藏复杂细节（如 epoll、线程调度），同时明确各模块的职责与交互，既保证校招项目的完成度，又为面试时阐述 “扩展思路”（如多 Reactor、协议扩展）预留空间。
+=======
+A modular, high-performance network framework based on Reactor model (supporting 1M+ concurrent connections)
+>>>>>>> e26495565593f3f3c26f6d70217ffd1e2ce71adf
