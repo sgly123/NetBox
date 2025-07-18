@@ -44,7 +44,7 @@
 
 ### 2.1 分层架构（核心模块）
 
-![image](file:///D:/%5CDesktop%5C%E6%9E%B6%E6%9E%84%E5%9B%BE%E8%AE%BE%E8%AE%A1.png)
+![image](.\img\架构图设计.png)
 
 #### （1）网络 I/O 模块（底层黑盒）
 
