@@ -1,0 +1,3 @@
+/home/sgly/桌面/NetBox/build/CMakeFiles/NetBox.dir
+/home/sgly/桌面/NetBox/build/CMakeFiles/edit_cache.dir
+/home/sgly/桌面/NetBox/build/CMakeFiles/rebuild_cache.dir
