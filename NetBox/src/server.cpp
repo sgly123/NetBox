@@ -45,7 +45,7 @@ bool EchoServer::start() {
         return false;
     }
 
-    std::cout << "服务器启动成功: " << m_ip << ":" << m_port << std::endl;
+    std::cout << "服务器启动成功: " << m_ip << ":" << m_port << "\n";
     m_running = true;
     run();
     return true;
@@ -64,12 +64,10 @@ void EchoServer::run() {
 
         char ip[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &client_addr.sin_addr, ip, sizeof(ip));
-        std::cout << "新客户端: " << ip << ":" << ntohs(client_addr.sin_port) << std::endl;
+        std::cout << "新客户端: " << ip << ":" << ntohs(client_addr.sin_port) << "\n";
 
-        client_threads.emplace_back([this, client_fd] {
             this->handle_client(client_fd);
             close(client_fd);  
-        });
     }
 }
 
@@ -83,7 +81,7 @@ void EchoServer::handle_client(int client_fd) {
             for(int i=0; i<bytes_received; ++i) {
                 std::cout << buffer[i];
             }
-            std::cout << std::endl;
+            std::cout << "\n";
 
             int total_sent = 0;
             while(total_sent < bytes_received) {
@@ -113,7 +111,4 @@ void EchoServer::stop() {
     m_running = false;
     close(m_socket);
     
-    for(auto& t : client_threads) {
-        if(t.joinable()) t.join();
-    }
 }

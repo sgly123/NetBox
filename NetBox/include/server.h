@@ -24,7 +24,7 @@ private:
     int m_port;
     std::string m_ip;
     std::atomic<bool> m_running;
-    std::vector<std::thread> client_threads;    
+    // std::vector<std::thread> client_threads;    
     static constexpr size_t BUFFER_SIZE = 4096;
 
     void run();
