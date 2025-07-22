@@ -1,16 +1,18 @@
-project(NetBox)
 cmake_minimum_required(VERSION 3.29)
+project(NetBox)
 
 # 收集源文件和头文件
 file(GLOB_RECURSE 
 SOURCES 
-"src/*.cpp" 
+"NetFramework/src/*.cpp" 
 "main.cpp"
 )
 file(GLOB_RECURSE 
 HEADERS 
-"include/*.h"
+"NetFramework/include/*.h"
 )
+
+include_directories(NetFramework/include)
 
 # 设置C++标准
 set(CMAKE_CXX_STANDARD 17)
@@ -21,3 +23,4 @@ add_executable(NetBox ${SOURCES} ${HEADERS})
 
 
 target_include_directories(NetBox PRIVATE include)
+target_link_libraries(NetBox pthread)

@@ -72,10 +72,38 @@ include CMakeFiles/NetBox.dir/flags.make
 CMakeFiles/NetBox.dir/codegen:
 .PHONY : CMakeFiles/NetBox.dir/codegen
 
+CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o: CMakeFiles/NetBox.dir/flags.make
+CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o: /home/sgly/桌面/NetBox/NetFramework/src/IO/EpollMultiplexer.cpp
+CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o: CMakeFiles/NetBox.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sgly/桌面/NetBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o -MF CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o.d -o CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/IO/EpollMultiplexer.cpp
+
+CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sgly/桌面/NetBox/NetFramework/src/IO/EpollMultiplexer.cpp > CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.i
+
+CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sgly/桌面/NetBox/NetFramework/src/IO/EpollMultiplexer.cpp -o CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.s
+
+CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o: CMakeFiles/NetBox.dir/flags.make
+CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o: /home/sgly/桌面/NetBox/NetFramework/src/server/server.cpp
+CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o: CMakeFiles/NetBox.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sgly/桌面/NetBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o -MF CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o.d -o CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/server/server.cpp
+
+CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sgly/桌面/NetBox/NetFramework/src/server/server.cpp > CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.i
+
+CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sgly/桌面/NetBox/NetFramework/src/server/server.cpp -o CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.s
+
 CMakeFiles/NetBox.dir/main.cpp.o: CMakeFiles/NetBox.dir/flags.make
 CMakeFiles/NetBox.dir/main.cpp.o: /home/sgly/桌面/NetBox/main.cpp
 CMakeFiles/NetBox.dir/main.cpp.o: CMakeFiles/NetBox.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sgly/桌面/NetBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/NetBox.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sgly/桌面/NetBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/NetBox.dir/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/NetBox.dir/main.cpp.o -MF CMakeFiles/NetBox.dir/main.cpp.o.d -o CMakeFiles/NetBox.dir/main.cpp.o -c /home/sgly/桌面/NetBox/main.cpp
 
 CMakeFiles/NetBox.dir/main.cpp.i: cmake_force
@@ -86,34 +114,22 @@ CMakeFiles/NetBox.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/NetBox.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sgly/桌面/NetBox/main.cpp -o CMakeFiles/NetBox.dir/main.cpp.s
 
-CMakeFiles/NetBox.dir/src/server.cpp.o: CMakeFiles/NetBox.dir/flags.make
-CMakeFiles/NetBox.dir/src/server.cpp.o: /home/sgly/桌面/NetBox/src/server.cpp
-CMakeFiles/NetBox.dir/src/server.cpp.o: CMakeFiles/NetBox.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sgly/桌面/NetBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/NetBox.dir/src/server.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/NetBox.dir/src/server.cpp.o -MF CMakeFiles/NetBox.dir/src/server.cpp.o.d -o CMakeFiles/NetBox.dir/src/server.cpp.o -c /home/sgly/桌面/NetBox/src/server.cpp
-
-CMakeFiles/NetBox.dir/src/server.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/NetBox.dir/src/server.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sgly/桌面/NetBox/src/server.cpp > CMakeFiles/NetBox.dir/src/server.cpp.i
-
-CMakeFiles/NetBox.dir/src/server.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/NetBox.dir/src/server.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sgly/桌面/NetBox/src/server.cpp -o CMakeFiles/NetBox.dir/src/server.cpp.s
-
 # Object files for target NetBox
 NetBox_OBJECTS = \
-"CMakeFiles/NetBox.dir/main.cpp.o" \
-"CMakeFiles/NetBox.dir/src/server.cpp.o"
+"CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o" \
+"CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o" \
+"CMakeFiles/NetBox.dir/main.cpp.o"
 
 # External object files for target NetBox
 NetBox_EXTERNAL_OBJECTS =
 
+NetBox: CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o
+NetBox: CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o
 NetBox: CMakeFiles/NetBox.dir/main.cpp.o
-NetBox: CMakeFiles/NetBox.dir/src/server.cpp.o
 NetBox: CMakeFiles/NetBox.dir/build.make
 NetBox: CMakeFiles/NetBox.dir/compiler_depend.ts
 NetBox: CMakeFiles/NetBox.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/sgly/桌面/NetBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable NetBox"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/sgly/桌面/NetBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable NetBox"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/NetBox.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

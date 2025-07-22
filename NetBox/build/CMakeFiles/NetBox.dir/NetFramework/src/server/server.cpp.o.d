@@ -1,4 +1,5 @@
-CMakeFiles/NetBox.dir/main.cpp.o: /home/sgly/桌面/NetBox/main.cpp \
+CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o: \
+  /home/sgly/桌面/NetBox/NetFramework/src/server/server.cpp \
   /home/sgly/桌面/NetBox/NetFramework/include/server/server.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/string \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/requires_hosted.h \

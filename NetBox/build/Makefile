@@ -129,6 +129,54 @@ NetBox/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/build
 .PHONY : NetBox/fast
 
+NetFramework/src/IO/EpollMultiplexer.o: NetFramework/src/IO/EpollMultiplexer.cpp.o
+.PHONY : NetFramework/src/IO/EpollMultiplexer.o
+
+# target to build an object file
+NetFramework/src/IO/EpollMultiplexer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o
+.PHONY : NetFramework/src/IO/EpollMultiplexer.cpp.o
+
+NetFramework/src/IO/EpollMultiplexer.i: NetFramework/src/IO/EpollMultiplexer.cpp.i
+.PHONY : NetFramework/src/IO/EpollMultiplexer.i
+
+# target to preprocess a source file
+NetFramework/src/IO/EpollMultiplexer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.i
+.PHONY : NetFramework/src/IO/EpollMultiplexer.cpp.i
+
+NetFramework/src/IO/EpollMultiplexer.s: NetFramework/src/IO/EpollMultiplexer.cpp.s
+.PHONY : NetFramework/src/IO/EpollMultiplexer.s
+
+# target to generate assembly for a file
+NetFramework/src/IO/EpollMultiplexer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.s
+.PHONY : NetFramework/src/IO/EpollMultiplexer.cpp.s
+
+NetFramework/src/server/server.o: NetFramework/src/server/server.cpp.o
+.PHONY : NetFramework/src/server/server.o
+
+# target to build an object file
+NetFramework/src/server/server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o
+.PHONY : NetFramework/src/server/server.cpp.o
+
+NetFramework/src/server/server.i: NetFramework/src/server/server.cpp.i
+.PHONY : NetFramework/src/server/server.i
+
+# target to preprocess a source file
+NetFramework/src/server/server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.i
+.PHONY : NetFramework/src/server/server.cpp.i
+
+NetFramework/src/server/server.s: NetFramework/src/server/server.cpp.s
+.PHONY : NetFramework/src/server/server.s
+
+# target to generate assembly for a file
+NetFramework/src/server/server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.s
+.PHONY : NetFramework/src/server/server.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -153,30 +201,6 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-src/server.o: src/server.cpp.o
-.PHONY : src/server.o
-
-# target to build an object file
-src/server.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/src/server.cpp.o
-.PHONY : src/server.cpp.o
-
-src/server.i: src/server.cpp.i
-.PHONY : src/server.i
-
-# target to preprocess a source file
-src/server.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/src/server.cpp.i
-.PHONY : src/server.cpp.i
-
-src/server.s: src/server.cpp.s
-.PHONY : src/server.s
-
-# target to generate assembly for a file
-src/server.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/src/server.cpp.s
-.PHONY : src/server.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -186,12 +210,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... NetBox"
+	@echo "... NetFramework/src/IO/EpollMultiplexer.o"
+	@echo "... NetFramework/src/IO/EpollMultiplexer.i"
+	@echo "... NetFramework/src/IO/EpollMultiplexer.s"
+	@echo "... NetFramework/src/server/server.o"
+	@echo "... NetFramework/src/server/server.i"
+	@echo "... NetFramework/src/server/server.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... src/server.o"
-	@echo "... src/server.i"
-	@echo "... src/server.s"
 .PHONY : help
 
 

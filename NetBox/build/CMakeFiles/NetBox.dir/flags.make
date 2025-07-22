@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/sgly/桌面/NetBox/include
+CXX_INCLUDES = -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/include
 
 CXX_FLAGS = -std=gnu++17
 
