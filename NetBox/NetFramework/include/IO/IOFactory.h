@@ -1,7 +1,8 @@
 #pragma once
 
 #include "base/IOMultiplexer.h"
-#include "EpollMultiplexer.h"
+#include "IO/EpollMultiplexer.h"
+#include "IO/SelectMultiplexer.h"
 #include <memory>
 #include <iostream>
 class IOFactory
@@ -13,6 +14,7 @@ public:
         switch (type)
         {
         case IOMultiplexer::IOType::EPOLL : return std::make_unique<EpollMultiplexer>();
+        case IOMultiplexer::IOType::SELECT : return std::make_unique<SelectMultiplexer>();
         default: return nullptr;
         }
     }
@@ -20,7 +22,6 @@ public:
     int64_t total_requests = 0;  // 总请求数
     int64_t total_time_us = 0;   // 总耗时（微秒）
     int max_concurrent = 0;      // 最大并发数
-    // ... 其他指标：平均延迟、QPS等
 
     void update(int64_t duration_us, int current_concurrent) {
         total_requests++;

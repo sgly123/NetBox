@@ -3,6 +3,7 @@ NetBox: \
   /lib/x86_64-linux-gnu/crti.o \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/crtbeginS.o \
   CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o \
+  CMakeFiles/NetBox.dir/NetFramework/src/IO/SelectMultiplexer.cpp.o \
   CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o \
   CMakeFiles/NetBox.dir/main.cpp.o \
   /lib/x86_64-linux-gnu/libpthread.a \
@@ -41,6 +42,8 @@ NetBox: \
 /usr/bin/../lib/gcc/x86_64-linux-gnu/13/crtbeginS.o:
 
 CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o:
+
+CMakeFiles/NetBox.dir/NetFramework/src/IO/SelectMultiplexer.cpp.o:
 
 CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o:
 

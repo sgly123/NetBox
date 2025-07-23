@@ -39,6 +39,8 @@ private:
     std::unordered_map<int, int> m_clients;   
     const int BUFFER_SIZE = 4096;
     std::mutex m_mutex;
+    IOFactory::PerformanceStats m_stats;
+    std::atomic<int> m_current_concurrent{0};
 };
 
 #endif // SERVER_H

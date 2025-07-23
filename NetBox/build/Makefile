@@ -153,6 +153,30 @@ NetFramework/src/IO/EpollMultiplexer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.s
 .PHONY : NetFramework/src/IO/EpollMultiplexer.cpp.s
 
+NetFramework/src/IO/SelectMultiplexer.o: NetFramework/src/IO/SelectMultiplexer.cpp.o
+.PHONY : NetFramework/src/IO/SelectMultiplexer.o
+
+# target to build an object file
+NetFramework/src/IO/SelectMultiplexer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/SelectMultiplexer.cpp.o
+.PHONY : NetFramework/src/IO/SelectMultiplexer.cpp.o
+
+NetFramework/src/IO/SelectMultiplexer.i: NetFramework/src/IO/SelectMultiplexer.cpp.i
+.PHONY : NetFramework/src/IO/SelectMultiplexer.i
+
+# target to preprocess a source file
+NetFramework/src/IO/SelectMultiplexer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/SelectMultiplexer.cpp.i
+.PHONY : NetFramework/src/IO/SelectMultiplexer.cpp.i
+
+NetFramework/src/IO/SelectMultiplexer.s: NetFramework/src/IO/SelectMultiplexer.cpp.s
+.PHONY : NetFramework/src/IO/SelectMultiplexer.s
+
+# target to generate assembly for a file
+NetFramework/src/IO/SelectMultiplexer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/SelectMultiplexer.cpp.s
+.PHONY : NetFramework/src/IO/SelectMultiplexer.cpp.s
+
 NetFramework/src/server/server.o: NetFramework/src/server/server.cpp.o
 .PHONY : NetFramework/src/server/server.o
 
@@ -213,6 +237,9 @@ help:
 	@echo "... NetFramework/src/IO/EpollMultiplexer.o"
 	@echo "... NetFramework/src/IO/EpollMultiplexer.i"
 	@echo "... NetFramework/src/IO/EpollMultiplexer.s"
+	@echo "... NetFramework/src/IO/SelectMultiplexer.o"
+	@echo "... NetFramework/src/IO/SelectMultiplexer.i"
+	@echo "... NetFramework/src/IO/SelectMultiplexer.s"
 	@echo "... NetFramework/src/server/server.o"
 	@echo "... NetFramework/src/server/server.i"
 	@echo "... NetFramework/src/server/server.s"

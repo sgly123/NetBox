@@ -109,24 +109,22 @@ void EchoServer::handleAccept() {
     }
 
 void EchoServer::handleRead(int client_fd) {
-    // 从m_clients中检查fd是否有效（防止已断开的连接被处理）
     std::lock_guard<std::mutex> lock(m_mutex);
     if (m_clients.find(client_fd) == m_clients.end()) {
-        std::cout << "[日志] 客户端" << client_fd << "已断开，忽略读事件\n";
         return;  // 客户端已断开，忽略事件
     }
-    std::cout << "[日志] 客户端" << client_fd << "触发读事件，创建线程处理数据\n";
     // 创建新线程处理该客户端的读写（ detach() 分离线程，主线程继续处理其他事件）
     std::thread(&EchoServer::clientHandler, this, client_fd).detach();
 }
 
 void EchoServer::handleWrite(int client_fd) {
-    // 简化：实际可在这里发送缓存的未完成数据
     std::cout << "客户端" << client_fd << "可发送数据\n";
 }
 
 void EchoServer::clientHandler(int client_fd) {
-    std::cout << "[线程" << std::this_thread::get_id() << "] 开始处理客户端" << client_fd << "的数据\n";
+    m_current_concurrent++;
+    auto start = std::chrono::high_resolution_clock::now();
+
     char buffer[BUFFER_SIZE];
     int bytes_received = recv(client_fd, buffer, BUFFER_SIZE, 0);
     if (bytes_received > 0) {  // 收到数据，直接回显
@@ -158,6 +156,12 @@ void EchoServer::clientHandler(int client_fd) {
             m_clients.erase(client_fd);
         }
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    int64_t duration_us = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+    m_current_concurrent--;
+
+    std::lock_guard<std::mutex> lock(m_mutex);  
+    m_stats.update(duration_us, m_current_concurrent.load());  
 }
 
 void EchoServer::stop() {
@@ -171,5 +175,9 @@ void EchoServer::stop() {
         m_clients.clear();
         std::cout << "服务器已停止\n";
     }
+    std::cout << "\n===== 服务器性能统计 =====" << std::endl;
+    m_stats.print();
+
+    std::cout << "服务器已停止" << std::endl;
 }
 
