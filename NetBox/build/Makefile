@@ -153,6 +153,30 @@ NetFramework/src/IO/EpollMultiplexer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.s
 .PHONY : NetFramework/src/IO/EpollMultiplexer.cpp.s
 
+NetFramework/src/IO/PollMultiplexer.o: NetFramework/src/IO/PollMultiplexer.cpp.o
+.PHONY : NetFramework/src/IO/PollMultiplexer.o
+
+# target to build an object file
+NetFramework/src/IO/PollMultiplexer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/PollMultiplexer.cpp.o
+.PHONY : NetFramework/src/IO/PollMultiplexer.cpp.o
+
+NetFramework/src/IO/PollMultiplexer.i: NetFramework/src/IO/PollMultiplexer.cpp.i
+.PHONY : NetFramework/src/IO/PollMultiplexer.i
+
+# target to preprocess a source file
+NetFramework/src/IO/PollMultiplexer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/PollMultiplexer.cpp.i
+.PHONY : NetFramework/src/IO/PollMultiplexer.cpp.i
+
+NetFramework/src/IO/PollMultiplexer.s: NetFramework/src/IO/PollMultiplexer.cpp.s
+.PHONY : NetFramework/src/IO/PollMultiplexer.s
+
+# target to generate assembly for a file
+NetFramework/src/IO/PollMultiplexer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/PollMultiplexer.cpp.s
+.PHONY : NetFramework/src/IO/PollMultiplexer.cpp.s
+
 NetFramework/src/IO/SelectMultiplexer.o: NetFramework/src/IO/SelectMultiplexer.cpp.o
 .PHONY : NetFramework/src/IO/SelectMultiplexer.o
 
@@ -237,6 +261,9 @@ help:
 	@echo "... NetFramework/src/IO/EpollMultiplexer.o"
 	@echo "... NetFramework/src/IO/EpollMultiplexer.i"
 	@echo "... NetFramework/src/IO/EpollMultiplexer.s"
+	@echo "... NetFramework/src/IO/PollMultiplexer.o"
+	@echo "... NetFramework/src/IO/PollMultiplexer.i"
+	@echo "... NetFramework/src/IO/PollMultiplexer.s"
 	@echo "... NetFramework/src/IO/SelectMultiplexer.o"
 	@echo "... NetFramework/src/IO/SelectMultiplexer.i"
 	@echo "... NetFramework/src/IO/SelectMultiplexer.s"

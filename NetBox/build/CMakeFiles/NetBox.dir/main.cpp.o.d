@@ -250,6 +250,9 @@ CMakeFiles/NetBox.dir/main.cpp.o: /home/sgly/桌面/NetBox/main.cpp \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_map.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_multimap.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/erase_if.h \
+  /home/sgly/桌面/NetBox/NetFramework/include/IO/PollMultiplexer.h \
+  /usr/include/poll.h /usr/include/x86_64-linux-gnu/sys/poll.h \
+  /usr/include/x86_64-linux-gnu/bits/poll.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/memory \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_tempbuf.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_raw_storage_iter.h \
@@ -267,26 +270,4 @@ CMakeFiles/NetBox.dir/main.cpp.o: /home/sgly/桌面/NetBox/main.cpp \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/unordered_map.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/hashtable.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/hashtable_policy.h \
-  /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/enable_special_members.h \
-  /usr/include/signal.h \
-  /usr/include/x86_64-linux-gnu/bits/signum-generic.h \
-  /usr/include/x86_64-linux-gnu/bits/signum-arch.h \
-  /usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h \
-  /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h \
-  /usr/include/x86_64-linux-gnu/bits/siginfo-consts.h \
-  /usr/include/x86_64-linux-gnu/bits/siginfo-consts-arch.h \
-  /usr/include/x86_64-linux-gnu/bits/types/sigval_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h \
-  /usr/include/x86_64-linux-gnu/bits/sigevent-consts.h \
-  /usr/include/x86_64-linux-gnu/bits/sigaction.h \
-  /usr/include/x86_64-linux-gnu/bits/sigcontext.h \
-  /usr/include/x86_64-linux-gnu/bits/types/stack_t.h \
-  /usr/include/x86_64-linux-gnu/sys/ucontext.h \
-  /usr/include/x86_64-linux-gnu/bits/sigstack.h \
-  /usr/include/x86_64-linux-gnu/bits/sigstksz.h \
-  /usr/include/x86_64-linux-gnu/bits/ss_flags.h \
-  /usr/include/x86_64-linux-gnu/bits/types/struct_sigstack.h \
-  /usr/include/x86_64-linux-gnu/bits/sigthread.h \
-  /usr/include/x86_64-linux-gnu/bits/signal_ext.h
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/enable_special_members.h

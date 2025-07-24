@@ -64,7 +64,7 @@ def client_task(server_ip, server_port, thread_id, result, data_size=1000):
     """客户端任务：连接服务器并测试回显（增加性能统计）"""
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(5)  # 连接和接收超时
+        sock.settimeout(15)  # 连接和接收超时
         
         start_time = time.time()
         # 连接服务器
@@ -104,10 +104,10 @@ def client_task(server_ip, server_port, thread_id, result, data_size=1000):
 def main():
     SERVER_IP = "192.168.88.135"
     SERVER_PORT = 8888
-    CONCURRENT = 1000  # 并发连接数
+    CONCURRENT = 20000  # 并发连接数
     DATA_SIZE = 1000    # 每个消息大小（字节）
     BATCH_SIZE = 500    # 批量启动线程（避免瞬间资源耗尽）
-    BATCH_DELAY = 0.5   # 每批启动间隔（秒）
+    BATCH_DELAY = 1.5   # 每批启动间隔（秒）
 
     # 检查服务器状态
     if not check_server(SERVER_PORT):

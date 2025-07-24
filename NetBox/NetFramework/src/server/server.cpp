@@ -45,7 +45,7 @@ bool EchoServer::start() {
     }
 
     // 监听连接
-    if (listen(m_socket, 5) < 0) {
+    if (listen(m_socket, 20000) < 0) {
         perror("listen failed");
         close(m_socket);
         return false;

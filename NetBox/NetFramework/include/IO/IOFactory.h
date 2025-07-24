@@ -3,6 +3,7 @@
 #include "base/IOMultiplexer.h"
 #include "IO/EpollMultiplexer.h"
 #include "IO/SelectMultiplexer.h"
+#include "IO/PollMultiplexer.h"
 #include <memory>
 #include <iostream>
 class IOFactory
@@ -15,8 +16,9 @@ public:
         {
         case IOMultiplexer::IOType::EPOLL : return std::make_unique<EpollMultiplexer>();
         case IOMultiplexer::IOType::SELECT : return std::make_unique<SelectMultiplexer>();
+        case IOMultiplexer::IOType::POLL : return std::make_unique<PollMultiplexer>();
         default: return nullptr;
-        }
+    }
     }
     struct PerformanceStats {
     int64_t total_requests = 0;  // 总请求数

@@ -85,12 +85,12 @@ clean: CMakeFiles/NetBox.dir/clean
 CMakeFiles/NetBox.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/sgly/桌面/NetBox/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target NetBox"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/sgly/桌面/NetBox/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target NetBox"
 .PHONY : CMakeFiles/NetBox.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/NetBox.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sgly/桌面/NetBox/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sgly/桌面/NetBox/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/NetBox.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/sgly/桌面/NetBox/build/CMakeFiles 0
 .PHONY : CMakeFiles/NetBox.dir/rule
@@ -102,7 +102,7 @@ NetBox: CMakeFiles/NetBox.dir/rule
 # codegen rule for target.
 CMakeFiles/NetBox.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/sgly/桌面/NetBox/build/CMakeFiles --progress-num=1,2,3,4,5 "Finished codegen for target NetBox"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/sgly/桌面/NetBox/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Finished codegen for target NetBox"
 .PHONY : CMakeFiles/NetBox.dir/codegen
 
 # clean rule for target.
