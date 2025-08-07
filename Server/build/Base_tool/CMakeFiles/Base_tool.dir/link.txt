@@ -1,2 +1,0 @@
-/usr/bin/ar qc libBase_tool.a CMakeFiles/Base_tool.dir/src/EpollManger.cpp.o CMakeFiles/Base_tool.dir/src/ReadConfig.cpp.o CMakeFiles/Base_tool.dir/src/thread_pool.cpp.o
-/usr/bin/ranlib libBase_tool.a

@@ -1,0 +1,60 @@
+{
+  "project": {
+    "name": "{{ project_name }}",
+    "version": "{{ version }}",
+    "description": "{{ description }}",
+    "author": "{{ author }}",
+    "created": "{{ date }}",
+    "framework_version": "{{ framework_version | default('1.0.0') }}"
+  },
+  "build": {
+    "cpp_standard": {{ cpp_standard }},
+    "cmake_min_version": "{{ cmake_min_version }}",
+    "enable_debug": {{ enable_debug | lower }},
+    "enable_tests": {{ enable_tests | lower }},
+    "enable_benchmarks": {{ enable_benchmarks | lower }},
+    "enable_examples": {{ enable_examples | lower }}
+  },
+  "features": {
+    {% for feature in features %}
+    "{{ feature }}": true{% if not loop.last %},{% endif %}
+    {% endfor %}
+  },
+  "network": {
+    "default_port": {{ port }},
+    "max_connections": {{ max_connections | default(10000) }},
+    "buffer_size": {{ buffer_size | default(8192) }},
+    "timeout_seconds": {{ timeout_seconds | default(30) }}
+  },
+  "logging": {
+    "level": "{{ log_level | default('INFO') }}",
+    "file": "logs/{{ project_name | lower }}.log",
+    "max_size": "{{ log_max_size | default('100MB') }}",
+    "max_files": {{ log_max_files | default(10) }}
+  },
+  "plugins": {
+    "directory": "plugins",
+    "auto_load": {{ auto_load_plugins | default(true) | lower }},
+    "enabled": [
+      {% if enable_auth_plugin %}"auth",{% endif %}
+      {% if enable_cache_plugin %}"cache",{% endif %}
+      {% if enable_db_plugin %}"database",{% endif %}
+      {% if enable_monitoring_plugin %}"monitoring"{% endif %}
+    ]
+  },
+  "development": {
+    "hot_reload": {{ hot_reload | default(false) | lower }},
+    "debug_mode": {{ enable_debug | lower }},
+    "profiling": {{ enable_profiling | default(false) | lower }},
+    "memory_check": {{ enable_memory_check | default(false) | lower }}
+  },
+  "deployment": {
+    "docker_support": {{ docker_support | default(true) | lower }},
+    "systemd_service": {{ systemd_service | default(false) | lower }},
+    "package_formats": [
+      {% for format in package_formats %}
+      "{{ format }}"{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+}

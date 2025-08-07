@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/Scaffold.dir/src/Tcp_Server.cpp.o CMakeFiles/Scaffold.dir/src/main.cpp.o -o Scaffold  Proto/libprotocol_Msg.a Base_tool/libBase_tool.a

@@ -1,0 +1,260 @@
+# 🔧 {{ project_name }} 开发指南
+
+欢迎使用NetBox框架进行二次开发！本指南将帮助你快速上手框架的扩展开发。
+
+## 📋 **项目信息**
+
+- **项目名称**: {{ project_name }}
+- **版本**: {{ version }}
+- **创建日期**: {{ date }}
+- **作者**: {{ author }}
+- **描述**: {{ description }}
+
+## 🚀 **快速开始**
+
+### **1. 构建框架**
+```bash
+cd {{ project_name }}
+mkdir build && cd build
+cmake ..
+make -j$(nproc)
+```
+
+### **2. 运行示例**
+```bash
+# 基础TCP服务器示例
+./examples/simple_server
+
+{% if enable_custom_protocol %}
+# 自定义协议示例
+./examples/custom_protocol
+{% endif %}
+```
+
+### **3. 运行测试**
+```bash
+{% if enable_tests %}
+make test
+{% else %}
+# 测试功能未启用
+{% endif %}
+```
+
+## 🔌 **协议层二次开发**
+
+### **实现自定义协议**
+
+1. **继承Message基类**
+```cpp
+class MyMessage : public NetBox::Protocol::Message {
+    // 实现序列化和反序列化
+    std::vector<uint8_t> serialize() const override;
+    bool deserialize(const std::vector<uint8_t>& data) override;
+};
+```
+
+2. **实现Codec编解码器**
+```cpp
+class MyCodec : public NetBox::Protocol::Codec {
+    std::vector<uint8_t> encode(const Message& message) override;
+    bool decode(const std::vector<uint8_t>& data, std::unique_ptr<Message>& message) override;
+    int checkIntegrity(const std::vector<uint8_t>& data) override;
+};
+```
+
+## 🎯 **应用层二次开发**
+
+### **Web应用开发**
+
+{% if 'web' in features %}
+```cpp
+class MyWebApp : public NetBox::Application::WebApplication {
+public:
+    MyWebApp() : WebApplication("{{ project_name }}WebApp") {}
+    
+    bool initialize() override {
+        // 设置路由
+        addRoute("GET", "/api/users", [](auto ctx) {
+            ctx->send("{\"users\": []}");
+        });
+        
+        return true;
+    }
+};
+```
+{% else %}
+Web应用功能未启用。要启用Web应用支持，请在项目配置中添加 'web' 特性。
+{% endif %}
+
+### **游戏应用开发**
+
+{% if 'game' in features %}
+```cpp
+class MyGameServer : public NetBox::Application::GameApplication {
+public:
+    MyGameServer() : GameApplication("{{ project_name }}GameServer") {}
+    
+    void onPlayerJoin(std::shared_ptr<Context> ctx) override {
+        std::string playerId = generatePlayerId();
+        ctx->setAttribute("playerId", playerId);
+        broadcastMessage("Player " + playerId + " joined");
+    }
+};
+```
+{% else %}
+游戏应用功能未启用。要启用游戏应用支持，请在项目配置中添加 'game' 特性。
+{% endif %}
+
+## 🌐 **网络层二次开发**
+
+### **自定义传输层**
+
+```cpp
+class MyTransport : public NetBox::Network::Transport {
+public:
+    bool bind(const std::string& address, int port) override;
+    bool listen(int backlog) override;
+    std::shared_ptr<Transport> accept() override;
+    int send(const std::vector<uint8_t>& data) override;
+    int receive(std::vector<uint8_t>& data) override;
+};
+```
+
+## 🔌 **插件系统开发**
+
+{% if enable_auth_plugin %}
+### **认证插件**
+
+```cpp
+class JWTAuthPlugin : public NetBox::Plugins::AuthPlugin {
+public:
+    std::string getName() const override { return "JWTAuth"; }
+    
+    bool authenticate(const std::string& username, const std::string& password) override {
+        return validateCredentials(username, password);
+    }
+    
+    std::string generateToken(const std::string& username) override {
+        return createJWTToken(username);
+    }
+};
+```
+{% endif %}
+
+{% if enable_cache_plugin %}
+### **缓存插件**
+
+```cpp
+class RedisCache : public NetBox::Plugins::CachePlugin {
+private:
+    RedisConnection m_redis;
+    
+public:
+    bool set(const std::string& key, const std::string& value, int ttl) override {
+        if (ttl > 0) {
+            return m_redis.setex(key, ttl, value);
+        } else {
+            return m_redis.set(key, value);
+        }
+    }
+    
+    std::string get(const std::string& key) override {
+        return m_redis.get(key);
+    }
+};
+```
+{% endif %}
+
+## 📊 **性能优化指南**
+
+### **网络层优化**
+- 使用合适的IO多路复用模型 (EPOLL/KQUEUE/IOCP)
+- 调整TCP参数 (TCP_NODELAY, SO_REUSEPORT)
+- 实现连接池和对象池
+
+### **协议层优化**
+- 设计高效的序列化格式
+- 实现消息压缩
+- 使用批量处理
+
+## 🧪 **测试指南**
+
+{% if enable_tests %}
+### **单元测试**
+```cpp
+#include <gtest/gtest.h>
+#include "MyProtocol.h"
+
+TEST(MyProtocolTest, MessageSerialization) {
+    MyMessage msg;
+    msg.setData("test data");
+    
+    auto serialized = msg.serialize();
+    EXPECT_GT(serialized.size(), 0);
+    
+    MyMessage decoded;
+    EXPECT_TRUE(decoded.deserialize(serialized));
+    EXPECT_EQ(decoded.getData(), msg.getData());
+}
+```
+
+### **集成测试**
+```cpp
+TEST(IntegrationTest, ServerClientCommunication) {
+    // 启动服务器
+    MyServer server;
+    ASSERT_TRUE(server.start("localhost", {{ port }}));
+    
+    // 连接客户端
+    MyClient client;
+    ASSERT_TRUE(client.connect("localhost", {{ port }}));
+    
+    // 发送消息
+    client.send("Hello Server");
+    
+    // 验证响应
+    auto response = client.receive();
+    EXPECT_EQ(response, "Hello Client");
+}
+```
+{% else %}
+测试功能未启用。要启用测试支持，请在构建配置中设置 enable_tests = true。
+{% endif %}
+
+## 📚 **配置参考**
+
+项目配置文件位于 `config/project_config.json`：
+
+```json
+{
+  "project": {
+    "name": "{{ project_name }}",
+    "version": "{{ version }}"
+  },
+  "network": {
+    "default_port": {{ port }},
+    "max_connections": {{ max_connections | default(10000) }}
+  },
+  "features": {
+    {% for feature in features %}
+    "{{ feature }}": true{% if not loop.last %},{% endif %}
+    {% endfor %}
+  }
+}
+```
+
+## 🤝 **贡献指南**
+
+1. **Fork项目**
+2. **创建特性分支** (`git checkout -b feature/AmazingFeature`)
+3. **提交更改** (`git commit -m 'Add some AmazingFeature'`)
+4. **推送分支** (`git push origin feature/AmazingFeature`)
+5. **创建Pull Request**
+
+---
+
+**开始你的NetBox二次开发之旅吧！** 🚀
+
+> 生成时间: {{ timestamp }}  
+> 框架版本: NetBox {{ framework_version | default('1.0.0') }}  
+> 模板引擎: {% if jinja2_available %}Jinja2{% else %}基础模板{% endif %}
