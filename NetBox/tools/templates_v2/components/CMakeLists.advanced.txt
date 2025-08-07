@@ -1,0 +1,281 @@
+cmake_minimum_required(VERSION 3.16)
+project({{project_name}} VERSION 1.0.0 LANGUAGES CXX)
+
+# ==================== 项目配置 ====================
+
+# C++标准设置
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# 构建类型
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+# 输出目录
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
+# ==================== 编译选项 ====================
+
+# 通用编译选项
+set(COMMON_COMPILE_OPTIONS
+    $<$<CXX_COMPILER_ID:GNU>:-Wall -Wextra -Wpedantic>
+    $<$<CXX_COMPILER_ID:Clang>:-Wall -Wextra -Wpedantic>
+    $<$<CXX_COMPILER_ID:MSVC>:/W4>
+)
+
+# Debug选项
+set(DEBUG_COMPILE_OPTIONS
+    $<$<CXX_COMPILER_ID:GNU>:-g -O0 -DDEBUG>
+    $<$<CXX_COMPILER_ID:Clang>:-g -O0 -DDEBUG>
+    $<$<CXX_COMPILER_ID:MSVC>:/Od /DDEBUG>
+)
+
+# Release选项
+set(RELEASE_COMPILE_OPTIONS
+    $<$<CXX_COMPILER_ID:GNU>:-O3 -DNDEBUG>
+    $<$<CXX_COMPILER_ID:Clang>:-O3 -DNDEBUG>
+    $<$<CXX_COMPILER_ID:MSVC>:/O2 /DNDEBUG>
+)
+
+# ==================== 依赖查找 ====================
+
+# 线程库
+find_package(Threads REQUIRED)
+
+# 可选依赖
+find_package(PkgConfig QUIET)
+
+# 测试框架
+option(ENABLE_TESTING "启用测试" ON)
+if(ENABLE_TESTING)
+    find_package(GTest QUIET)
+    if(GTest_FOUND)
+        enable_testing()
+        message(STATUS "找到GTest，启用单元测试")
+    else()
+        message(STATUS "未找到GTest，使用简单测试")
+    endif()
+endif()
+
+# 基准测试
+option(ENABLE_BENCHMARKS "启用基准测试" OFF)
+if(ENABLE_BENCHMARKS)
+    find_package(benchmark QUIET)
+    if(benchmark_FOUND)
+        message(STATUS "找到benchmark，启用性能测试")
+    endif()
+endif()
+
+# ==================== 源文件收集 ====================
+
+# 包含目录
+include_directories(include)
+
+# 收集源文件
+file(GLOB_RECURSE FRAMEWORK_SOURCES
+    "src/core/*.cpp"
+    "src/network/*.cpp"
+    "src/application/*.cpp"
+    "src/utils/*.cpp"
+)
+
+file(GLOB_RECURSE FRAMEWORK_HEADERS
+    "include/netbox/*.h"
+    "include/netbox/*.hpp"
+)
+
+# ==================== 目标定义 ====================
+
+# 框架库
+if(FRAMEWORK_SOURCES)
+    add_library(${PROJECT_NAME}_framework STATIC ${FRAMEWORK_SOURCES})
+    target_include_directories(${PROJECT_NAME}_framework PUBLIC include)
+    target_compile_options(${PROJECT_NAME}_framework PRIVATE ${COMMON_COMPILE_OPTIONS})
+    target_compile_options(${PROJECT_NAME}_framework PRIVATE 
+        $<$<CONFIG:Debug>:${DEBUG_COMPILE_OPTIONS}>
+        $<$<CONFIG:Release>:${RELEASE_COMPILE_OPTIONS}>
+    )
+    target_link_libraries(${PROJECT_NAME}_framework PUBLIC Threads::Threads)
+    
+    # 设置库属性
+    set_target_properties(${PROJECT_NAME}_framework PROPERTIES
+        VERSION ${PROJECT_VERSION}
+        SOVERSION ${PROJECT_VERSION_MAJOR}
+        OUTPUT_NAME "${PROJECT_NAME}"
+    )
+endif()
+
+# 主程序
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
+    add_executable(${PROJECT_NAME} src/main.cpp)
+    target_include_directories(${PROJECT_NAME} PRIVATE include)
+    target_compile_options(${PROJECT_NAME} PRIVATE ${COMMON_COMPILE_OPTIONS})
+    target_compile_options(${PROJECT_NAME} PRIVATE 
+        $<$<CONFIG:Debug>:${DEBUG_COMPILE_OPTIONS}>
+        $<$<CONFIG:Release>:${RELEASE_COMPILE_OPTIONS}>
+    )
+    
+    if(TARGET ${PROJECT_NAME}_framework)
+        target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_framework)
+    else()
+        target_link_libraries(${PROJECT_NAME} PRIVATE Threads::Threads)
+    endif()
+endif()
+
+# ==================== 示例程序 ====================
+
+# 收集示例文件
+file(GLOB EXAMPLE_SOURCES "examples/*/*.cpp")
+foreach(EXAMPLE_SOURCE ${EXAMPLE_SOURCES})
+    get_filename_component(EXAMPLE_NAME ${EXAMPLE_SOURCE} NAME_WE)
+    get_filename_component(EXAMPLE_DIR ${EXAMPLE_SOURCE} DIRECTORY)
+    get_filename_component(EXAMPLE_CATEGORY ${EXAMPLE_DIR} NAME)
+    
+    set(EXAMPLE_TARGET "${PROJECT_NAME}_${EXAMPLE_CATEGORY}_${EXAMPLE_NAME}")
+    
+    add_executable(${EXAMPLE_TARGET} ${EXAMPLE_SOURCE})
+    target_include_directories(${EXAMPLE_TARGET} PRIVATE include)
+    target_compile_options(${EXAMPLE_TARGET} PRIVATE ${COMMON_COMPILE_OPTIONS})
+    
+    if(TARGET ${PROJECT_NAME}_framework)
+        target_link_libraries(${EXAMPLE_TARGET} PRIVATE ${PROJECT_NAME}_framework)
+    else()
+        target_link_libraries(${EXAMPLE_TARGET} PRIVATE Threads::Threads)
+    endif()
+    
+    # 设置输出名称
+    set_target_properties(${EXAMPLE_TARGET} PROPERTIES
+        OUTPUT_NAME "${EXAMPLE_CATEGORY}_${EXAMPLE_NAME}"
+    )
+endforeach()
+
+# ==================== 测试程序 ====================
+
+if(ENABLE_TESTING)
+    # 收集测试文件
+    file(GLOB_RECURSE TEST_SOURCES "tests/*.cpp")
+    
+    if(GTest_FOUND)
+        # 使用GTest
+        foreach(TEST_SOURCE ${TEST_SOURCES})
+            get_filename_component(TEST_NAME ${TEST_SOURCE} NAME_WE)
+            get_filename_component(TEST_DIR ${TEST_SOURCE} DIRECTORY)
+            get_filename_component(TEST_CATEGORY ${TEST_DIR} NAME)
+            
+            set(TEST_TARGET "${PROJECT_NAME}_${TEST_CATEGORY}_${TEST_NAME}")
+            
+            add_executable(${TEST_TARGET} ${TEST_SOURCE})
+            target_include_directories(${TEST_TARGET} PRIVATE include)
+            target_compile_options(${TEST_TARGET} PRIVATE ${COMMON_COMPILE_OPTIONS})
+            target_link_libraries(${TEST_TARGET} PRIVATE 
+                GTest::gtest 
+                GTest::gtest_main
+            )
+            
+            if(TARGET ${PROJECT_NAME}_framework)
+                target_link_libraries(${TEST_TARGET} PRIVATE ${PROJECT_NAME}_framework)
+            endif()
+            
+            # 添加测试
+            add_test(NAME ${TEST_CATEGORY}_${TEST_NAME} COMMAND ${TEST_TARGET})
+        endforeach()
+    else()
+        # 简单测试
+        if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/tests/simple_test.cpp)
+            add_executable(${PROJECT_NAME}_test tests/simple_test.cpp)
+            target_include_directories(${PROJECT_NAME}_test PRIVATE include)
+            target_compile_options(${PROJECT_NAME}_test PRIVATE ${COMMON_COMPILE_OPTIONS})
+            
+            if(TARGET ${PROJECT_NAME}_framework)
+                target_link_libraries(${PROJECT_NAME}_test PRIVATE ${PROJECT_NAME}_framework)
+            else()
+                target_link_libraries(${PROJECT_NAME}_test PRIVATE Threads::Threads)
+            endif()
+            
+            add_test(NAME BasicTest COMMAND ${PROJECT_NAME}_test)
+        endif()
+    endif()
+endif()
+
+# ==================== 基准测试 ====================
+
+if(ENABLE_BENCHMARKS AND benchmark_FOUND)
+    file(GLOB BENCHMARK_SOURCES "benchmarks/*.cpp")
+    foreach(BENCHMARK_SOURCE ${BENCHMARK_SOURCES})
+        get_filename_component(BENCHMARK_NAME ${BENCHMARK_SOURCE} NAME_WE)
+        set(BENCHMARK_TARGET "${PROJECT_NAME}_${BENCHMARK_NAME}")
+        
+        add_executable(${BENCHMARK_TARGET} ${BENCHMARK_SOURCE})
+        target_include_directories(${BENCHMARK_TARGET} PRIVATE include)
+        target_compile_options(${BENCHMARK_TARGET} PRIVATE ${COMMON_COMPILE_OPTIONS})
+        target_link_libraries(${BENCHMARK_TARGET} PRIVATE benchmark::benchmark)
+        
+        if(TARGET ${PROJECT_NAME}_framework)
+            target_link_libraries(${BENCHMARK_TARGET} PRIVATE ${PROJECT_NAME}_framework)
+        endif()
+    endforeach()
+endif()
+
+# ==================== 安装配置 ====================
+
+# 安装目标
+if(TARGET ${PROJECT_NAME})
+    install(TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION bin
+    )
+endif()
+
+if(TARGET ${PROJECT_NAME}_framework)
+    install(TARGETS ${PROJECT_NAME}_framework
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+    )
+endif()
+
+# 安装头文件
+install(DIRECTORY include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp"
+)
+
+# 安装文档
+install(FILES README.md
+    DESTINATION share/doc/${PROJECT_NAME}
+)
+
+# ==================== 状态报告 ====================
+
+message(STATUS "=== ${PROJECT_NAME} 构建配置 ===")
+message(STATUS "项目版本: ${PROJECT_VERSION}")
+message(STATUS "C++标准: ${CMAKE_CXX_STANDARD}")
+message(STATUS "构建类型: ${CMAKE_BUILD_TYPE}")
+message(STATUS "编译器: ${CMAKE_CXX_COMPILER_ID}")
+message(STATUS "安装前缀: ${CMAKE_INSTALL_PREFIX}")
+
+if(TARGET ${PROJECT_NAME}_framework)
+    message(STATUS "框架库: 启用")
+else()
+    message(STATUS "框架库: 禁用 (无源文件)")
+endif()
+
+if(ENABLE_TESTING)
+    if(GTest_FOUND)
+        message(STATUS "测试框架: GTest")
+    else()
+        message(STATUS "测试框架: 简单测试")
+    endif()
+else()
+    message(STATUS "测试框架: 禁用")
+endif()
+
+if(ENABLE_BENCHMARKS AND benchmark_FOUND)
+    message(STATUS "基准测试: 启用")
+else()
+    message(STATUS "基准测试: 禁用")
+endif()
+
+message(STATUS "==================================")

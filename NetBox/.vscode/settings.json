@@ -63,6 +63,21 @@
         "timer": "cpp",
         "future": "cpp",
         "mutex": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "csignal": "cpp",
+        "fstream": "cpp",
+        "chrono": "cpp",
+        "map": "cpp",
+        "iomanip": "cpp",
+        "locale": "cpp",
+        "codecvt": "cpp",
+        "charconv": "cpp",
+        "set": "cpp",
+        "format": "cpp",
+        "shared_mutex": "cpp",
+        "span": "cpp",
+        "valarray": "cpp",
+        "variant": "cpp",
+        "cassert": "cpp"
     }
 }

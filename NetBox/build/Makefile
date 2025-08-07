@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /home/sgly/桌面/NetBox/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/usr/bin/ctest $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
@@ -84,6 +94,51 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Clients\" \"Configuration\" \"Documentation\" \"Runtime\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -128,6 +183,175 @@ NetBox: cmake_check_build_system
 NetBox/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/build
 .PHONY : NetBox/fast
+
+#=============================================================================
+# Target rules for targets named echo_client_fixed
+
+# Build rule for target.
+echo_client_fixed: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 echo_client_fixed
+.PHONY : echo_client_fixed
+
+# fast build rule for target.
+echo_client_fixed/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/build
+.PHONY : echo_client_fixed/fast
+
+#=============================================================================
+# Target rules for targets named smart_netbox_redis_client
+
+# Build rule for target.
+smart_netbox_redis_client: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 smart_netbox_redis_client
+.PHONY : smart_netbox_redis_client
+
+# fast build rule for target.
+smart_netbox_redis_client/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/smart_netbox_redis_client.dir/build.make CMakeFiles/smart_netbox_redis_client.dir/build
+.PHONY : smart_netbox_redis_client/fast
+
+#=============================================================================
+# Target rules for targets named NetBoxTestLib
+
+# Build rule for target.
+NetBoxTestLib: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 NetBoxTestLib
+.PHONY : NetBoxTestLib
+
+# fast build rule for target.
+NetBoxTestLib/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/NetBoxTestLib.dir/build.make tests/CMakeFiles/NetBoxTestLib.dir/build
+.PHONY : NetBoxTestLib/fast
+
+#=============================================================================
+# Target rules for targets named test_base
+
+# Build rule for target.
+test_base: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_base
+.PHONY : test_base
+
+# fast build rule for target.
+test_base/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_base.dir/build.make tests/CMakeFiles/test_base.dir/build
+.PHONY : test_base/fast
+
+#=============================================================================
+# Target rules for targets named test_util
+
+# Build rule for target.
+test_util: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_util
+.PHONY : test_util
+
+# fast build rule for target.
+test_util/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_util.dir/build.make tests/CMakeFiles/test_util.dir/build
+.PHONY : test_util/fast
+
+#=============================================================================
+# Target rules for targets named test_io
+
+# Build rule for target.
+test_io: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_io
+.PHONY : test_io
+
+# fast build rule for target.
+test_io/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_io.dir/build.make tests/CMakeFiles/test_io.dir/build
+.PHONY : test_io/fast
+
+#=============================================================================
+# Target rules for targets named test_protocol
+
+# Build rule for target.
+test_protocol: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_protocol
+.PHONY : test_protocol
+
+# fast build rule for target.
+test_protocol/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_protocol.dir/build.make tests/CMakeFiles/test_protocol.dir/build
+.PHONY : test_protocol/fast
+
+#=============================================================================
+# Target rules for targets named test_server
+
+# Build rule for target.
+test_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_server
+.PHONY : test_server
+
+# fast build rule for target.
+test_server/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_server.dir/build.make tests/CMakeFiles/test_server.dir/build
+.PHONY : test_server/fast
+
+#=============================================================================
+# Target rules for targets named test_app
+
+# Build rule for target.
+test_app: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_app
+.PHONY : test_app
+
+# fast build rule for target.
+test_app/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_app.dir/build.make tests/CMakeFiles/test_app.dir/build
+.PHONY : test_app/fast
+
+#=============================================================================
+# Target rules for targets named test_integration
+
+# Build rule for target.
+test_integration: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_integration
+.PHONY : test_integration
+
+# fast build rule for target.
+test_integration/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_integration.dir/build.make tests/CMakeFiles/test_integration.dir/build
+.PHONY : test_integration/fast
+
+#=============================================================================
+# Target rules for targets named test_performance
+
+# Build rule for target.
+test_performance: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_performance
+.PHONY : test_performance
+
+# fast build rule for target.
+test_performance/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_performance.dir/build.make tests/CMakeFiles/test_performance.dir/build
+.PHONY : test_performance/fast
+
+#=============================================================================
+# Target rules for targets named run_all_tests
+
+# Build rule for target.
+run_all_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 run_all_tests
+.PHONY : run_all_tests
+
+# fast build rule for target.
+run_all_tests/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/run_all_tests.dir/build.make tests/CMakeFiles/run_all_tests.dir/build
+.PHONY : run_all_tests/fast
+
+#=============================================================================
+# Target rules for targets named test_report
+
+# Build rule for target.
+test_report: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_report
+.PHONY : test_report
+
+# fast build rule for target.
+test_report/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_report.dir/build.make tests/CMakeFiles/test_report.dir/build
+.PHONY : test_report/fast
 
 NetFramework/src/IO/EpollMultiplexer.o: NetFramework/src/IO/EpollMultiplexer.cpp.o
 .PHONY : NetFramework/src/IO/EpollMultiplexer.o
@@ -201,29 +425,572 @@ NetFramework/src/IO/SelectMultiplexer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/IO/SelectMultiplexer.cpp.s
 .PHONY : NetFramework/src/IO/SelectMultiplexer.cpp.s
 
-NetFramework/src/server/server.o: NetFramework/src/server/server.cpp.o
-.PHONY : NetFramework/src/server/server.o
+NetFramework/src/app/ApplicationRegistry.o: NetFramework/src/app/ApplicationRegistry.cpp.o
+.PHONY : NetFramework/src/app/ApplicationRegistry.o
 
 # target to build an object file
-NetFramework/src/server/server.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.o
-.PHONY : NetFramework/src/server/server.cpp.o
+NetFramework/src/app/ApplicationRegistry.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/app/ApplicationRegistry.cpp.o
+.PHONY : NetFramework/src/app/ApplicationRegistry.cpp.o
 
-NetFramework/src/server/server.i: NetFramework/src/server/server.cpp.i
-.PHONY : NetFramework/src/server/server.i
+NetFramework/src/app/ApplicationRegistry.i: NetFramework/src/app/ApplicationRegistry.cpp.i
+.PHONY : NetFramework/src/app/ApplicationRegistry.i
 
 # target to preprocess a source file
-NetFramework/src/server/server.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.i
-.PHONY : NetFramework/src/server/server.cpp.i
+NetFramework/src/app/ApplicationRegistry.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/app/ApplicationRegistry.cpp.i
+.PHONY : NetFramework/src/app/ApplicationRegistry.cpp.i
 
-NetFramework/src/server/server.s: NetFramework/src/server/server.cpp.s
-.PHONY : NetFramework/src/server/server.s
+NetFramework/src/app/ApplicationRegistry.s: NetFramework/src/app/ApplicationRegistry.cpp.s
+.PHONY : NetFramework/src/app/ApplicationRegistry.s
 
 # target to generate assembly for a file
-NetFramework/src/server/server.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/server/server.cpp.s
-.PHONY : NetFramework/src/server/server.cpp.s
+NetFramework/src/app/ApplicationRegistry.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/app/ApplicationRegistry.cpp.s
+.PHONY : NetFramework/src/app/ApplicationRegistry.cpp.s
+
+NetFramework/src/base/AsyncConsoleLogger.o: NetFramework/src/base/AsyncConsoleLogger.cpp.o
+.PHONY : NetFramework/src/base/AsyncConsoleLogger.o
+
+# target to build an object file
+NetFramework/src/base/AsyncConsoleLogger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/AsyncConsoleLogger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/AsyncConsoleLogger.cpp.o
+.PHONY : NetFramework/src/base/AsyncConsoleLogger.cpp.o
+
+NetFramework/src/base/AsyncConsoleLogger.i: NetFramework/src/base/AsyncConsoleLogger.cpp.i
+.PHONY : NetFramework/src/base/AsyncConsoleLogger.i
+
+# target to preprocess a source file
+NetFramework/src/base/AsyncConsoleLogger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/AsyncConsoleLogger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/AsyncConsoleLogger.cpp.i
+.PHONY : NetFramework/src/base/AsyncConsoleLogger.cpp.i
+
+NetFramework/src/base/AsyncConsoleLogger.s: NetFramework/src/base/AsyncConsoleLogger.cpp.s
+.PHONY : NetFramework/src/base/AsyncConsoleLogger.s
+
+# target to generate assembly for a file
+NetFramework/src/base/AsyncConsoleLogger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/AsyncConsoleLogger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/AsyncConsoleLogger.cpp.s
+.PHONY : NetFramework/src/base/AsyncConsoleLogger.cpp.s
+
+NetFramework/src/base/AsyncLogger.o: NetFramework/src/base/AsyncLogger.cpp.o
+.PHONY : NetFramework/src/base/AsyncLogger.o
+
+# target to build an object file
+NetFramework/src/base/AsyncLogger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/AsyncLogger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/AsyncLogger.cpp.o
+.PHONY : NetFramework/src/base/AsyncLogger.cpp.o
+
+NetFramework/src/base/AsyncLogger.i: NetFramework/src/base/AsyncLogger.cpp.i
+.PHONY : NetFramework/src/base/AsyncLogger.i
+
+# target to preprocess a source file
+NetFramework/src/base/AsyncLogger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/AsyncLogger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/AsyncLogger.cpp.i
+.PHONY : NetFramework/src/base/AsyncLogger.cpp.i
+
+NetFramework/src/base/AsyncLogger.s: NetFramework/src/base/AsyncLogger.cpp.s
+.PHONY : NetFramework/src/base/AsyncLogger.s
+
+# target to generate assembly for a file
+NetFramework/src/base/AsyncLogger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/AsyncLogger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/AsyncLogger.cpp.s
+.PHONY : NetFramework/src/base/AsyncLogger.cpp.s
+
+NetFramework/src/base/DoubleLockThreadPool.o: NetFramework/src/base/DoubleLockThreadPool.cpp.o
+.PHONY : NetFramework/src/base/DoubleLockThreadPool.o
+
+# target to build an object file
+NetFramework/src/base/DoubleLockThreadPool.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/DoubleLockThreadPool.cpp.o
+.PHONY : NetFramework/src/base/DoubleLockThreadPool.cpp.o
+
+NetFramework/src/base/DoubleLockThreadPool.i: NetFramework/src/base/DoubleLockThreadPool.cpp.i
+.PHONY : NetFramework/src/base/DoubleLockThreadPool.i
+
+# target to preprocess a source file
+NetFramework/src/base/DoubleLockThreadPool.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/DoubleLockThreadPool.cpp.i
+.PHONY : NetFramework/src/base/DoubleLockThreadPool.cpp.i
+
+NetFramework/src/base/DoubleLockThreadPool.s: NetFramework/src/base/DoubleLockThreadPool.cpp.s
+.PHONY : NetFramework/src/base/DoubleLockThreadPool.s
+
+# target to generate assembly for a file
+NetFramework/src/base/DoubleLockThreadPool.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/DoubleLockThreadPool.cpp.s
+.PHONY : NetFramework/src/base/DoubleLockThreadPool.cpp.s
+
+NetFramework/src/base/Logger.o: NetFramework/src/base/Logger.cpp.o
+.PHONY : NetFramework/src/base/Logger.o
+
+# target to build an object file
+NetFramework/src/base/Logger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/Logger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/Logger.cpp.o
+.PHONY : NetFramework/src/base/Logger.cpp.o
+
+NetFramework/src/base/Logger.i: NetFramework/src/base/Logger.cpp.i
+.PHONY : NetFramework/src/base/Logger.i
+
+# target to preprocess a source file
+NetFramework/src/base/Logger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/Logger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/Logger.cpp.i
+.PHONY : NetFramework/src/base/Logger.cpp.i
+
+NetFramework/src/base/Logger.s: NetFramework/src/base/Logger.cpp.s
+.PHONY : NetFramework/src/base/Logger.s
+
+# target to generate assembly for a file
+NetFramework/src/base/Logger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/Logger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/Logger.cpp.s
+.PHONY : NetFramework/src/base/Logger.cpp.s
+
+NetFramework/src/base/SpdlogLogger.o: NetFramework/src/base/SpdlogLogger.cpp.o
+.PHONY : NetFramework/src/base/SpdlogLogger.o
+
+# target to build an object file
+NetFramework/src/base/SpdlogLogger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/SpdlogLogger.cpp.o
+.PHONY : NetFramework/src/base/SpdlogLogger.cpp.o
+
+NetFramework/src/base/SpdlogLogger.i: NetFramework/src/base/SpdlogLogger.cpp.i
+.PHONY : NetFramework/src/base/SpdlogLogger.i
+
+# target to preprocess a source file
+NetFramework/src/base/SpdlogLogger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/SpdlogLogger.cpp.i
+.PHONY : NetFramework/src/base/SpdlogLogger.cpp.i
+
+NetFramework/src/base/SpdlogLogger.s: NetFramework/src/base/SpdlogLogger.cpp.s
+.PHONY : NetFramework/src/base/SpdlogLogger.s
+
+# target to generate assembly for a file
+NetFramework/src/base/SpdlogLogger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/SpdlogLogger.cpp.s
+.PHONY : NetFramework/src/base/SpdlogLogger.cpp.s
+
+NetFramework/src/base/ThreadPool.o: NetFramework/src/base/ThreadPool.cpp.o
+.PHONY : NetFramework/src/base/ThreadPool.o
+
+# target to build an object file
+NetFramework/src/base/ThreadPool.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/ThreadPool.cpp.o
+.PHONY : NetFramework/src/base/ThreadPool.cpp.o
+
+NetFramework/src/base/ThreadPool.i: NetFramework/src/base/ThreadPool.cpp.i
+.PHONY : NetFramework/src/base/ThreadPool.i
+
+# target to preprocess a source file
+NetFramework/src/base/ThreadPool.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/ThreadPool.cpp.i
+.PHONY : NetFramework/src/base/ThreadPool.cpp.i
+
+NetFramework/src/base/ThreadPool.s: NetFramework/src/base/ThreadPool.cpp.s
+.PHONY : NetFramework/src/base/ThreadPool.s
+
+# target to generate assembly for a file
+NetFramework/src/base/ThreadPool.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/base/ThreadPool.cpp.s
+.PHONY : NetFramework/src/base/ThreadPool.cpp.s
+
+NetFramework/src/server/TcpServer.o: NetFramework/src/server/TcpServer.cpp.o
+.PHONY : NetFramework/src/server/TcpServer.o
+
+# target to build an object file
+NetFramework/src/server/TcpServer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/server/TcpServer.cpp.o
+.PHONY : NetFramework/src/server/TcpServer.cpp.o
+
+NetFramework/src/server/TcpServer.i: NetFramework/src/server/TcpServer.cpp.i
+.PHONY : NetFramework/src/server/TcpServer.i
+
+# target to preprocess a source file
+NetFramework/src/server/TcpServer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/server/TcpServer.cpp.i
+.PHONY : NetFramework/src/server/TcpServer.cpp.i
+
+NetFramework/src/server/TcpServer.s: NetFramework/src/server/TcpServer.cpp.s
+.PHONY : NetFramework/src/server/TcpServer.s
+
+# target to generate assembly for a file
+NetFramework/src/server/TcpServer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/server/TcpServer.cpp.s
+.PHONY : NetFramework/src/server/TcpServer.cpp.s
+
+NetFramework/src/util/ConfigReader.o: NetFramework/src/util/ConfigReader.cpp.o
+.PHONY : NetFramework/src/util/ConfigReader.o
+
+# target to build an object file
+NetFramework/src/util/ConfigReader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/util/ConfigReader.cpp.o
+.PHONY : NetFramework/src/util/ConfigReader.cpp.o
+
+NetFramework/src/util/ConfigReader.i: NetFramework/src/util/ConfigReader.cpp.i
+.PHONY : NetFramework/src/util/ConfigReader.i
+
+# target to preprocess a source file
+NetFramework/src/util/ConfigReader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/util/ConfigReader.cpp.i
+.PHONY : NetFramework/src/util/ConfigReader.cpp.i
+
+NetFramework/src/util/ConfigReader.s: NetFramework/src/util/ConfigReader.cpp.s
+.PHONY : NetFramework/src/util/ConfigReader.s
+
+# target to generate assembly for a file
+NetFramework/src/util/ConfigReader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/util/ConfigReader.cpp.s
+.PHONY : NetFramework/src/util/ConfigReader.cpp.s
+
+NetFramework/src/util/EnhancedConfigReader.o: NetFramework/src/util/EnhancedConfigReader.cpp.o
+.PHONY : NetFramework/src/util/EnhancedConfigReader.o
+
+# target to build an object file
+NetFramework/src/util/EnhancedConfigReader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/util/EnhancedConfigReader.cpp.o
+.PHONY : NetFramework/src/util/EnhancedConfigReader.cpp.o
+
+NetFramework/src/util/EnhancedConfigReader.i: NetFramework/src/util/EnhancedConfigReader.cpp.i
+.PHONY : NetFramework/src/util/EnhancedConfigReader.i
+
+# target to preprocess a source file
+NetFramework/src/util/EnhancedConfigReader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/util/EnhancedConfigReader.cpp.i
+.PHONY : NetFramework/src/util/EnhancedConfigReader.cpp.i
+
+NetFramework/src/util/EnhancedConfigReader.s: NetFramework/src/util/EnhancedConfigReader.cpp.s
+.PHONY : NetFramework/src/util/EnhancedConfigReader.s
+
+# target to generate assembly for a file
+NetFramework/src/util/EnhancedConfigReader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/NetFramework/src/util/EnhancedConfigReader.cpp.s
+.PHONY : NetFramework/src/util/EnhancedConfigReader.cpp.s
+
+Protocol/src/HttpProtocol.o: Protocol/src/HttpProtocol.cpp.o
+.PHONY : Protocol/src/HttpProtocol.o
+
+# target to build an object file
+Protocol/src/HttpProtocol.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/HttpProtocol.cpp.o
+.PHONY : Protocol/src/HttpProtocol.cpp.o
+
+Protocol/src/HttpProtocol.i: Protocol/src/HttpProtocol.cpp.i
+.PHONY : Protocol/src/HttpProtocol.i
+
+# target to preprocess a source file
+Protocol/src/HttpProtocol.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/HttpProtocol.cpp.i
+.PHONY : Protocol/src/HttpProtocol.cpp.i
+
+Protocol/src/HttpProtocol.s: Protocol/src/HttpProtocol.cpp.s
+.PHONY : Protocol/src/HttpProtocol.s
+
+# target to generate assembly for a file
+Protocol/src/HttpProtocol.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/HttpProtocol.cpp.s
+.PHONY : Protocol/src/HttpProtocol.cpp.s
+
+Protocol/src/ProtocolBase.o: Protocol/src/ProtocolBase.cpp.o
+.PHONY : Protocol/src/ProtocolBase.o
+
+# target to build an object file
+Protocol/src/ProtocolBase.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/ProtocolBase.cpp.o
+.PHONY : Protocol/src/ProtocolBase.cpp.o
+
+Protocol/src/ProtocolBase.i: Protocol/src/ProtocolBase.cpp.i
+.PHONY : Protocol/src/ProtocolBase.i
+
+# target to preprocess a source file
+Protocol/src/ProtocolBase.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/ProtocolBase.cpp.i
+.PHONY : Protocol/src/ProtocolBase.cpp.i
+
+Protocol/src/ProtocolBase.s: Protocol/src/ProtocolBase.cpp.s
+.PHONY : Protocol/src/ProtocolBase.s
+
+# target to generate assembly for a file
+Protocol/src/ProtocolBase.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/ProtocolBase.cpp.s
+.PHONY : Protocol/src/ProtocolBase.cpp.s
+
+Protocol/src/ProtocolFactory.o: Protocol/src/ProtocolFactory.cpp.o
+.PHONY : Protocol/src/ProtocolFactory.o
+
+# target to build an object file
+Protocol/src/ProtocolFactory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/ProtocolFactory.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/Protocol/src/ProtocolFactory.cpp.o
+.PHONY : Protocol/src/ProtocolFactory.cpp.o
+
+Protocol/src/ProtocolFactory.i: Protocol/src/ProtocolFactory.cpp.i
+.PHONY : Protocol/src/ProtocolFactory.i
+
+# target to preprocess a source file
+Protocol/src/ProtocolFactory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/ProtocolFactory.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/Protocol/src/ProtocolFactory.cpp.i
+.PHONY : Protocol/src/ProtocolFactory.cpp.i
+
+Protocol/src/ProtocolFactory.s: Protocol/src/ProtocolFactory.cpp.s
+.PHONY : Protocol/src/ProtocolFactory.s
+
+# target to generate assembly for a file
+Protocol/src/ProtocolFactory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/ProtocolFactory.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/Protocol/src/ProtocolFactory.cpp.s
+.PHONY : Protocol/src/ProtocolFactory.cpp.s
+
+Protocol/src/ProtocolRouter.o: Protocol/src/ProtocolRouter.cpp.o
+.PHONY : Protocol/src/ProtocolRouter.o
+
+# target to build an object file
+Protocol/src/ProtocolRouter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/ProtocolRouter.cpp.o
+.PHONY : Protocol/src/ProtocolRouter.cpp.o
+
+Protocol/src/ProtocolRouter.i: Protocol/src/ProtocolRouter.cpp.i
+.PHONY : Protocol/src/ProtocolRouter.i
+
+# target to preprocess a source file
+Protocol/src/ProtocolRouter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/ProtocolRouter.cpp.i
+.PHONY : Protocol/src/ProtocolRouter.cpp.i
+
+Protocol/src/ProtocolRouter.s: Protocol/src/ProtocolRouter.cpp.s
+.PHONY : Protocol/src/ProtocolRouter.s
+
+# target to generate assembly for a file
+Protocol/src/ProtocolRouter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/ProtocolRouter.cpp.s
+.PHONY : Protocol/src/ProtocolRouter.cpp.s
+
+Protocol/src/PureRedisProtocol.o: Protocol/src/PureRedisProtocol.cpp.o
+.PHONY : Protocol/src/PureRedisProtocol.o
+
+# target to build an object file
+Protocol/src/PureRedisProtocol.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/PureRedisProtocol.cpp.o
+.PHONY : Protocol/src/PureRedisProtocol.cpp.o
+
+Protocol/src/PureRedisProtocol.i: Protocol/src/PureRedisProtocol.cpp.i
+.PHONY : Protocol/src/PureRedisProtocol.i
+
+# target to preprocess a source file
+Protocol/src/PureRedisProtocol.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/PureRedisProtocol.cpp.i
+.PHONY : Protocol/src/PureRedisProtocol.cpp.i
+
+Protocol/src/PureRedisProtocol.s: Protocol/src/PureRedisProtocol.cpp.s
+.PHONY : Protocol/src/PureRedisProtocol.s
+
+# target to generate assembly for a file
+Protocol/src/PureRedisProtocol.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/PureRedisProtocol.cpp.s
+.PHONY : Protocol/src/PureRedisProtocol.cpp.s
+
+Protocol/src/RedisProtocol.o: Protocol/src/RedisProtocol.cpp.o
+.PHONY : Protocol/src/RedisProtocol.o
+
+# target to build an object file
+Protocol/src/RedisProtocol.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/RedisProtocol.cpp.o
+.PHONY : Protocol/src/RedisProtocol.cpp.o
+
+Protocol/src/RedisProtocol.i: Protocol/src/RedisProtocol.cpp.i
+.PHONY : Protocol/src/RedisProtocol.i
+
+# target to preprocess a source file
+Protocol/src/RedisProtocol.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/RedisProtocol.cpp.i
+.PHONY : Protocol/src/RedisProtocol.cpp.i
+
+Protocol/src/RedisProtocol.s: Protocol/src/RedisProtocol.cpp.s
+.PHONY : Protocol/src/RedisProtocol.s
+
+# target to generate assembly for a file
+Protocol/src/RedisProtocol.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/RedisProtocol.cpp.s
+.PHONY : Protocol/src/RedisProtocol.cpp.s
+
+Protocol/src/SimpleHeaderProtocol.o: Protocol/src/SimpleHeaderProtocol.cpp.o
+.PHONY : Protocol/src/SimpleHeaderProtocol.o
+
+# target to build an object file
+Protocol/src/SimpleHeaderProtocol.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/SimpleHeaderProtocol.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/Protocol/src/SimpleHeaderProtocol.cpp.o
+.PHONY : Protocol/src/SimpleHeaderProtocol.cpp.o
+
+Protocol/src/SimpleHeaderProtocol.i: Protocol/src/SimpleHeaderProtocol.cpp.i
+.PHONY : Protocol/src/SimpleHeaderProtocol.i
+
+# target to preprocess a source file
+Protocol/src/SimpleHeaderProtocol.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/SimpleHeaderProtocol.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/Protocol/src/SimpleHeaderProtocol.cpp.i
+.PHONY : Protocol/src/SimpleHeaderProtocol.cpp.i
+
+Protocol/src/SimpleHeaderProtocol.s: Protocol/src/SimpleHeaderProtocol.cpp.s
+.PHONY : Protocol/src/SimpleHeaderProtocol.s
+
+# target to generate assembly for a file
+Protocol/src/SimpleHeaderProtocol.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/Protocol/src/SimpleHeaderProtocol.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/Protocol/src/SimpleHeaderProtocol.cpp.s
+.PHONY : Protocol/src/SimpleHeaderProtocol.cpp.s
+
+app/src/ApplicationServer.o: app/src/ApplicationServer.cpp.o
+.PHONY : app/src/ApplicationServer.o
+
+# target to build an object file
+app/src/ApplicationServer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/ApplicationServer.cpp.o
+.PHONY : app/src/ApplicationServer.cpp.o
+
+app/src/ApplicationServer.i: app/src/ApplicationServer.cpp.i
+.PHONY : app/src/ApplicationServer.i
+
+# target to preprocess a source file
+app/src/ApplicationServer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/ApplicationServer.cpp.i
+.PHONY : app/src/ApplicationServer.cpp.i
+
+app/src/ApplicationServer.s: app/src/ApplicationServer.cpp.s
+.PHONY : app/src/ApplicationServer.s
+
+# target to generate assembly for a file
+app/src/ApplicationServer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/ApplicationServer.cpp.s
+.PHONY : app/src/ApplicationServer.cpp.s
+
+app/src/DirectRedisServer.o: app/src/DirectRedisServer.cpp.o
+.PHONY : app/src/DirectRedisServer.o
+
+# target to build an object file
+app/src/DirectRedisServer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/DirectRedisServer.cpp.o
+.PHONY : app/src/DirectRedisServer.cpp.o
+
+app/src/DirectRedisServer.i: app/src/DirectRedisServer.cpp.i
+.PHONY : app/src/DirectRedisServer.i
+
+# target to preprocess a source file
+app/src/DirectRedisServer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/DirectRedisServer.cpp.i
+.PHONY : app/src/DirectRedisServer.cpp.i
+
+app/src/DirectRedisServer.s: app/src/DirectRedisServer.cpp.s
+.PHONY : app/src/DirectRedisServer.s
+
+# target to generate assembly for a file
+app/src/DirectRedisServer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/DirectRedisServer.cpp.s
+.PHONY : app/src/DirectRedisServer.cpp.s
+
+app/src/RedisApplicationServer.o: app/src/RedisApplicationServer.cpp.o
+.PHONY : app/src/RedisApplicationServer.o
+
+# target to build an object file
+app/src/RedisApplicationServer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/RedisApplicationServer.cpp.o
+.PHONY : app/src/RedisApplicationServer.cpp.o
+
+app/src/RedisApplicationServer.i: app/src/RedisApplicationServer.cpp.i
+.PHONY : app/src/RedisApplicationServer.i
+
+# target to preprocess a source file
+app/src/RedisApplicationServer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/RedisApplicationServer.cpp.i
+.PHONY : app/src/RedisApplicationServer.cpp.i
+
+app/src/RedisApplicationServer.s: app/src/RedisApplicationServer.cpp.s
+.PHONY : app/src/RedisApplicationServer.s
+
+# target to generate assembly for a file
+app/src/RedisApplicationServer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/RedisApplicationServer.cpp.s
+.PHONY : app/src/RedisApplicationServer.cpp.s
+
+app/src/server.o: app/src/server.cpp.o
+.PHONY : app/src/server.o
+
+# target to build an object file
+app/src/server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/server.cpp.o
+.PHONY : app/src/server.cpp.o
+
+app/src/server.i: app/src/server.cpp.i
+.PHONY : app/src/server.i
+
+# target to preprocess a source file
+app/src/server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/server.cpp.i
+.PHONY : app/src/server.cpp.i
+
+app/src/server.s: app/src/server.cpp.s
+.PHONY : app/src/server.s
+
+# target to generate assembly for a file
+app/src/server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/app/src/server.cpp.s
+.PHONY : app/src/server.cpp.s
+
+client/echo_client_fixed.o: client/echo_client_fixed.cpp.o
+.PHONY : client/echo_client_fixed.o
+
+# target to build an object file
+client/echo_client_fixed.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/client/echo_client_fixed.cpp.o
+.PHONY : client/echo_client_fixed.cpp.o
+
+client/echo_client_fixed.i: client/echo_client_fixed.cpp.i
+.PHONY : client/echo_client_fixed.i
+
+# target to preprocess a source file
+client/echo_client_fixed.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/client/echo_client_fixed.cpp.i
+.PHONY : client/echo_client_fixed.cpp.i
+
+client/echo_client_fixed.s: client/echo_client_fixed.cpp.s
+.PHONY : client/echo_client_fixed.s
+
+# target to generate assembly for a file
+client/echo_client_fixed.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_client_fixed.dir/build.make CMakeFiles/echo_client_fixed.dir/client/echo_client_fixed.cpp.s
+.PHONY : client/echo_client_fixed.cpp.s
+
+client/smart_netbox_redis_client.o: client/smart_netbox_redis_client.cpp.o
+.PHONY : client/smart_netbox_redis_client.o
+
+# target to build an object file
+client/smart_netbox_redis_client.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/smart_netbox_redis_client.dir/build.make CMakeFiles/smart_netbox_redis_client.dir/client/smart_netbox_redis_client.cpp.o
+.PHONY : client/smart_netbox_redis_client.cpp.o
+
+client/smart_netbox_redis_client.i: client/smart_netbox_redis_client.cpp.i
+.PHONY : client/smart_netbox_redis_client.i
+
+# target to preprocess a source file
+client/smart_netbox_redis_client.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/smart_netbox_redis_client.dir/build.make CMakeFiles/smart_netbox_redis_client.dir/client/smart_netbox_redis_client.cpp.i
+.PHONY : client/smart_netbox_redis_client.cpp.i
+
+client/smart_netbox_redis_client.s: client/smart_netbox_redis_client.cpp.s
+.PHONY : client/smart_netbox_redis_client.s
+
+# target to generate assembly for a file
+client/smart_netbox_redis_client.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/smart_netbox_redis_client.dir/build.make CMakeFiles/smart_netbox_redis_client.dir/client/smart_netbox_redis_client.cpp.s
+.PHONY : client/smart_netbox_redis_client.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -249,6 +1016,78 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+plugins/echo/EchoServerPlugin.o: plugins/echo/EchoServerPlugin.cpp.o
+.PHONY : plugins/echo/EchoServerPlugin.o
+
+# target to build an object file
+plugins/echo/EchoServerPlugin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/plugins/echo/EchoServerPlugin.cpp.o
+.PHONY : plugins/echo/EchoServerPlugin.cpp.o
+
+plugins/echo/EchoServerPlugin.i: plugins/echo/EchoServerPlugin.cpp.i
+.PHONY : plugins/echo/EchoServerPlugin.i
+
+# target to preprocess a source file
+plugins/echo/EchoServerPlugin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/plugins/echo/EchoServerPlugin.cpp.i
+.PHONY : plugins/echo/EchoServerPlugin.cpp.i
+
+plugins/echo/EchoServerPlugin.s: plugins/echo/EchoServerPlugin.cpp.s
+.PHONY : plugins/echo/EchoServerPlugin.s
+
+# target to generate assembly for a file
+plugins/echo/EchoServerPlugin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/plugins/echo/EchoServerPlugin.cpp.s
+.PHONY : plugins/echo/EchoServerPlugin.cpp.s
+
+plugins/redis/DirectRedisPlugin.o: plugins/redis/DirectRedisPlugin.cpp.o
+.PHONY : plugins/redis/DirectRedisPlugin.o
+
+# target to build an object file
+plugins/redis/DirectRedisPlugin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/plugins/redis/DirectRedisPlugin.cpp.o
+.PHONY : plugins/redis/DirectRedisPlugin.cpp.o
+
+plugins/redis/DirectRedisPlugin.i: plugins/redis/DirectRedisPlugin.cpp.i
+.PHONY : plugins/redis/DirectRedisPlugin.i
+
+# target to preprocess a source file
+plugins/redis/DirectRedisPlugin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/plugins/redis/DirectRedisPlugin.cpp.i
+.PHONY : plugins/redis/DirectRedisPlugin.cpp.i
+
+plugins/redis/DirectRedisPlugin.s: plugins/redis/DirectRedisPlugin.cpp.s
+.PHONY : plugins/redis/DirectRedisPlugin.s
+
+# target to generate assembly for a file
+plugins/redis/DirectRedisPlugin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/plugins/redis/DirectRedisPlugin.cpp.s
+.PHONY : plugins/redis/DirectRedisPlugin.cpp.s
+
+plugins/redis/RedisApplicationPlugin.o: plugins/redis/RedisApplicationPlugin.cpp.o
+.PHONY : plugins/redis/RedisApplicationPlugin.o
+
+# target to build an object file
+plugins/redis/RedisApplicationPlugin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/plugins/redis/RedisApplicationPlugin.cpp.o
+.PHONY : plugins/redis/RedisApplicationPlugin.cpp.o
+
+plugins/redis/RedisApplicationPlugin.i: plugins/redis/RedisApplicationPlugin.cpp.i
+.PHONY : plugins/redis/RedisApplicationPlugin.i
+
+# target to preprocess a source file
+plugins/redis/RedisApplicationPlugin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/plugins/redis/RedisApplicationPlugin.cpp.i
+.PHONY : plugins/redis/RedisApplicationPlugin.cpp.i
+
+plugins/redis/RedisApplicationPlugin.s: plugins/redis/RedisApplicationPlugin.cpp.s
+.PHONY : plugins/redis/RedisApplicationPlugin.s
+
+# target to generate assembly for a file
+plugins/redis/RedisApplicationPlugin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/NetBox.dir/build.make CMakeFiles/NetBox.dir/plugins/redis/RedisApplicationPlugin.cpp.s
+.PHONY : plugins/redis/RedisApplicationPlugin.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -256,8 +1095,26 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... test"
+	@echo "... run_all_tests"
+	@echo "... test_report"
 	@echo "... NetBox"
+	@echo "... NetBoxTestLib"
+	@echo "... echo_client_fixed"
+	@echo "... smart_netbox_redis_client"
+	@echo "... test_app"
+	@echo "... test_base"
+	@echo "... test_integration"
+	@echo "... test_io"
+	@echo "... test_performance"
+	@echo "... test_protocol"
+	@echo "... test_server"
+	@echo "... test_util"
 	@echo "... NetFramework/src/IO/EpollMultiplexer.o"
 	@echo "... NetFramework/src/IO/EpollMultiplexer.i"
 	@echo "... NetFramework/src/IO/EpollMultiplexer.s"
@@ -267,12 +1124,87 @@ help:
 	@echo "... NetFramework/src/IO/SelectMultiplexer.o"
 	@echo "... NetFramework/src/IO/SelectMultiplexer.i"
 	@echo "... NetFramework/src/IO/SelectMultiplexer.s"
-	@echo "... NetFramework/src/server/server.o"
-	@echo "... NetFramework/src/server/server.i"
-	@echo "... NetFramework/src/server/server.s"
+	@echo "... NetFramework/src/app/ApplicationRegistry.o"
+	@echo "... NetFramework/src/app/ApplicationRegistry.i"
+	@echo "... NetFramework/src/app/ApplicationRegistry.s"
+	@echo "... NetFramework/src/base/AsyncConsoleLogger.o"
+	@echo "... NetFramework/src/base/AsyncConsoleLogger.i"
+	@echo "... NetFramework/src/base/AsyncConsoleLogger.s"
+	@echo "... NetFramework/src/base/AsyncLogger.o"
+	@echo "... NetFramework/src/base/AsyncLogger.i"
+	@echo "... NetFramework/src/base/AsyncLogger.s"
+	@echo "... NetFramework/src/base/DoubleLockThreadPool.o"
+	@echo "... NetFramework/src/base/DoubleLockThreadPool.i"
+	@echo "... NetFramework/src/base/DoubleLockThreadPool.s"
+	@echo "... NetFramework/src/base/Logger.o"
+	@echo "... NetFramework/src/base/Logger.i"
+	@echo "... NetFramework/src/base/Logger.s"
+	@echo "... NetFramework/src/base/SpdlogLogger.o"
+	@echo "... NetFramework/src/base/SpdlogLogger.i"
+	@echo "... NetFramework/src/base/SpdlogLogger.s"
+	@echo "... NetFramework/src/base/ThreadPool.o"
+	@echo "... NetFramework/src/base/ThreadPool.i"
+	@echo "... NetFramework/src/base/ThreadPool.s"
+	@echo "... NetFramework/src/server/TcpServer.o"
+	@echo "... NetFramework/src/server/TcpServer.i"
+	@echo "... NetFramework/src/server/TcpServer.s"
+	@echo "... NetFramework/src/util/ConfigReader.o"
+	@echo "... NetFramework/src/util/ConfigReader.i"
+	@echo "... NetFramework/src/util/ConfigReader.s"
+	@echo "... NetFramework/src/util/EnhancedConfigReader.o"
+	@echo "... NetFramework/src/util/EnhancedConfigReader.i"
+	@echo "... NetFramework/src/util/EnhancedConfigReader.s"
+	@echo "... Protocol/src/HttpProtocol.o"
+	@echo "... Protocol/src/HttpProtocol.i"
+	@echo "... Protocol/src/HttpProtocol.s"
+	@echo "... Protocol/src/ProtocolBase.o"
+	@echo "... Protocol/src/ProtocolBase.i"
+	@echo "... Protocol/src/ProtocolBase.s"
+	@echo "... Protocol/src/ProtocolFactory.o"
+	@echo "... Protocol/src/ProtocolFactory.i"
+	@echo "... Protocol/src/ProtocolFactory.s"
+	@echo "... Protocol/src/ProtocolRouter.o"
+	@echo "... Protocol/src/ProtocolRouter.i"
+	@echo "... Protocol/src/ProtocolRouter.s"
+	@echo "... Protocol/src/PureRedisProtocol.o"
+	@echo "... Protocol/src/PureRedisProtocol.i"
+	@echo "... Protocol/src/PureRedisProtocol.s"
+	@echo "... Protocol/src/RedisProtocol.o"
+	@echo "... Protocol/src/RedisProtocol.i"
+	@echo "... Protocol/src/RedisProtocol.s"
+	@echo "... Protocol/src/SimpleHeaderProtocol.o"
+	@echo "... Protocol/src/SimpleHeaderProtocol.i"
+	@echo "... Protocol/src/SimpleHeaderProtocol.s"
+	@echo "... app/src/ApplicationServer.o"
+	@echo "... app/src/ApplicationServer.i"
+	@echo "... app/src/ApplicationServer.s"
+	@echo "... app/src/DirectRedisServer.o"
+	@echo "... app/src/DirectRedisServer.i"
+	@echo "... app/src/DirectRedisServer.s"
+	@echo "... app/src/RedisApplicationServer.o"
+	@echo "... app/src/RedisApplicationServer.i"
+	@echo "... app/src/RedisApplicationServer.s"
+	@echo "... app/src/server.o"
+	@echo "... app/src/server.i"
+	@echo "... app/src/server.s"
+	@echo "... client/echo_client_fixed.o"
+	@echo "... client/echo_client_fixed.i"
+	@echo "... client/echo_client_fixed.s"
+	@echo "... client/smart_netbox_redis_client.o"
+	@echo "... client/smart_netbox_redis_client.i"
+	@echo "... client/smart_netbox_redis_client.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... plugins/echo/EchoServerPlugin.o"
+	@echo "... plugins/echo/EchoServerPlugin.i"
+	@echo "... plugins/echo/EchoServerPlugin.s"
+	@echo "... plugins/redis/DirectRedisPlugin.o"
+	@echo "... plugins/redis/DirectRedisPlugin.i"
+	@echo "... plugins/redis/DirectRedisPlugin.s"
+	@echo "... plugins/redis/RedisApplicationPlugin.o"
+	@echo "... plugins/redis/RedisApplicationPlugin.i"
+	@echo "... plugins/redis/RedisApplicationPlugin.s"
 .PHONY : help
 
 

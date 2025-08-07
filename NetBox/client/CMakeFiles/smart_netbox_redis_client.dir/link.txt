@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra -Wpedantic -Xlinker --dependency-file=CMakeFiles/smart_netbox_redis_client.dir/link.d CMakeFiles/smart_netbox_redis_client.dir/smart_netbox_redis_client.cpp.o -o bin/smart_netbox_redis_client

@@ -1,0 +1,11 @@
+# NetBox 插件化框架配置文件 - SELECT IO模式测试
+application:
+  type: echo
+
+network:
+  ip: 127.0.0.1
+  port: 9999
+  io_type: select
+
+threading:
+  worker_threads: 4
