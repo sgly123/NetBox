@@ -1,0 +1,182 @@
+# NetBox压力测试配置文件
+# 定义了不同测试场景的预设参数
+
+# 快速验证测试 - 用于功能验证
+quick_test:
+  description: "快速功能验证测试"
+  server:
+    threads: 2
+  client:
+    threads: 2
+    connections_per_thread: 5
+    requests_per_connection: 50
+    message_size: 32
+    duration: 10
+  analysis:
+    perf_time: 8
+    enable_perf: true
+    enable_flamegraph: true
+    enable_monitor: true
+
+# 基础性能测试 - 日常开发使用
+basic_test:
+  description: "基础性能测试"
+  server:
+    threads: 4
+  client:
+    threads: 8
+    connections_per_thread: 20
+    requests_per_connection: 1000
+    message_size: 64
+    duration: 60
+  analysis:
+    perf_time: 30
+    enable_perf: true
+    enable_flamegraph: true
+    enable_monitor: true
+
+# 高并发测试 - 压力测试
+high_concurrency:
+  description: "高并发压力测试"
+  server:
+    threads: 8
+  client:
+    threads: 16
+    connections_per_thread: 50
+    requests_per_connection: 2000
+    message_size: 64
+    duration: 180
+  analysis:
+    perf_time: 60
+    enable_perf: true
+    enable_flamegraph: true
+    enable_monitor: true
+
+# 大消息测试 - 吞吐量测试
+large_message:
+  description: "大消息吞吐量测试"
+  server:
+    threads: 4
+  client:
+    threads: 8
+    connections_per_thread: 10
+    requests_per_connection: 500
+    message_size: 4096
+    duration: 120
+  analysis:
+    perf_time: 60
+    enable_perf: true
+    enable_flamegraph: true
+    enable_monitor: true
+
+# 极限压力测试 - 系统极限测试
+extreme_load:
+  description: "极限压力测试"
+  server:
+    threads: 16
+  client:
+    threads: 32
+    connections_per_thread: 100
+    requests_per_connection: 5000
+    message_size: 128
+    duration: 300
+  analysis:
+    perf_time: 120
+    enable_perf: true
+    enable_flamegraph: true
+    enable_monitor: true
+
+# 长时间稳定性测试
+stability_test:
+  description: "长时间稳定性测试"
+  server:
+    threads: 8
+  client:
+    threads: 16
+    connections_per_thread: 25
+    requests_per_connection: 10000
+    message_size: 64
+    duration: 3600  # 1小时
+  analysis:
+    perf_time: 300  # 5分钟
+    enable_perf: true
+    enable_flamegraph: true
+    enable_monitor: true
+
+# 纯性能测试 - 仅关注性能数据
+performance_only:
+  description: "纯性能测试（无分析）"
+  server:
+    threads: 8
+  client:
+    threads: 16
+    connections_per_thread: 30
+    requests_per_connection: 1000
+    message_size: 64
+    duration: 60
+  analysis:
+    perf_time: 0
+    enable_perf: false
+    enable_flamegraph: false
+    enable_monitor: false
+
+# 内存分析专用测试
+memory_analysis:
+  description: "内存使用分析专用"
+  server:
+    threads: 4
+  client:
+    threads: 8
+    connections_per_thread: 15
+    requests_per_connection: 2000
+    message_size: 256
+    duration: 120
+  analysis:
+    perf_time: 90
+    enable_perf: true
+    enable_flamegraph: true
+    enable_monitor: true
+
+# 网络I/O测试
+network_io:
+  description: "网络I/O密集型测试"
+  server:
+    threads: 4
+  client:
+    threads: 20
+    connections_per_thread: 50
+    requests_per_connection: 500
+    message_size: 1024
+    duration: 90
+  analysis:
+    perf_time: 60
+    enable_perf: true
+    enable_flamegraph: true
+    enable_monitor: true
+
+# 回归测试配置
+regression_test:
+  description: "自动化回归测试"
+  server:
+    threads: 4
+  client:
+    threads: 8
+    connections_per_thread: 20
+    requests_per_connection: 1000
+    message_size: 64
+    duration: 30
+  analysis:
+    perf_time: 0
+    enable_perf: false
+    enable_flamegraph: false
+    enable_monitor: false
+
+# 使用说明：
+# 1. 这些配置可以作为stress_test.sh的参考参数
+# 2. 根据实际需求选择合适的测试场景
+# 3. 可以基于这些配置自定义测试参数
+# 
+# 示例命令：
+# 基础测试: ./tools/stress_test.sh -t 8 -c 20 -r 1000 -s 64 -d 60
+# 高并发: ./tools/stress_test.sh -t 16 -c 50 -r 2000 -s 64 -d 180
+# 大消息: ./tools/stress_test.sh -t 8 -c 10 -r 500 -s 4096 -d 120 

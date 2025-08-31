@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/sgly/\u684c\u9762/NetBox/build/cmake_install.cmake",
+		"/home/sgly/\u684c\u9762/NetBox/build/tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

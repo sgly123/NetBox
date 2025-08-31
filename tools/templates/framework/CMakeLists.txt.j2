@@ -1,0 +1,197 @@
+cmake_minimum_required(VERSION {{ cmake_min_version | default("3.16") }})
+project({{ project_name }})
+
+# 设置C++标准
+set(CMAKE_CXX_STANDARD {{ cpp_standard | default(17) }})
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 项目信息
+set(PROJECT_VERSION_MAJOR {{ version_major | default(1) }})
+set(PROJECT_VERSION_MINOR {{ version_minor | default(0) }})
+set(PROJECT_VERSION_PATCH {{ version_patch | default(0) }})
+set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
+
+# 编译选项
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    add_compile_options(-Wall -Wextra {% if enable_debug %}-g -O0{% else %}-O2{% endif %})
+    {% if enable_sanitizers %}
+    add_compile_options(-fsanitize=address -fsanitize=undefined)
+    add_link_options(-fsanitize=address -fsanitize=undefined)
+    {% endif %}
+endif()
+
+{% if enable_debug %}
+# 调试模式
+add_definitions(-DDEBUG=1)
+add_definitions(-DNETBOX_DEBUG=1)
+{% endif %}
+
+# 包含目录
+include_directories(include)
+
+# 查找NetBox框架
+find_path(NETBOX_INCLUDE_DIR 
+    NAMES NetBox.h 
+    PATHS ../NetFramework/include
+    PATH_SUFFIXES netbox
+)
+
+if(NETBOX_INCLUDE_DIR)
+    include_directories(${NETBOX_INCLUDE_DIR}/..)
+    message(STATUS "Found NetBox framework: ${NETBOX_INCLUDE_DIR}")
+else()
+    message(WARNING "NetBox framework not found, using local headers")
+endif()
+
+{% if dependencies %}
+# 查找依赖库
+{% for dep in dependencies %}
+find_package({{ dep.name }} {% if dep.version %}{{ dep.version }} {% endif %}{% if dep.required %}REQUIRED{% endif %})
+{% endfor %}
+{% endif %}
+
+# 核心框架库
+file(GLOB_RECURSE FRAMEWORK_SOURCES 
+    "src/core/*.cpp"
+    "src/network/*.cpp" 
+    "src/protocol/*.cpp"
+    "src/application/*.cpp"
+    "src/plugins/*.cpp"
+    "src/utils/*.cpp"
+)
+
+add_library({{ project_name }}_framework STATIC ${FRAMEWORK_SOURCES})
+target_include_directories({{ project_name }}_framework PUBLIC include)
+
+{% if features %}
+# 特性配置
+{% for feature in features %}
+{% if feature == "logging" %}
+target_compile_definitions({{ project_name }}_framework PUBLIC NETBOX_ENABLE_LOGGING=1)
+{% elif feature == "metrics" %}
+target_compile_definitions({{ project_name }}_framework PUBLIC NETBOX_ENABLE_METRICS=1)
+{% elif feature == "ssl" %}
+find_package(OpenSSL REQUIRED)
+target_link_libraries({{ project_name }}_framework OpenSSL::SSL OpenSSL::Crypto)
+target_compile_definitions({{ project_name }}_framework PUBLIC NETBOX_ENABLE_SSL=1)
+{% endif %}
+{% endfor %}
+{% endif %}
+
+# 协议扩展库
+file(GLOB_RECURSE PROTOCOL_SOURCES "protocols/*.cpp")
+if(PROTOCOL_SOURCES)
+    add_library({{ project_name }}_protocols STATIC ${PROTOCOL_SOURCES})
+    target_link_libraries({{ project_name }}_protocols {{ project_name }}_framework)
+    target_include_directories({{ project_name }}_protocols PUBLIC protocols)
+endif()
+
+# 应用扩展库
+file(GLOB_RECURSE APPLICATION_SOURCES "applications/*.cpp")
+if(APPLICATION_SOURCES)
+    add_library({{ project_name }}_applications STATIC ${APPLICATION_SOURCES})
+    target_link_libraries({{ project_name }}_applications {{ project_name }}_framework)
+    target_include_directories({{ project_name }}_applications PUBLIC applications)
+endif()
+
+# 网络扩展库
+file(GLOB_RECURSE NETWORK_SOURCES "network/*.cpp")
+if(NETWORK_SOURCES)
+    add_library({{ project_name }}_network STATIC ${NETWORK_SOURCES})
+    target_link_libraries({{ project_name }}_network {{ project_name }}_framework)
+    target_include_directories({{ project_name }}_network PUBLIC network)
+endif()
+
+# 插件库
+file(GLOB_RECURSE PLUGIN_SOURCES "plugins/*.cpp")
+if(PLUGIN_SOURCES)
+    add_library({{ project_name }}_plugins SHARED ${PLUGIN_SOURCES})
+    target_link_libraries({{ project_name }}_plugins {{ project_name }}_framework)
+    target_include_directories({{ project_name }}_plugins PUBLIC plugins)
+    
+    # 插件安装
+    install(TARGETS {{ project_name }}_plugins 
+        LIBRARY DESTINATION lib/{{ project_name }}/plugins
+    )
+endif()
+
+{% if enable_examples %}
+# 示例程序
+add_subdirectory(examples)
+{% endif %}
+
+{% if enable_tests %}
+# 测试
+enable_testing()
+add_subdirectory(tests)
+{% endif %}
+
+{% if enable_benchmarks %}
+# 性能测试
+add_subdirectory(benchmarks)
+{% endif %}
+
+# 安装配置
+install(DIRECTORY include/ DESTINATION include)
+install(TARGETS {{ project_name }}_framework 
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+)
+
+{% if protocols_install %}
+if(TARGET {{ project_name }}_protocols)
+    install(TARGETS {{ project_name }}_protocols DESTINATION lib)
+endif()
+{% endif %}
+
+{% if applications_install %}
+if(TARGET {{ project_name }}_applications)
+    install(TARGETS {{ project_name }}_applications DESTINATION lib)
+endif()
+{% endif %}
+
+# 生成配置文件
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/{{ project_name }}Config.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/{{ project_name }}Config.cmake"
+    @ONLY
+)
+
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/{{ project_name }}Config.cmake"
+    DESTINATION lib/cmake/{{ project_name }}
+)
+
+# 生成版本文件
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/{{ project_name }}ConfigVersion.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/{{ project_name }}ConfigVersion.cmake"
+    @ONLY
+)
+
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/{{ project_name }}ConfigVersion.cmake"
+    DESTINATION lib/cmake/{{ project_name }}
+)
+
+# 打包配置
+{% if enable_cpack %}
+include(CPack)
+set(CPACK_PACKAGE_NAME "{{ project_name }}")
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "{{ description | default('NetBox Framework Project') }}")
+set(CPACK_PACKAGE_VENDOR "{{ vendor | default('NetBox Team') }}")
+{% if package_formats %}
+set(CPACK_GENERATOR "{{ package_formats | join(';') }}")
+{% endif %}
+{% endif %}
+
+# 显示配置信息
+message(STATUS "=== {{ project_name }} 构建配置 ===")
+message(STATUS "项目版本: ${PROJECT_VERSION}")
+message(STATUS "C++标准: ${CMAKE_CXX_STANDARD}")
+message(STATUS "构建类型: ${CMAKE_BUILD_TYPE}")
+message(STATUS "编译器: ${CMAKE_CXX_COMPILER_ID}")
+{% if features %}
+message(STATUS "启用特性: {{ features | join(', ') }}")
+{% endif %}
+message(STATUS "安装前缀: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "==================================")

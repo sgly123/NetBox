@@ -1,0 +1,23 @@
+🚀 启动负载测试:
+   线程数: 4
+   持续时间: 20秒
+   每线程速率: 100 req/s
+   目标QPS: 400
+Traceback (most recent call last):
+  File "/tmp/perf_client.py", line 176, in <module>
+    result = client.run_load_test(threads, duration, rate)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/perf_client.py", line 143, in run_load_test
+    future.result()
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/perf_client.py", line 117, in worker_thread
+    self.stats[key] += local_stats[key]
+    ~~~~~~~~~~^^^^^
+KeyError: 'latency'

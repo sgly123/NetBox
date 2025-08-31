@@ -1,0 +1,518 @@
+[
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/main.cpp.o -c /home/sgly/桌面/NetBox/main.cpp",
+  "file": "/home/sgly/桌面/NetBox/main.cpp",
+  "output": "CMakeFiles/NetBox.dir/main.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/base/Logger.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/Logger.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/Logger.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/base/Logger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/base/AsyncConsoleLogger.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/AsyncConsoleLogger.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/AsyncConsoleLogger.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/base/AsyncConsoleLogger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/base/AsyncLogger.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/AsyncLogger.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/AsyncLogger.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/base/AsyncLogger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/base/ThreadPool.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/ThreadPool.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/ThreadPool.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/base/ThreadPool.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/base/DoubleLockThreadPool.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/DoubleLockThreadPool.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/DoubleLockThreadPool.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/base/DoubleLockThreadPool.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/base/SpdlogLogger.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/SpdlogLogger.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/SpdlogLogger.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/base/SpdlogLogger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/util/ConfigReader.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/util/ConfigReader.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/util/ConfigReader.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/util/ConfigReader.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/util/EnhancedConfigReader.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/util/EnhancedConfigReader.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/util/EnhancedConfigReader.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/util/EnhancedConfigReader.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/IO/SelectMultiplexer.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/IO/SelectMultiplexer.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/IO/SelectMultiplexer.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/IO/SelectMultiplexer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/IO/EpollMultiplexer.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/IO/EpollMultiplexer.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/IO/EpollMultiplexer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/IO/PollMultiplexer.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/IO/PollMultiplexer.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/IO/PollMultiplexer.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/IO/PollMultiplexer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/server/TcpServer.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/server/TcpServer.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/server/TcpServer.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/server/TcpServer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/Protocol/src/ProtocolBase.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/ProtocolBase.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/ProtocolBase.cpp",
+  "output": "CMakeFiles/NetBox.dir/Protocol/src/ProtocolBase.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/Protocol/src/ProtocolRouter.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/ProtocolRouter.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/ProtocolRouter.cpp",
+  "output": "CMakeFiles/NetBox.dir/Protocol/src/ProtocolRouter.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/Protocol/src/SimpleHeaderProtocol.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/SimpleHeaderProtocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/SimpleHeaderProtocol.cpp",
+  "output": "CMakeFiles/NetBox.dir/Protocol/src/SimpleHeaderProtocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/Protocol/src/HttpProtocol.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/HttpProtocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/HttpProtocol.cpp",
+  "output": "CMakeFiles/NetBox.dir/Protocol/src/HttpProtocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/Protocol/src/RedisProtocol.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/RedisProtocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/RedisProtocol.cpp",
+  "output": "CMakeFiles/NetBox.dir/Protocol/src/RedisProtocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/Protocol/src/PureRedisProtocol.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/PureRedisProtocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/PureRedisProtocol.cpp",
+  "output": "CMakeFiles/NetBox.dir/Protocol/src/PureRedisProtocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/Protocol/src/ProtocolFactory.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/ProtocolFactory.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/ProtocolFactory.cpp",
+  "output": "CMakeFiles/NetBox.dir/Protocol/src/ProtocolFactory.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/app/src/server.cpp.o -c /home/sgly/桌面/NetBox/app/src/server.cpp",
+  "file": "/home/sgly/桌面/NetBox/app/src/server.cpp",
+  "output": "CMakeFiles/NetBox.dir/app/src/server.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/app/src/ApplicationServer.cpp.o -c /home/sgly/桌面/NetBox/app/src/ApplicationServer.cpp",
+  "file": "/home/sgly/桌面/NetBox/app/src/ApplicationServer.cpp",
+  "output": "CMakeFiles/NetBox.dir/app/src/ApplicationServer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/app/src/RedisApplicationServer.cpp.o -c /home/sgly/桌面/NetBox/app/src/RedisApplicationServer.cpp",
+  "file": "/home/sgly/桌面/NetBox/app/src/RedisApplicationServer.cpp",
+  "output": "CMakeFiles/NetBox.dir/app/src/RedisApplicationServer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/app/src/DirectRedisServer.cpp.o -c /home/sgly/桌面/NetBox/app/src/DirectRedisServer.cpp",
+  "file": "/home/sgly/桌面/NetBox/app/src/DirectRedisServer.cpp",
+  "output": "CMakeFiles/NetBox.dir/app/src/DirectRedisServer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/NetFramework/src/app/ApplicationRegistry.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/app/ApplicationRegistry.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/app/ApplicationRegistry.cpp",
+  "output": "CMakeFiles/NetBox.dir/NetFramework/src/app/ApplicationRegistry.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/plugins/echo/EchoServerPlugin.cpp.o -c /home/sgly/桌面/NetBox/plugins/echo/EchoServerPlugin.cpp",
+  "file": "/home/sgly/桌面/NetBox/plugins/echo/EchoServerPlugin.cpp",
+  "output": "CMakeFiles/NetBox.dir/plugins/echo/EchoServerPlugin.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/plugins/redis/RedisApplicationPlugin.cpp.o -c /home/sgly/桌面/NetBox/plugins/redis/RedisApplicationPlugin.cpp",
+  "file": "/home/sgly/桌面/NetBox/plugins/redis/RedisApplicationPlugin.cpp",
+  "output": "CMakeFiles/NetBox.dir/plugins/redis/RedisApplicationPlugin.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBox.dir/plugins/redis/DirectRedisPlugin.cpp.o -c /home/sgly/桌面/NetBox/plugins/redis/DirectRedisPlugin.cpp",
+  "file": "/home/sgly/桌面/NetBox/plugins/redis/DirectRedisPlugin.cpp",
+  "output": "CMakeFiles/NetBox.dir/plugins/redis/DirectRedisPlugin.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/echo_client_fixed.dir/Protocol/src/SimpleHeaderProtocol.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/SimpleHeaderProtocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/SimpleHeaderProtocol.cpp",
+  "output": "CMakeFiles/echo_client_fixed.dir/Protocol/src/SimpleHeaderProtocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/echo_client_fixed.dir/Protocol/src/ProtocolFactory.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/ProtocolFactory.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/ProtocolFactory.cpp",
+  "output": "CMakeFiles/echo_client_fixed.dir/Protocol/src/ProtocolFactory.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/Logger.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/Logger.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/Logger.cpp",
+  "output": "CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/Logger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/AsyncConsoleLogger.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/AsyncConsoleLogger.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/AsyncConsoleLogger.cpp",
+  "output": "CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/AsyncConsoleLogger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/AsyncLogger.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/AsyncLogger.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/AsyncLogger.cpp",
+  "output": "CMakeFiles/echo_client_fixed.dir/NetFramework/src/base/AsyncLogger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/echo_client_fixed.dir/client/echo_client_fixed.cpp.o -c /home/sgly/桌面/NetBox/client/echo_client_fixed.cpp",
+  "file": "/home/sgly/桌面/NetBox/client/echo_client_fixed.cpp",
+  "output": "CMakeFiles/echo_client_fixed.dir/client/echo_client_fixed.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/smart_netbox_redis_client.dir/client/smart_netbox_redis_client.cpp.o -c /home/sgly/桌面/NetBox/client/smart_netbox_redis_client.cpp",
+  "file": "/home/sgly/桌面/NetBox/client/smart_netbox_redis_client.cpp",
+  "output": "CMakeFiles/smart_netbox_redis_client.dir/client/smart_netbox_redis_client.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/Logger.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/Logger.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/Logger.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/Logger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/AsyncConsoleLogger.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/AsyncConsoleLogger.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/AsyncConsoleLogger.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/AsyncConsoleLogger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/AsyncLogger.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/AsyncLogger.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/AsyncLogger.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/AsyncLogger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/ThreadPool.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/ThreadPool.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/ThreadPool.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/ThreadPool.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/DoubleLockThreadPool.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/DoubleLockThreadPool.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/DoubleLockThreadPool.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/DoubleLockThreadPool.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/SpdlogLogger.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/base/SpdlogLogger.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/base/SpdlogLogger.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/base/SpdlogLogger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/util/ConfigReader.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/util/ConfigReader.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/util/ConfigReader.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/util/ConfigReader.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/util/EnhancedConfigReader.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/util/EnhancedConfigReader.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/util/EnhancedConfigReader.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/util/EnhancedConfigReader.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/IO/EpollMultiplexer.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/IO/EpollMultiplexer.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/IO/EpollMultiplexer.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/IO/EpollMultiplexer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/IO/SelectMultiplexer.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/IO/SelectMultiplexer.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/IO/SelectMultiplexer.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/IO/SelectMultiplexer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/IO/PollMultiplexer.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/IO/PollMultiplexer.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/IO/PollMultiplexer.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/IO/PollMultiplexer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/server/TcpServer.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/server/TcpServer.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/server/TcpServer.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/server/TcpServer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/ProtocolBase.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/ProtocolBase.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/ProtocolBase.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/ProtocolBase.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/ProtocolRouter.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/ProtocolRouter.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/ProtocolRouter.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/ProtocolRouter.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/SimpleHeaderProtocol.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/SimpleHeaderProtocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/SimpleHeaderProtocol.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/SimpleHeaderProtocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/HttpProtocol.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/HttpProtocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/HttpProtocol.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/HttpProtocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/RedisProtocol.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/RedisProtocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/RedisProtocol.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/RedisProtocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/PureRedisProtocol.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/PureRedisProtocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/PureRedisProtocol.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/PureRedisProtocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/ProtocolFactory.cpp.o -c /home/sgly/桌面/NetBox/Protocol/src/ProtocolFactory.cpp",
+  "file": "/home/sgly/桌面/NetBox/Protocol/src/ProtocolFactory.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/Protocol/src/ProtocolFactory.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/app/src/ApplicationServer.cpp.o -c /home/sgly/桌面/NetBox/app/src/ApplicationServer.cpp",
+  "file": "/home/sgly/桌面/NetBox/app/src/ApplicationServer.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/app/src/ApplicationServer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/app/src/server.cpp.o -c /home/sgly/桌面/NetBox/app/src/server.cpp",
+  "file": "/home/sgly/桌面/NetBox/app/src/server.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/app/src/server.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/app/src/RedisApplicationServer.cpp.o -c /home/sgly/桌面/NetBox/app/src/RedisApplicationServer.cpp",
+  "file": "/home/sgly/桌面/NetBox/app/src/RedisApplicationServer.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/app/src/RedisApplicationServer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/app/src/DirectRedisServer.cpp.o -c /home/sgly/桌面/NetBox/app/src/DirectRedisServer.cpp",
+  "file": "/home/sgly/桌面/NetBox/app/src/DirectRedisServer.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/app/src/DirectRedisServer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++ -DFMT_SHARED -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -o CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/app/ApplicationRegistry.cpp.o -c /home/sgly/桌面/NetBox/NetFramework/src/app/ApplicationRegistry.cpp",
+  "file": "/home/sgly/桌面/NetBox/NetFramework/src/app/ApplicationRegistry.cpp",
+  "output": "tests/CMakeFiles/NetBoxTestLib.dir/__/NetFramework/src/app/ApplicationRegistry.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_base.dir/unit/base/test_logger.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/base/test_logger.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/base/test_logger.cpp",
+  "output": "tests/CMakeFiles/test_base.dir/unit/base/test_logger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_base.dir/unit/base/test_async_logger.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/base/test_async_logger.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/base/test_async_logger.cpp",
+  "output": "tests/CMakeFiles/test_base.dir/unit/base/test_async_logger.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_base.dir/unit/base/test_thread_pool.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/base/test_thread_pool.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/base/test_thread_pool.cpp",
+  "output": "tests/CMakeFiles/test_base.dir/unit/base/test_thread_pool.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_base.dir/unit/base/test_double_lock_thread_pool.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/base/test_double_lock_thread_pool.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/base/test_double_lock_thread_pool.cpp",
+  "output": "tests/CMakeFiles/test_base.dir/unit/base/test_double_lock_thread_pool.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_util.dir/unit/util/test_config_reader.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/util/test_config_reader.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/util/test_config_reader.cpp",
+  "output": "tests/CMakeFiles/test_util.dir/unit/util/test_config_reader.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_util.dir/unit/util/test_enhanced_config_reader.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/util/test_enhanced_config_reader.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/util/test_enhanced_config_reader.cpp",
+  "output": "tests/CMakeFiles/test_util.dir/unit/util/test_enhanced_config_reader.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_io.dir/unit/io/test_io_multiplexer.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/io/test_io_multiplexer.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/io/test_io_multiplexer.cpp",
+  "output": "tests/CMakeFiles/test_io.dir/unit/io/test_io_multiplexer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_io.dir/unit/io/test_epoll_multiplexer.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/io/test_epoll_multiplexer.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/io/test_epoll_multiplexer.cpp",
+  "output": "tests/CMakeFiles/test_io.dir/unit/io/test_epoll_multiplexer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_io.dir/unit/io/test_select_multiplexer.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/io/test_select_multiplexer.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/io/test_select_multiplexer.cpp",
+  "output": "tests/CMakeFiles/test_io.dir/unit/io/test_select_multiplexer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_io.dir/unit/io/test_poll_multiplexer.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/io/test_poll_multiplexer.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/io/test_poll_multiplexer.cpp",
+  "output": "tests/CMakeFiles/test_io.dir/unit/io/test_poll_multiplexer.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_protocol.dir/unit/protocol/test_protocol_base.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/protocol/test_protocol_base.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/protocol/test_protocol_base.cpp",
+  "output": "tests/CMakeFiles/test_protocol.dir/unit/protocol/test_protocol_base.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_protocol.dir/unit/protocol/test_protocol_router.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/protocol/test_protocol_router.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/protocol/test_protocol_router.cpp",
+  "output": "tests/CMakeFiles/test_protocol.dir/unit/protocol/test_protocol_router.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_protocol.dir/unit/protocol/test_simple_header_protocol.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/protocol/test_simple_header_protocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/protocol/test_simple_header_protocol.cpp",
+  "output": "tests/CMakeFiles/test_protocol.dir/unit/protocol/test_simple_header_protocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_protocol.dir/unit/protocol/test_http_protocol.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/protocol/test_http_protocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/protocol/test_http_protocol.cpp",
+  "output": "tests/CMakeFiles/test_protocol.dir/unit/protocol/test_http_protocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_protocol.dir/unit/protocol/test_redis_protocol.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/protocol/test_redis_protocol.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/protocol/test_redis_protocol.cpp",
+  "output": "tests/CMakeFiles/test_protocol.dir/unit/protocol/test_redis_protocol.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_server.dir/unit/server/test_tcp_server.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/server/test_tcp_server.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/server/test_tcp_server.cpp",
+  "output": "tests/CMakeFiles/test_server.dir/unit/server/test_tcp_server.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_app.dir/unit/app/test_application_server.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/app/test_application_server.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/app/test_application_server.cpp",
+  "output": "tests/CMakeFiles/test_app.dir/unit/app/test_application_server.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_app.dir/unit/app/test_echo_server.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/app/test_echo_server.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/app/test_echo_server.cpp",
+  "output": "tests/CMakeFiles/test_app.dir/unit/app/test_echo_server.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_app.dir/unit/app/test_redis_application_server.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/app/test_redis_application_server.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/app/test_redis_application_server.cpp",
+  "output": "tests/CMakeFiles/test_app.dir/unit/app/test_redis_application_server.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_app.dir/unit/app/test_application_registry.cpp.o -c /home/sgly/桌面/NetBox/tests/unit/app/test_application_registry.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/unit/app/test_application_registry.cpp",
+  "output": "tests/CMakeFiles/test_app.dir/unit/app/test_application_registry.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_integration.dir/integration/test_echo_integration.cpp.o -c /home/sgly/桌面/NetBox/tests/integration/test_echo_integration.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/integration/test_echo_integration.cpp",
+  "output": "tests/CMakeFiles/test_integration.dir/integration/test_echo_integration.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_integration.dir/integration/test_redis_integration.cpp.o -c /home/sgly/桌面/NetBox/tests/integration/test_redis_integration.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/integration/test_redis_integration.cpp",
+  "output": "tests/CMakeFiles/test_integration.dir/integration/test_redis_integration.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_integration.dir/integration/test_protocol_integration.cpp.o -c /home/sgly/桌面/NetBox/tests/integration/test_protocol_integration.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/integration/test_protocol_integration.cpp",
+  "output": "tests/CMakeFiles/test_integration.dir/integration/test_protocol_integration.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_performance.dir/performance/test_thread_pool_performance.cpp.o -c /home/sgly/桌面/NetBox/tests/performance/test_thread_pool_performance.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/performance/test_thread_pool_performance.cpp",
+  "output": "tests/CMakeFiles/test_performance.dir/performance/test_thread_pool_performance.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_performance.dir/performance/test_io_performance.cpp.o -c /home/sgly/桌面/NetBox/tests/performance/test_io_performance.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/performance/test_io_performance.cpp",
+  "output": "tests/CMakeFiles/test_performance.dir/performance/test_io_performance.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_performance.dir/performance/test_protocol_performance.cpp.o -c /home/sgly/桌面/NetBox/tests/performance/test_protocol_performance.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/performance/test_protocol_performance.cpp",
+  "output": "tests/CMakeFiles/test_performance.dir/performance/test_protocol_performance.cpp.o"
+},
+{
+  "directory": "/home/sgly/桌面/NetBox/build_linux/tests",
+  "command": "/usr/bin/c++  -I/home/sgly/桌面/NetBox/NetFramework/include -I/home/sgly/桌面/NetBox/Protocol/include -I/home/sgly/桌面/NetBox/app/include -I/home/sgly/桌面/NetBox/tests/include -Wall -Wextra -Wpedantic -Wall -Wextra -Wpedantic -D_GNU_SOURCE -O3 -DNDEBUG -std=c++17 -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/test_performance.dir/performance/test_framework_benchmark.cpp.o -c /home/sgly/桌面/NetBox/tests/performance/test_framework_benchmark.cpp",
+  "file": "/home/sgly/桌面/NetBox/tests/performance/test_framework_benchmark.cpp",
+  "output": "tests/CMakeFiles/test_performance.dir/performance/test_framework_benchmark.cpp.o"
+}
+]

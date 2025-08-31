@@ -1,0 +1,24 @@
+=== 系统信息 ===
+时间: 2025年 08月 27日 星期三 15:42:54 CST
+内核: 6.14.0-24-generic
+CPU: 4 核心
+
+=== CPU信息 ===
+CPU 运行模式：                        32-bit, 64-bit
+CPU:                                  4
+在线 CPU 列表：                       0-3
+CPU 系列：                            25
+NUMA 节点0 CPU：                      0-3
+
+=== 内存信息 ===
+               total        used        free      shared  buff/cache   available
+内存：         7.7Gi       1.6Gi       5.1Gi        13Mi       1.3Gi       6.1Gi
+交换：         3.8Gi          0B       3.8Gi
+
+=== 网络配置 ===
+net.core.somaxconn = 4096
+net.core.netdev_max_backlog = 1000
+
+=== 当前连接 ===
+LISTEN 0      4096   192.168.88.135:8888       0.0.0.0:*          
+

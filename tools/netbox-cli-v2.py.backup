@@ -1,0 +1,1402 @@
+#!/usr/bin/env python3
+"""
+NetBox CLI v2.0 - 重构版本
+简化、可靠、自包含的脚手架工具
+
+设计原则:
+1. 简单优于复杂 - 最小可工作的项目
+2. 可靠优于功能 - 确保在任何环境下都能工作
+3. 自包含优于依赖 - 不依赖外部复杂框架
+4. 渐进优于一次性 - 支持从简单到复杂的扩展
+"""
+
+import os
+import sys
+import argparse
+import subprocess
+import platform
+from pathlib import Path
+from datetime import datetime
+from typing import Dict, List, Optional
+import json
+import time
+import random
+import math
+
+# ASCII艺术字和动画类
+class Colors:
+    """ANSI颜色代码"""
+    RESET = '\033[0m'
+    BOLD = '\033[1m'
+    DIM = '\033[2m'
+    
+    # 基础颜色
+    BLACK = '\033[30m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    BLUE = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN = '\033[36m'
+    WHITE = '\033[37m'
+    
+    # 亮色
+    BRIGHT_BLACK = '\033[90m'
+    BRIGHT_RED = '\033[91m'
+    BRIGHT_GREEN = '\033[92m'
+    BRIGHT_YELLOW = '\033[93m'
+    BRIGHT_BLUE = '\033[94m'
+    BRIGHT_MAGENTA = '\033[95m'
+    BRIGHT_CYAN = '\033[96m'
+    BRIGHT_WHITE = '\033[97m'
+    
+    # 背景色
+    BG_BLACK = '\033[40m'
+    BG_RED = '\033[41m'
+    BG_GREEN = '\033[42m'
+    BG_YELLOW = '\033[43m'
+    BG_BLUE = '\033[44m'
+    BG_MAGENTA = '\033[45m'
+    BG_CYAN = '\033[46m'
+    BG_WHITE = '\033[47m'
+
+class ASCIIArt:
+    """ASCII艺术字生成器"""
+    
+    # NetBox大标题ASCII艺术字
+    NETBOX_LOGO = [
+        "███╗   ██╗███████╗████████╗██████╗  ██████╗ ██╗  ██╗",
+        "████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██╔═══██╗╚██╗██╔╝",
+        "██╔██╗ ██║█████╗     ██║   ██████╔╝██║   ██║ ╚███╔╝ ",
+        "██║╚██╗██║██╔══╝     ██║   ██╔══██╗██║   ██║ ██╔██╗ ",
+        "██║ ╚████║███████╗   ██║   ██████╔╝╚██████╔╝██╔╝ ██╗",
+        "╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═════╝  ╚═════╝ ╚═╝  ╚═╝"
+    ]
+    
+    # NetBox项目标题
+    FRAMEWORK_TITLE = [
+        "███╗   ██╗███████╗████████╗██████╗  ██████╗ ██╗  ██╗",
+        "████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██╔═══██╗╚██╗██╔╝",
+        "██╔██╗ ██║█████╗     ██║   ██████╔╝██║   ██║ ╚███╔╝ ",
+        "██║╚██╗██║██╔══╝     ██║   ██╔══██╗██║   ██║ ██╔██╗ ",
+        "██║ ╚████║███████╗   ██║   ██████╔╝╚██████╔╝██╔╝ ██╗",
+        "╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═════╝  ╚═════╝ ╚═╝  ╚═╝"
+    ]
+    
+    # NetBox小标题
+    NETBOX_SUBTITLE = [
+        "╔╗╔┌─┐┌┬┐╔╗ ┌─┐─┐ ┬",
+        "║║║├┤  │ ╠╩╗│ │┌┴┬┘",
+        "╝╚╝└─┘ ┴ ╚═╝└─┘┴ └─"
+    ]
+    
+    # 创建项目动画帧
+    CREATING_FRAMES = [
+        ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],  # 旋转
+        ["▁", "▃", "▄", "▅", "▆", "▇", "█", "▇", "▆", "▅", "▄", "▃"],  # 进度条
+        ["◐", "◓", "◑", "◒"],  # 圆形旋转
+        ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"]  # 点阵旋转
+    ]
+    
+    @staticmethod
+    def get_gradient_colors() -> List[str]:
+        """获取渐变色彩序列"""
+        return [
+            Colors.BRIGHT_CYAN,
+            Colors.CYAN,
+            Colors.BRIGHT_BLUE,
+            Colors.BLUE,
+            Colors.BRIGHT_MAGENTA,
+            Colors.MAGENTA
+        ]
+    
+    @staticmethod
+    def colorize_text(text: str, color: str) -> str:
+        """为文本添加颜色"""
+        return f"{color}{text}{Colors.RESET}"
+    
+    @staticmethod
+    def rainbow_text(text: str) -> str:
+        """彩虹文字效果"""
+        colors = [Colors.RED, Colors.YELLOW, Colors.GREEN, Colors.CYAN, Colors.BLUE, Colors.MAGENTA]
+        result = ""
+        for i, char in enumerate(text):
+            color = colors[i % len(colors)]
+            result += f"{color}{char}{Colors.RESET}"
+        return result
+
+class Animations:
+    """动画效果类"""
+    
+    @staticmethod
+    def clear_screen():
+        """清屏"""
+        os.system('cls' if os.name == 'nt' else 'clear')
+    
+    @staticmethod
+    def move_cursor(x: int, y: int):
+        """移动光标"""
+        print(f"\033[{y};{x}H", end="")
+    
+    @staticmethod
+    def hide_cursor():
+        """隐藏光标"""
+        print("\033[?25l", end="")
+    
+    @staticmethod
+    def show_cursor():
+        """显示光标"""
+        print("\033[?25h", end="")
+    
+    @staticmethod
+    def typewriter_effect(text: str, delay: float = 0.05, color: str = ""):
+        """打字机效果"""
+        for char in text:
+            print(f"{color}{char}{Colors.RESET}", end="", flush=True)
+            time.sleep(delay)
+        print()
+    
+    @staticmethod
+    def fade_in_logo(logo: List[str], colors: List[str], delay: float = 0.1):
+        """渐入Logo效果"""
+        for i, line in enumerate(logo):
+            color = colors[i % len(colors)]
+            print(f"{color}{line}{Colors.RESET}")
+            time.sleep(delay)
+    
+    @staticmethod
+    def rainbow_logo(logo: List[str], delay: float = 0.05):
+        """彩虹Logo效果"""
+        for line in logo:
+            print(ASCIIArt.rainbow_text(line))
+            time.sleep(delay)
+    
+    @staticmethod
+    def spinning_loader(text: str, duration: float = 3.0, frame_set: int = 0):
+        """旋转加载器"""
+        frames = ASCIIArt.CREATING_FRAMES[frame_set]
+        start_time = time.time()
+        frame_index = 0
+        
+        while time.time() - start_time < duration:
+            frame = frames[frame_index % len(frames)]
+            print(f"\r{Colors.BRIGHT_CYAN}{frame}{Colors.RESET} {text}", end="", flush=True)
+            time.sleep(0.1)
+            frame_index += 1
+        
+        print(f"\r{Colors.BRIGHT_GREEN}✅{Colors.RESET} {text}")
+    
+    @staticmethod
+    def progress_bar(text: str, steps: List[str], delay: float = 0.5, style: str = "blocks"):
+        """进度条动画"""
+        print(f"\n{Colors.BRIGHT_CYAN}{text}{Colors.RESET}")
+        
+        if style == "blocks":
+            blocks = ["⬜", "⬛"]
+        elif style == "dots":
+            blocks = ["○", "●"]
+        elif style == "arrows":
+            blocks = ["→", "→"]
+        elif style == "squares":
+            blocks = ["□", "■"]
+        elif style == "circles":
+            blocks = ["○", "●"]
+        elif style == "gradient":
+            blocks = ["░", "▒", "▓", "█"]
+        elif style == "wave":
+            blocks = ["▁", "▃", "▄", "▅", "▆", "▇", "█"]
+        elif style == "pulse":
+            blocks = ["○", "◐", "●", "◑"]
+        elif style == "rainbow":
+            blocks = ["🔴", "🟠", "🟡", "🟢", "🔵", "🟣"]
+        else:
+            blocks = ["⬜", "⬛"]
+        
+        total_steps = len(steps)
+        bar_length = 50
+        
+        for i, step in enumerate(steps):
+            progress = (i + 1) / total_steps
+            filled_length = int(bar_length * progress)
+            
+            if style == "gradient":
+                bar = ""
+                for j in range(bar_length):
+                    if j < filled_length:
+                        block_index = min(int(j / filled_length * len(blocks)), len(blocks) - 1)
+                        bar += blocks[block_index]
+                    else:
+                        bar += blocks[0]
+            elif style == "rainbow":
+                bar = ""
+                for j in range(bar_length):
+                    if j < filled_length:
+                        color_index = j % len(blocks)
+                        bar += blocks[color_index]
+                    else:
+                        bar += blocks[0]
+            else:
+                bar = blocks[1] * filled_length + blocks[0] * (bar_length - filled_length)
+            
+            percentage = int(progress * 100)
+            print(f"\r[{bar}] {percentage}% - {step}", end="", flush=True)
+            time.sleep(delay)
+        
+        print(f"\n{Colors.BRIGHT_GREEN}✅ 完成!{Colors.RESET}")
+    
+    @staticmethod
+    def animated_progress_bar(text: str, duration: float = 5.0, style: str = "wave"):
+        """动画进度条"""
+        print(f"\n{Colors.BRIGHT_CYAN}{text}{Colors.RESET}")
+        
+        if style == "wave":
+            frames = ["▁▂▃▄▅▆▇█", "▂▃▄▅▆▇█▁", "▃▄▅▆▇█▁▂", "▄▅▆▇█▁▂▃", 
+                     "▅▆▇█▁▂▃▄", "▆▇█▁▂▃▄▅", "▇█▁▂▃▄▅▆", "█▁▂▃▄▅▆▇"]
+        elif style == "pulse":
+            frames = ["○●○●○●○●", "●○●○●○●○", "○●○●○●○●", "●○●○●○●○"]
+        else:
+            frames = ["⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏", "⠙⠹⠸⠼⠴⠦⠧⠇⠏⠋", "⠹⠸⠼⠴⠦⠧⠇⠏⠋⠙"]
+        
+        start_time = time.time()
+        frame_index = 0
+        
+        while time.time() - start_time < duration:
+            frame = frames[frame_index % len(frames)]
+            progress = (time.time() - start_time) / duration
+            bar_length = 40
+            filled_length = int(bar_length * progress)
+            
+            bar = frame[:filled_length] + " " * (bar_length - filled_length)
+            percentage = int(progress * 100)
+            
+            print(f"\r[{bar}] {percentage}%", end="", flush=True)
+            time.sleep(0.1)
+            frame_index += 1
+        
+        print(f"\n{Colors.BRIGHT_GREEN}✅ 完成!{Colors.RESET}")
+    
+    @staticmethod
+    def multi_progress_bars(tasks: List[dict], update_interval: float = 0.1):
+        """多进度条"""
+        print(f"\n{Colors.BRIGHT_CYAN}🔧 项目生成进度{Colors.RESET}")
+        
+        # 保存光标位置
+        print("\033[s", end="")
+        
+        for task in tasks:
+            task_name = task.get("name", "未知任务")
+            duration = task.get("duration", 2.0)
+            style = task.get("style", "blocks")
+            
+            print(f"\n{Colors.BRIGHT_YELLOW}{task_name}{Colors.RESET}")
+            Animations.animated_progress_bar(task_name, duration, style)
+    
+    @staticmethod
+    def matrix_effect(duration: float = 2.0):
+        """矩阵效果"""
+        width = 80
+        height = 20
+        matrix = [[' ' for _ in range(width)] for _ in range(height)]
+        
+        start_time = time.time()
+        while time.time() - start_time < duration:
+            # 随机添加字符
+            for _ in range(5):
+                x = random.randint(0, width - 1)
+                y = random.randint(0, height - 1)
+                matrix[y][x] = random.choice('01')
+            
+            # 显示矩阵
+            Animations.clear_screen()
+            for row in matrix:
+                print(f"{Colors.BRIGHT_GREEN}{''.join(row)}{Colors.RESET}")
+            
+            # 随机清除字符
+            for _ in range(3):
+                x = random.randint(0, width - 1)
+                y = random.randint(0, height - 1)
+                matrix[y][x] = ' '
+            
+            time.sleep(0.1)
+        
+        Animations.clear_screen()
+        Animations.show_cursor()
+
+def show_startup_animation():
+    """显示启动动画"""
+    try:
+        Animations.clear_screen()
+        
+        # 矩阵效果
+        print(f"{Colors.BRIGHT_GREEN}初始化NetBox...{Colors.RESET}")
+        Animations.matrix_effect(1.5)
+        
+        # 显示Logo
+        print(f"\n{Colors.BOLD}{Colors.BRIGHT_CYAN}欢迎使用{Colors.RESET}")
+        Animations.rainbow_logo(ASCIIArt.NETBOX_LOGO, 0.03)
+        
+        print(f"\n{Colors.BRIGHT_YELLOW}{'=' * 60}{Colors.RESET}")
+        Animations.typewriter_effect(
+            "🚀 NetBox CLI v2.0 - 企业级跨平台网络框架",
+            0.03,
+            Colors.BRIGHT_WHITE
+        )
+        print(f"{Colors.BRIGHT_YELLOW}{'=' * 60}{Colors.RESET}\n")
+        
+        # 特性展示
+        features = [
+            "🔌 协议层扩展接口",
+            "🎯 应用层扩展接口", 
+            "🌐 网络层优化接口",
+            "🔌 插件化架构",
+            "🎨 现代化脚手架"
+        ]
+        
+        for feature in features:
+            Animations.typewriter_effect(f"   {feature}", 0.02, Colors.BRIGHT_CYAN)
+            time.sleep(0.1)
+        
+        print()
+        
+    except KeyboardInterrupt:
+        Animations.show_cursor()
+        print(f"\n{Colors.BRIGHT_RED}启动被中断{Colors.RESET}")
+
+def show_project_creation_animation(project_name: str):
+    """显示项目创建动画"""
+    try:
+        print(f"\n{Colors.BOLD}{Colors.BRIGHT_MAGENTA}创建项目: {project_name}{Colors.RESET}")
+        Animations.fade_in_logo(ASCIIArt.FRAMEWORK_TITLE, ASCIIArt.get_gradient_colors(), 0.05)
+        
+        # 创建步骤
+        steps = [
+            "初始化NetBox项目结构",
+            "生成NetBox核心文件",
+            "创建协议扩展接口",
+            "设置应用层接口",
+            "配置网络层接口",
+            "初始化插件系统",
+            "生成示例代码",
+            "创建CMake构建配置",
+            "生成项目文档"
+        ]
+        
+        print(f"\n{Colors.BRIGHT_YELLOW}正在创建项目...{Colors.RESET}\n")
+
+        # 使用增强的进度条，随机选择风格
+        styles = ["blocks", "gradient", "circles", "squares"]
+        selected_style = random.choice(styles)
+        Animations.progress_bar("🔧 项目生成进度", steps, 0.4, selected_style)
+        
+        # 成功动画
+        print(f"\n{Colors.BRIGHT_GREEN}{'🎉' * 20}{Colors.RESET}")
+        Animations.typewriter_effect(
+            f"✅ 项目 {project_name} 创建成功!", 
+            0.05, 
+            Colors.BRIGHT_GREEN
+        )
+        print(f"{Colors.BRIGHT_GREEN}{'🎉' * 20}{Colors.RESET}\n")
+        
+    except KeyboardInterrupt:
+        Animations.show_cursor()
+        print(f"\n{Colors.BRIGHT_RED}创建被中断{Colors.RESET}")
+
+def show_simple_banner():
+    """显示简单横幅"""
+    print(f"{Colors.BRIGHT_CYAN}🏆 NetBox CLI v2.0{Colors.RESET}")
+    print(f"{Colors.BRIGHT_YELLOW}{'=' * 20}{Colors.RESET}")
+
+# 导入ASCII艺术模块
+try:
+    from ascii_art import show_startup_animation, show_project_creation_animation, show_simple_banner
+    ASCII_ART_AVAILABLE = True
+except ImportError:
+    ASCII_ART_AVAILABLE = False
+
+class NetBoxCLI:
+    """NetBox CLI v2.0 - 简化版本"""
+    
+    def __init__(self):
+        # 智能路径检测
+        script_path = Path(__file__).resolve()
+        self.root_dir = script_path.parent.parent
+        
+        # 确保这是NetBox根目录
+        if not (self.root_dir / "tools").exists():
+            current_dir = Path.cwd()
+            if (current_dir / "NetBox" / "tools").exists():
+                self.root_dir = current_dir / "NetBox"
+            elif (current_dir.parent / "NetBox" / "tools").exists():
+                self.root_dir = current_dir.parent / "NetBox"
+        
+        self.version = "2.0.0"
+        self.config = self._load_default_config()
+    
+    def _load_default_config(self) -> Dict:
+        """加载默认配置"""
+        return {
+            "project": {
+                "default_name": "MyNetBoxProject",
+                "version": "1.0.0",
+                "author": "NetBox Developer"
+            },
+            "build": {
+                "default_type": "Release",
+                "parallel_jobs": 4
+            },
+            "features": {
+                "logging": True,
+                "testing": True,
+                "examples": True
+            }
+        }
+    
+    def detect_platform(self) -> str:
+        """检测当前平台"""
+        system = platform.system().lower()
+        if system == "windows":
+            return "windows"
+        elif system == "darwin":
+            return "macos"
+        elif system == "linux":
+            return "linux"
+        else:
+            return "unknown"
+    
+    def run_command(self, cmd: List[str], cwd: Optional[Path] = None) -> bool:
+        """执行命令"""
+        try:
+            result = subprocess.run(
+                cmd, 
+                cwd=cwd or Path.cwd(), 
+                capture_output=False, 
+                text=True
+            )
+            return result.returncode == 0
+        except Exception as e:
+            print(f"❌ 命令执行失败: {e}")
+            return False
+    
+    def create_directory_structure(self, project_dir: Path) -> bool:
+        """创建基础目录结构"""
+        directories = [
+            "src",
+            "include/netbox",
+            "examples/basic",
+            "tests",
+            "docs",
+            "config",
+            "cmake"
+        ]
+        
+        try:
+            for dir_path in directories:
+                (project_dir / dir_path).mkdir(parents=True, exist_ok=True)
+            return True
+        except Exception as e:
+            print(f"❌ 创建目录结构失败: {e}")
+            return False
+    
+    def create_basic_files(self, project_dir: Path, project_name: str) -> bool:
+        """创建基础文件"""
+        try:
+            # 1. 创建主头文件
+            self._create_main_header(project_dir, project_name)
+            
+            # 2. 创建基础源文件
+            self._create_basic_source(project_dir, project_name)
+            
+            # 3. 创建示例程序
+            self._create_example_program(project_dir, project_name)
+            
+            # 4. 创建CMakeLists.txt
+            self._create_cmake_config(project_dir, project_name)
+            
+            # 5. 创建测试文件
+            self._create_test_files(project_dir, project_name)
+            
+            # 6. 创建README
+            self._create_readme(project_dir, project_name)
+            
+            return True
+        except Exception as e:
+            print(f"❌ 创建基础文件失败: {e}")
+            return False
+    
+    def _create_main_header(self, project_dir: Path, project_name: str):
+        """创建主头文件 - 简化版本"""
+        # Windows下避免中文字符，使用英文注释
+        if self.detect_platform() == "windows":
+            header_content = f'''#pragma once
+
+/**
+ * @file NetBox.h
+ * @brief {project_name} - NetBox Framework Header
+ * @version 1.0.0
+ * @date {datetime.now().strftime('%Y-%m-%d')}
+ */
+
+#include <iostream>
+#include <string>
+#include <memory>
+#include <vector>
+#include <functional>
+
+namespace NetBox {{
+
+/**
+ * @brief Framework version information
+ */
+struct Version {{
+    static constexpr const char* STRING = "1.0.0";
+    static constexpr int MAJOR = 1;
+    static constexpr int MINOR = 0;
+    static constexpr int PATCH = 0;
+}};
+
+/**
+ * @brief Simple application base class
+ */
+class Application {{
+public:
+    Application(const std::string& name) : m_name(name) {{}}
+    virtual ~Application() = default;
+
+    virtual bool initialize() {{
+        std::cout << "Initializing application: " << m_name << std::endl;
+        return true;
+    }}
+
+    virtual bool start() {{
+        std::cout << "Starting application: " << m_name << std::endl;
+        return true;
+    }}
+
+    virtual void stop() {{
+        std::cout << "Stopping application: " << m_name << std::endl;
+    }}
+
+    const std::string& getName() const {{ return m_name; }}
+
+private:
+    std::string m_name;
+}};
+
+/**
+ * @brief Framework initialization
+ */
+inline bool initialize() {{
+    std::cout << "NetBox framework initializing..." << std::endl;
+    return true;
+}}
+
+/**
+ * @brief Framework cleanup
+ */
+inline void cleanup() {{
+    std::cout << "NetBox framework cleanup..." << std::endl;
+}}
+
+}} // namespace NetBox
+
+// Convenience macros
+#define NETBOX_VERSION NetBox::Version::STRING
+#define NETBOX_INIT() NetBox::initialize()
+#define NETBOX_CLEANUP() NetBox::cleanup()
+'''
+        else:
+            header_content = f'''#pragma once
+
+/**
+ * @file NetBox.h
+ * @brief {project_name} - NetBox框架头文件
+ * @version 1.0.0
+ * @date {datetime.now().strftime('%Y-%m-%d')}
+ */
+
+#include <iostream>
+#include <string>
+#include <memory>
+#include <vector>
+#include <functional>
+
+namespace NetBox {{
+
+/**
+ * @brief 框架版本信息
+ */
+struct Version {{
+    static constexpr const char* STRING = "1.0.0";
+    static constexpr int MAJOR = 1;
+    static constexpr int MINOR = 0;
+    static constexpr int PATCH = 0;
+}};
+
+/**
+ * @brief 简单的应用程序基类
+ */
+class Application {{
+public:
+    Application(const std::string& name) : m_name(name) {{}}
+    virtual ~Application() = default;
+
+    virtual bool initialize() {{
+        std::cout << "🔧 初始化应用: " << m_name << std::endl;
+        return true;
+    }}
+
+    virtual bool start() {{
+        std::cout << "🚀 启动应用: " << m_name << std::endl;
+        return true;
+    }}
+
+    virtual void stop() {{
+        std::cout << "🛑 停止应用: " << m_name << std::endl;
+    }}
+
+    const std::string& getName() const {{ return m_name; }}
+
+private:
+    std::string m_name;
+}};
+
+/**
+ * @brief 框架初始化
+ */
+inline bool initialize() {{
+    std::cout << "🔧 NetBox框架初始化..." << std::endl;
+    return true;
+}}
+
+/**
+ * @brief 框架清理
+ */
+inline void cleanup() {{
+    std::cout << "🧹 NetBox框架清理..." << std::endl;
+}}
+
+}} // namespace NetBox
+
+// 便利宏
+#define NETBOX_VERSION NetBox::Version::STRING
+#define NETBOX_INIT() NetBox::initialize()
+#define NETBOX_CLEANUP() NetBox::cleanup()
+'''
+        
+        header_path = project_dir / "include" / "netbox" / "NetBox.h"
+        # Windows下使用UTF-8 BOM编码避免C4819警告
+        encoding = 'utf-8-sig' if self.detect_platform() == "windows" else 'utf-8'
+        header_path.write_text(header_content, encoding=encoding)
+        print(f"✅ 创建头文件: {header_path}")
+    
+    def _create_basic_source(self, project_dir: Path, project_name: str):
+        """创建基础源文件"""
+        # Windows下避免中文字符
+        if self.detect_platform() == "windows":
+            source_content = f'''/**
+ * @file main.cpp
+ * @brief {project_name} - Main program file
+ */
+
+#include "netbox/NetBox.h"
+
+int main() {{
+    std::cout << "Welcome to {project_name}!" << std::endl;
+    std::cout << "Based on NetBox Framework v" << NETBOX_VERSION << std::endl;
+
+    // Initialize framework
+    if (!NETBOX_INIT()) {{
+        std::cerr << "Framework initialization failed" << std::endl;
+        return 1;
+    }}
+
+    // Create application
+    NetBox::Application app("{project_name}");
+
+    if (app.initialize() && app.start()) {{
+        std::cout << "Application started successfully!" << std::endl;
+        std::cout << "Press Enter to exit..." << std::endl;
+        std::cin.get();
+        app.stop();
+    }}
+
+    // Cleanup framework
+    NETBOX_CLEANUP();
+
+    return 0;
+}}
+'''
+        else:
+            source_content = f'''/**
+ * @file main.cpp
+ * @brief {project_name} - 主程序文件
+ */
+
+#include "netbox/NetBox.h"
+
+int main() {{
+    std::cout << "🌟 欢迎使用 {project_name}!" << std::endl;
+    std::cout << "基于NetBox框架 v" << NETBOX_VERSION << std::endl;
+
+    // 初始化框架
+    if (!NETBOX_INIT()) {{
+        std::cerr << "❌ 框架初始化失败" << std::endl;
+        return 1;
+    }}
+
+    // 创建应用
+    NetBox::Application app("{project_name}");
+
+    if (app.initialize() && app.start()) {{
+        std::cout << "✅ 应用启动成功!" << std::endl;
+        std::cout << "按Enter键退出..." << std::endl;
+        std::cin.get();
+        app.stop();
+    }}
+
+    // 清理框架
+    NETBOX_CLEANUP();
+
+    return 0;
+}}
+'''
+        
+        source_path = project_dir / "src" / "main.cpp"
+        # Windows下使用UTF-8 BOM编码避免C4819警告
+        encoding = 'utf-8-sig' if self.detect_platform() == "windows" else 'utf-8'
+        source_path.write_text(source_content, encoding=encoding)
+        print(f"✅ 创建源文件: {source_path}")
+
+    def _create_example_program(self, project_dir: Path, project_name: str):
+        """创建示例程序"""
+        example_content = f'''/**
+ * @file simple_example.cpp
+ * @brief {project_name} - 简单示例程序
+ */
+
+#include "netbox/NetBox.h"
+#include <thread>
+#include <chrono>
+
+class SimpleApp : public NetBox::Application {{
+public:
+    SimpleApp() : NetBox::Application("{project_name}Example") {{}}
+
+    bool initialize() override {{
+        std::cout << "🔧 初始化示例应用..." << std::endl;
+        return true;
+    }}
+
+    bool start() override {{
+        std::cout << "🚀 启动示例应用..." << std::endl;
+
+        // 模拟一些工作
+        for (int i = 1; i <= 3; i++) {{
+            std::cout << "📊 处理任务 " << i << "/3..." << std::endl;
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        }}
+
+        std::cout << "✅ 所有任务完成!" << std::endl;
+        return true;
+    }}
+}};
+
+int main() {{
+    std::cout << "🎯 {project_name} 示例程序" << std::endl;
+    std::cout << "=========================" << std::endl;
+
+    NETBOX_INIT();
+
+    SimpleApp app;
+    if (app.initialize() && app.start()) {{
+        std::cout << "🎉 示例运行成功!" << std::endl;
+    }}
+
+    NETBOX_CLEANUP();
+    return 0;
+}}
+'''
+
+        example_path = project_dir / "examples" / "basic" / "simple_example.cpp"
+        example_path.write_text(example_content, encoding='utf-8')
+        print(f"✅ 创建示例程序: {example_path}")
+
+    def _create_cmake_config(self, project_dir: Path, project_name: str):
+        """创建CMake配置 - 简化版本"""
+        cmake_content = f'''cmake_minimum_required(VERSION 3.16)
+project({project_name} VERSION 1.0.0 LANGUAGES CXX)
+
+# C++标准设置
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 包含目录
+include_directories(include)
+
+# 主程序
+add_executable(${{PROJECT_NAME}} src/main.cpp)
+
+# 示例程序
+add_executable(${{PROJECT_NAME}}_example examples/basic/simple_example.cpp)
+
+# 测试程序
+if(EXISTS ${{CMAKE_CURRENT_SOURCE_DIR}}/tests/simple_test.cpp)
+    add_executable(${{PROJECT_NAME}}_test tests/simple_test.cpp)
+
+    # 启用测试
+    enable_testing()
+    add_test(NAME BasicTest COMMAND ${{PROJECT_NAME}}_test)
+endif()
+
+# 设置输出目录
+set_target_properties(${{PROJECT_NAME}} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${{CMAKE_BINARY_DIR}}/bin"
+)
+set_target_properties(${{PROJECT_NAME}}_example PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${{CMAKE_BINARY_DIR}}/bin"
+)
+
+# 编译选项
+if(MSVC)
+    target_compile_options(${{PROJECT_NAME}} PRIVATE /W4)
+    target_compile_options(${{PROJECT_NAME}}_example PRIVATE /W4)
+else()
+    target_compile_options(${{PROJECT_NAME}} PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(${{PROJECT_NAME}}_example PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
+# 安装配置
+install(TARGETS ${{PROJECT_NAME}} ${{PROJECT_NAME}}_example
+    RUNTIME DESTINATION bin
+)
+
+message(STATUS "配置 {project_name} 项目完成")
+message(STATUS "主程序: ${{PROJECT_NAME}}")
+message(STATUS "示例程序: ${{PROJECT_NAME}}_example")
+'''
+
+        cmake_path = project_dir / "CMakeLists.txt"
+        cmake_path.write_text(cmake_content, encoding='utf-8')
+        print(f"✅ 创建CMake配置: {cmake_path}")
+
+    def _create_test_files(self, project_dir: Path, project_name: str):
+        """创建测试文件"""
+        test_content = f'''/**
+ * @file simple_test.cpp
+ * @brief {project_name} - 简单测试程序
+ */
+
+#include "netbox/NetBox.h"
+#include <cassert>
+
+void test_version() {{
+    std::cout << "🧪 测试版本信息..." << std::endl;
+    assert(NetBox::Version::MAJOR == 1);
+    assert(NetBox::Version::MINOR == 0);
+    assert(NetBox::Version::PATCH == 0);
+    std::cout << "✅ 版本测试通过" << std::endl;
+}}
+
+void test_application() {{
+    std::cout << "🧪 测试应用程序..." << std::endl;
+    NetBox::Application app("TestApp");
+    assert(app.getName() == "TestApp");
+    assert(app.initialize() == true);
+    assert(app.start() == true);
+    app.stop();
+    std::cout << "✅ 应用程序测试通过" << std::endl;
+}}
+
+void test_framework() {{
+    std::cout << "🧪 测试框架初始化..." << std::endl;
+    assert(NETBOX_INIT() == true);
+    NETBOX_CLEANUP();
+    std::cout << "✅ 框架测试通过" << std::endl;
+}}
+
+int main() {{
+    std::cout << "🚀 开始 {project_name} 测试" << std::endl;
+    std::cout << "=========================" << std::endl;
+
+    try {{
+        test_version();
+        test_application();
+        test_framework();
+
+        std::cout << "=========================" << std::endl;
+        std::cout << "🎉 所有测试通过!" << std::endl;
+        return 0;
+
+    }} catch (const std::exception& e) {{
+        std::cerr << "❌ 测试失败: " << e.what() << std::endl;
+        return 1;
+    }}
+}}
+'''
+
+        test_path = project_dir / "tests" / "simple_test.cpp"
+        test_path.write_text(test_content, encoding='utf-8')
+        print(f"✅ 创建测试文件: {test_path}")
+
+    def _create_readme(self, project_dir: Path, project_name: str):
+        """创建README文件"""
+        readme_content = f'''# {project_name}
+
+> 基于NetBox框架的项目
+
+## 快速开始
+
+### 构建项目
+
+```bash
+mkdir build && cd build
+cmake ..
+make
+```
+
+### 运行程序
+
+```bash
+# 运行主程序
+./bin/{project_name}
+
+# 运行示例程序
+./bin/{project_name}_example
+
+# 运行测试
+./bin/{project_name}_test
+# 或使用ctest
+ctest
+```
+
+## 项目结构
+
+```
+{project_name}/
+├── src/                    # 源代码
+│   └── main.cpp           # 主程序
+├── include/netbox/        # 头文件
+│   └── NetBox.h          # 框架头文件
+├── examples/basic/        # 示例代码
+│   └── simple_example.cpp # 简单示例
+├── tests/                 # 测试代码
+│   └── simple_test.cpp   # 基础测试
+├── docs/                  # 文档
+├── config/               # 配置文件
+└── CMakeLists.txt        # 构建配置
+```
+
+## 开发指南
+
+### 添加新功能
+
+1. 在 `src/` 目录下添加源文件
+2. 在 `include/netbox/` 目录下添加头文件
+3. 更新 `CMakeLists.txt`
+4. 编写测试用例
+
+### 扩展应用
+
+继承 `NetBox::Application` 类来创建自定义应用：
+
+```cpp
+class MyApp : public NetBox::Application {{
+public:
+    MyApp() : NetBox::Application("MyApp") {{}}
+
+    bool initialize() override {{
+        // 初始化逻辑
+        return true;
+    }}
+
+    bool start() override {{
+        // 启动逻辑
+        return true;
+    }}
+}};
+```
+
+## 构建选项
+
+```bash
+# Debug构建
+cmake .. -DCMAKE_BUILD_TYPE=Debug
+
+# Release构建
+cmake .. -DCMAKE_BUILD_TYPE=Release
+
+# 并行构建
+make -j$(nproc)
+```
+
+## 版本信息
+
+- 项目版本: 1.0.0
+- NetBox版本: 1.0.0
+- C++标准: C++17
+
+---
+
+*由NetBox CLI v2.0生成*
+'''
+
+        readme_path = project_dir / "README.md"
+        readme_path.write_text(readme_content, encoding='utf-8')
+        print(f"✅ 创建README: {readme_path}")
+
+    # ==================== CLI命令处理 ====================
+
+    def cmd_init(self, args):
+        """初始化新项目"""
+        project_name = args.name or self.config["project"]["default_name"]
+        project_dir = Path(project_name)
+
+        if project_dir.exists():
+            print(f"❌ 目录 {project_name} 已存在")
+            return False
+
+        # 显示项目创建动画
+        try:
+            show_project_creation_animation(project_name)
+        except:
+            print(f"🚀 创建NetBox项目: {project_name}")
+            print("=" * 50)
+
+        # 创建目录结构
+        print("📁 创建目录结构...")
+        if not self.create_directory_structure(project_dir):
+            return False
+
+        # 创建基础文件
+        print("📝 创建项目文件...")
+        if not self.create_basic_files(project_dir, project_name):
+            return False
+
+        print("=" * 50)
+        print(f"✅ 项目 {project_name} 创建成功!")
+        print(f"📁 项目目录: {project_dir.absolute()}")
+        print()
+        print("🔧 下一步:")
+        print(f"   cd {project_name}")
+        print("   mkdir build && cd build")
+        print("   cmake ..")
+        print("   make")
+        print(f"   ./bin/{project_name}")
+
+        return True
+
+    def cmd_build(self, args):
+        """构建项目"""
+        build_type = args.type or self.config["build"]["default_type"]
+        jobs = args.jobs or self.config["build"]["parallel_jobs"]
+
+        # 显示构建动画
+        try:
+            print(f"\n{Colors.BOLD}{Colors.BRIGHT_MAGENTA}构建项目: {Path.cwd().name}{Colors.RESET}")
+            Animations.fade_in_logo(ASCIIArt.FRAMEWORK_TITLE, ASCIIArt.get_gradient_colors(), 0.03)
+        except:
+            print(f"🔨 构建项目 ({build_type})")
+
+        # 检查是否在项目目录中
+        if not Path("CMakeLists.txt").exists():
+            print("❌ 未找到CMakeLists.txt，请在项目根目录中运行")
+            return False
+
+        # 创建构建目录
+        build_dir = Path("build")
+        build_dir.mkdir(exist_ok=True)
+
+        # 配置项目
+        try:
+            print(f"\n{Colors.BRIGHT_YELLOW}⚙️  配置项目...{Colors.RESET}")
+            Animations.spinning_loader("配置CMake项目", 1.0)
+        except:
+            print("⚙️  配置项目...")
+
+        # Windows特殊处理
+        cmake_config_cmd = ["cmake", ".."]
+        if self.detect_platform() != "windows":
+            cmake_config_cmd.append(f"-DCMAKE_BUILD_TYPE={build_type}")
+
+        if not self.run_command(cmake_config_cmd, cwd=build_dir):
+            print("❌ CMake配置失败")
+            if self.detect_platform() == "windows":
+                print("\n💡 Windows常见解决方案:")
+                print("   1. 安装Visual Studio Community (免费)")
+                print("   2. 确保安装了C++构建工具")
+                print("   3. 运行故障排除脚本: windows_troubleshoot.bat")
+                print("   4. 检查路径是否包含中文字符")
+            return False
+
+        # 构建项目
+        try:
+            print(f"\n{Colors.BRIGHT_CYAN}🔧 构建项目 (使用{jobs}个并行任务)...{Colors.RESET}")
+            
+            # 构建步骤动画
+            build_steps = [
+                "编译核心框架",
+                "链接库文件", 
+                "生成可执行文件",
+                "运行测试",
+                "完成构建"
+            ]
+            
+            styles = ["blocks", "gradient", "circles", "squares"]
+            selected_style = random.choice(styles)
+            Animations.progress_bar("🔨 构建进度", build_steps, 0.8, selected_style)
+            
+        except:
+            print(f"🔧 构建项目 (使用{jobs}个并行任务)...")
+
+        # 使用cmake --build命令，跨平台兼容
+        build_cmd = ["cmake", "--build", ".", "--parallel", str(jobs)]
+
+        # Windows下指定配置类型
+        if self.detect_platform() == "windows":
+            build_cmd.extend(["--config", build_type])
+
+        if not self.run_command(build_cmd, cwd=build_dir):
+            print("❌ 构建失败")
+            if self.detect_platform() == "windows":
+                print("\n💡 Windows构建失败解决方案:")
+                print("   1. 以管理员身份运行命令")
+                print("   2. 检查杀毒软件是否阻止编译")
+                print("   3. 确保有足够的磁盘空间")
+                print("   4. 尝试清理后重新构建: netbox clean && netbox build")
+            return False
+
+        # 成功动画
+        try:
+            print(f"\n{Colors.BRIGHT_GREEN}{'🎉' * 15}{Colors.RESET}")
+            Animations.typewriter_effect(
+                "✅ 构建成功!", 
+                0.05, 
+                Colors.BRIGHT_GREEN
+            )
+            print(f"{Colors.BRIGHT_GREEN}{'🎉' * 15}{Colors.RESET}\n")
+        except:
+            print("✅ 构建成功!")
+
+        # 根据平台显示可执行文件位置
+        if self.detect_platform() == "windows":
+            print(f"🎯 可执行文件位于 build/{build_type}/ 目录")
+        else:
+            print("🎯 可执行文件位于 build/bin/ 目录")
+
+        return True
+
+    def cmd_test(self, args):
+        """运行测试"""
+        build_dir = Path("build")
+
+        if not build_dir.exists():
+            print("❌ 构建目录不存在，请先运行: netbox build")
+            return False
+
+        # 显示测试动画
+        try:
+            print(f"\n{Colors.BOLD}{Colors.BRIGHT_MAGENTA}运行测试: {Path.cwd().name}{Colors.RESET}")
+            Animations.spinning_loader("初始化测试环境", 1.0)
+        except:
+            print("🧪 运行测试...")
+
+        # 使用ctest运行测试
+        if (build_dir / "CTestTestfile.cmake").exists():
+            return self.run_command(["ctest", "--verbose"], cwd=build_dir)
+        else:
+            # 直接运行测试可执行文件
+            test_files = list(build_dir.glob("bin/*_test*"))
+            if test_files:
+                for test_file in test_files:
+                    try:
+                        print(f"\n{Colors.BRIGHT_CYAN}🏃 运行测试: {test_file.name}{Colors.RESET}")
+                        Animations.spinning_loader(f"执行 {test_file.name}", 0.5)
+                    except:
+                        print(f"🏃 运行测试: {test_file.name}")
+                    
+                    if not self.run_command([str(test_file)]):
+                        return False
+                return True
+            else:
+                print("❌ 未找到测试程序")
+                return False
+
+    def cmd_run(self, args):
+        """运行程序"""
+        build_dir = Path("build")
+
+        if not build_dir.exists():
+            print("❌ 构建目录不存在，请先运行: netbox build")
+            return False
+
+        # 显示运行动画
+        try:
+            print(f"\n{Colors.BOLD}{Colors.BRIGHT_MAGENTA}启动程序: {Path.cwd().name}{Colors.RESET}")
+            Animations.fade_in_logo(ASCIIArt.NETBOX_SUBTITLE, [Colors.BRIGHT_GREEN], 0.05)
+        except:
+            print("🚀 启动程序...")
+
+        # 根据平台查找可执行文件
+        exe_files = []
+        if self.detect_platform() == "windows":
+            exe_files = list(build_dir.glob(f"**/*.exe"))
+        else:
+            exe_files = list(build_dir.glob("bin/*"))
+
+        if not exe_files:
+            print("❌ 未找到可执行文件")
+            return False
+
+        # 选择要运行的程序
+        target = args.target
+        if target:
+            # 查找指定的目标
+            target_files = [f for f in exe_files if target in f.name]
+            if target_files:
+                exe_file = target_files[0]
+            else:
+                print(f"❌ 未找到目标程序: {target}")
+                return False
+        else:
+            # 选择第一个可执行文件
+            exe_file = exe_files[0]
+
+        try:
+            print(f"\n{Colors.BRIGHT_GREEN}🌟 启动: {exe_file.name}{Colors.RESET}")
+            Animations.spinning_loader("启动应用程序", 1.0)
+        except:
+            print(f"🌟 启动: {exe_file.name}")
+
+        # 运行程序
+        return self.run_command([str(exe_file)], cwd=build_dir.parent)
+
+    def cmd_info(self, args):
+        """显示项目信息"""
+        print("📋 NetBox CLI v2.0 信息")
+        print("=" * 40)
+        print(f"版本: {self.version}")
+        print(f"平台: {self.detect_platform()}")
+        print(f"根目录: {self.root_dir}")
+        print(f"Python: {sys.version.split()[0]}")
+
+        # 检查依赖
+        print("\n🔧 系统依赖:")
+        deps = ["cmake", "make", "g++", "clang++"]
+        for dep in deps:
+            try:
+                result = subprocess.run([dep, "--version"],
+                                      capture_output=True, text=True)
+                if result.returncode == 0:
+                    version = result.stdout.split('\n')[0]
+                    print(f"  ✅ {dep}: {version}")
+                else:
+                    print(f"  ❌ {dep}: 未安装")
+            except FileNotFoundError:
+                print(f"  ❌ {dep}: 未找到")
+
+        return True
+
+    def cmd_clean(self, args):
+        """清理构建文件"""
+        build_dir = Path("build")
+
+        if not build_dir.exists():
+            print("✅ 构建目录不存在，无需清理")
+            return True
+
+        print("🧹 清理构建文件...")
+        try:
+            import shutil
+            shutil.rmtree(build_dir)
+            print("✅ 清理完成")
+            return True
+        except Exception as e:
+            print(f"❌ 清理失败: {e}")
+            return False
+
+    def main(self):
+        """主函数"""
+        # 检查是否需要显示启动动画
+        show_animation = len(sys.argv) > 1 and sys.argv[1] not in ['--help', '-h', '--version']
+
+        if show_animation:
+            try:
+                show_startup_animation()
+            except:
+                show_simple_banner()
+
+        parser = argparse.ArgumentParser(
+            description="NetBox CLI v2.0 - 简化、可靠的脚手架工具",
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            epilog="""
+示例:
+  netbox init MyProject     # 创建新项目
+  netbox build             # 构建项目
+  netbox test              # 运行测试
+  netbox run               # 运行程序
+  netbox info              # 显示信息
+  netbox clean             # 清理构建文件
+            """
+        )
+
+        parser.add_argument('--version', action='version',
+                          version=f'NetBox CLI v{self.version}')
+
+        subparsers = parser.add_subparsers(dest='command', help='可用命令')
+
+        # init命令
+        init_parser = subparsers.add_parser('init', help='创建新项目')
+        init_parser.add_argument('name', nargs='?', help='项目名称')
+
+        # build命令
+        build_parser = subparsers.add_parser('build', help='构建项目')
+        build_parser.add_argument('--type', choices=['Debug', 'Release'],
+                                help='构建类型')
+        build_parser.add_argument('--jobs', type=int, help='并行任务数')
+
+        # test命令
+        subparsers.add_parser('test', help='运行测试')
+
+        # run命令
+        run_parser = subparsers.add_parser('run', help='运行程序')
+        run_parser.add_argument('target', nargs='?', help='目标程序')
+
+        # info命令
+        subparsers.add_parser('info', help='显示项目信息')
+
+        # clean命令
+        subparsers.add_parser('clean', help='清理构建文件')
+
+        args = parser.parse_args()
+
+        if not args.command:
+            parser.print_help()
+            return 1
+
+        # 执行命令
+        command_map = {
+            'init': self.cmd_init,
+            'build': self.cmd_build,
+            'test': self.cmd_test,
+            'run': self.cmd_run,
+            'info': self.cmd_info,
+            'clean': self.cmd_clean
+        }
+
+        if args.command in command_map:
+            try:
+                success = command_map[args.command](args)
+                return 0 if success else 1
+            except KeyboardInterrupt:
+                print("\n⚠️  操作被用户中断")
+                return 1
+            except Exception as e:
+                print(f"❌ 执行失败: {e}")
+                return 1
+        else:
+            print(f"❌ 未知命令: {args.command}")
+            return 1
+
+if __name__ == "__main__":
+    cli = NetBoxCLI()
+    sys.exit(cli.main())
