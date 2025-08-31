@@ -1,9 +1,0 @@
-/home/sgly/桌面/NetBox/client/CMakeFiles/NetBox.dir
-/home/sgly/桌面/NetBox/client/CMakeFiles/echo_client_fixed.dir
-/home/sgly/桌面/NetBox/client/CMakeFiles/smart_netbox_redis_client.dir
-/home/sgly/桌面/NetBox/client/CMakeFiles/edit_cache.dir
-/home/sgly/桌面/NetBox/client/CMakeFiles/rebuild_cache.dir
-/home/sgly/桌面/NetBox/client/CMakeFiles/list_install_components.dir
-/home/sgly/桌面/NetBox/client/CMakeFiles/install.dir
-/home/sgly/桌面/NetBox/client/CMakeFiles/install/local.dir
-/home/sgly/桌面/NetBox/client/CMakeFiles/install/strip.dir

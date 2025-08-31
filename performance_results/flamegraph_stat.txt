@@ -1,2 +1,0 @@
-sudo: unable to read password: 输入/输出错误
-sudo: 1 次错误密码尝试
