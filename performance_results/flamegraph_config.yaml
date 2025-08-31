@@ -1,0 +1,27 @@
+application:
+  type: echo
+
+network:
+  ip: 127.0.0.1
+  port: 8888
+  io_type: epoll
+
+threading:
+  worker_threads: 4
+  thread_pool_type: double_lock
+
+logging:
+  level: error
+  async: true
+
+performance:
+  max_connections: 1000
+  buffer_size: 4096
+
+echo:
+  heartbeat_enabled: false
+  protocol: SimpleHeader
+
+protocol:
+  default: SimpleHeader
+  timeout: 30
