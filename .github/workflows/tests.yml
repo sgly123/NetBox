@@ -60,6 +60,9 @@ jobs:
         -DCMAKE_C_COMPILER=$CC \
         -DCMAKE_CXX_COMPILER=$CXX
     
+    - name: Grant execute permission to test script
+      run: chmod +x ../tests/run_tests.sh
+
     - name: Build
       run: |
         cd build
