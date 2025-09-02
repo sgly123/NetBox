@@ -1,0 +1,47 @@
+# NetBox 开发模式 Docker镜像
+# 只安装开发环境，源码通过挂载实时更新
+
+FROM ubuntu:22.04
+
+# 设置环境变量
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 更换为国内镜像源
+RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
+    sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
+
+# 安装开发依赖
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    gdb \
+    vim \
+    nano \
+    htop \
+    tree \
+    curl \
+    wget \
+    libssl-dev \
+    libspdlog-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# 创建工作目录
+WORKDIR /workspace
+
+# 创建非root用户
+RUN useradd -r -s /bin/bash -m netbox && \
+    chown -R netbox:netbox /workspace
+
+# 创建必要目录
+RUN mkdir -p /app/logs /app/data && \
+    chown -R netbox:netbox /app
+
+# 切换到非root用户
+USER netbox
+
+# 暴露端口
+EXPOSE 6379 8888
+
+# 开发模式默认命令（保持容器运行）
+CMD ["tail", "-f", "/dev/null"] 

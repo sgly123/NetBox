@@ -239,9 +239,9 @@ install(DIRECTORY docs/
 # ================================
 
 # 启用测试
-option(BUILD_TESTS "Build unit tests" ON)
+option(BUILD_TESTS "Build unit tests" OFF)
 
-if(BUILD_TESTS)
+if(BUILD_TESTS AND EXISTS "${CMAKE_SOURCE_DIR}/tests")
     enable_testing()
     add_subdirectory(tests)
 endif()

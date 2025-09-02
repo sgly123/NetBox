@@ -1,0 +1,62 @@
+# Git相关
+.git
+.gitignore
+.gitattributes
+
+# 构建产物
+build/
+build_linux/
+*.o
+*.a
+*.so
+*.dll
+*.exe
+*.log
+
+# IDE和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 文档和说明
+README.md
+*.md
+docs/
+
+# 测试相关
+tests/
+TestProject/
+BinTest/
+BinTest2/
+performance_results/
+flamegraph_result/
+FlameGraph/
+
+# 脚本和工具
+scripts/
+tools/
+*.sh
+*.bat
+*.ps1
+*.py
+
+# 日志文件
+logs/
+*.log
+
+# 临时文件
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Docker相关
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# 其他
+*.tar.gz
+*.zip 

@@ -1,0 +1,51 @@
+# Docker Compose 开发模式 - 支持源码挂载和实时更新
+
+services:
+  # 开发环境构建容器
+  netbox-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: netbox-dev-server
+    restart: unless-stopped
+    ports:
+      - "6379:6379"  # Redis协议端口
+      - "8888:8888"  # Echo服务器端口
+    volumes:
+      # 源码挂载 - 实时更新
+      - .:/workspace:rw                    # 整个项目源码
+      - ./config:/app/config:ro            # 配置文件
+      - ./logs:/app/logs                   # 日志目录
+      - ./data:/app/data                   # 数据目录
+      # 构建产物缓存
+      - build-cache:/workspace/build       # 构建缓存
+    environment:
+      - TZ=Asia/Shanghai
+      - NETBOX_DEV_MODE=1                  # 开发模式标志
+    networks:
+      - netbox-network
+    working_dir: /workspace
+    # 开发模式：启动后保持运行，支持手动编译
+    command: >
+      sh -c "
+        echo '🔧 NetBox 开发模式启动...' &&
+        echo '📁 源码已挂载到 /workspace' &&
+        echo '🔨 手动编译命令: cd /workspace && mkdir -p build && cd build && cmake .. && make' &&
+        echo '🚀 启动命令: ./build/bin/NetBox config/config-docker.yaml' &&
+        tail -f /dev/null
+      "
+    healthcheck:
+      test: ["CMD", "ls", "/workspace"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  netbox-network:
+    driver: bridge
+    name: netbox-network
+
+volumes:
+  build-cache:
+    driver: local 
