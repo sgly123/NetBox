@@ -140,12 +140,9 @@ jobs:
     - name: Generate coverage report
       run: |
         cd build
-        # 先跑一次测试，真正产生 .gcda
-        ./tests/bin/test_base || true
-        # 捕获覆盖率
         lcov --directory . --capture --output-file coverage.info \
-             --ignore-errors empty
-        # 过滤系统目录和测试代码
+             --ignore-errors empty,mismatch,gcov \
+             --rc geninfo_unexecuted_blocks=1
         lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.info
         lcov --list coverage.info
     
