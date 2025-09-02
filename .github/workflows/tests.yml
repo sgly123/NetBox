@@ -53,12 +53,12 @@ jobs:
     
     - name: Configure CMake
       run: |
-        cd build
-        cmake .. \
-          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-          -DBUILD_TESTS=ON \
-          -DCMAKE_C_COMPILER=$CC \
-          -DCMAKE_CXX_COMPILER=$CXX
+        rm -rf build
+        cmake -S . -B build \
+        -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+        -DBUILD_TESTS=ON \
+        -DCMAKE_C_COMPILER=$CC \
+        -DCMAKE_CXX_COMPILER=$CXX
     
     - name: Build
       run: |
@@ -125,12 +125,12 @@ jobs:
     
     - name: Configure CMake with coverage
       run: |
-        cd build
-        cmake .. \
-          -DCMAKE_BUILD_TYPE=Debug \
-          -DBUILD_TESTS=ON \
-          -DCMAKE_CXX_FLAGS="--coverage" \
-          -DCMAKE_C_FLAGS="--coverage"
+        rm -rf build
+        cmake -S . -B build \
+        -DCMAKE_BUILD_TYPE=Debug \
+        -DBUILD_TESTS=ON \
+        -DCMAKE_CXX_FLAGS="--coverage" \
+        -DCMAKE_C_FLAGS="--coverage"
     
     - name: Build with coverage
       run: |
