@@ -86,13 +86,6 @@ jobs:
           --track-origins=yes --verbose --log-file=valgrind-out.txt \
           ./tests/bin/test_base || true
         cat valgrind-out.txt
-    
-    - name: Upload memory check results
-      uses: actions/download-artifact@v4
-      if: matrix.build_type == 'Debug' && matrix.compiler == 'gcc'
-      with:
-        name: valgrind-results
-        path: build/valgrind-out.txt
 
   coverage:
     runs-on: ubuntu-latest
