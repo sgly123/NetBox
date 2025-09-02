@@ -137,20 +137,6 @@ jobs:
         cd build
         ../tests/run_tests.sh || true
     
-    - name: Generate coverage report
-      run: |
-        cd build
-        # 1. 运行测试，产生 .gcda
-        ./tests/bin/test_base || true
-        # 2. 指定正确的目录，强制捕获
-        lcov --directory . --capture --output-file coverage.info \
-             --ignore-errors empty,mismatch,gcov \
-             --rc geninfo_unexecuted_blocks=1 \
-             --include '*/src/*'            # 只统计你的代码
-        # 3. 过滤系统/测试目录
-        lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.info
-        lcov --list coverage.info
-    
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
