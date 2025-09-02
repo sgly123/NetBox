@@ -13,7 +13,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # 跨平台编译选项设置
 if(WIN32)
     # Windows编译选项
-    set(CMAKE_CXX_FLAGS_DEBUG "/MDd /Zi /Ob0 /Od /RTC1 /DDEBUG")
+    set(CMAKE_CXX_FLAGS_DEBUG "/MDd /Zi /Ob0 /Od /RTC1 /DNETBOX_DEBUG")
+
     set(CMAKE_CXX_FLAGS_RELEASE "/MD /O2 /Ob2 /DNDEBUG")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /EHsc")
 
@@ -39,7 +40,8 @@ elseif(APPLE)
 
 elseif(UNIX)
     # Linux/Unix编译选项
-    set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -DDEBUG")
+    set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -DNETBOX_DEBUG")
+
     set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
 
