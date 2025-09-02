@@ -3,7 +3,7 @@ project(NetBox VERSION 1.0.0 LANGUAGES CXX)
 
 # 项目描述
 set(PROJECT_DESCRIPTION "NetBox - 企业级高性能网络框架")
-set(PROJECT_HOMEPAGE_URL "https://github.com/your-username/NetBox")
+set(PROJECT_HOMEPAGE_URL "https://github.com/sgly123/NetBox")
 
 # C++标准设置
 set(CMAKE_CXX_STANDARD 17)
@@ -27,7 +27,7 @@ if(WIN32)
 
 elseif(APPLE)
     # macOS编译选项
-    set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -DDEBUG")
+    set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -DNETBOX_DEBUG")
     set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
 
