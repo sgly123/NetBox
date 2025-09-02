@@ -98,15 +98,15 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y \
-          build-essential \
-          cmake \
-          libgtest-dev \
-          libspdlog-dev \
-          libfmt-dev \
-          libyaml-cpp-dev \
-          gcov \
-          lcov
-    
+        build-essential \
+        cmake \
+        libgtest-dev \
+        libspdlog-dev \
+        libfmt-dev \
+        libyaml-cpp-dev \
+        lcov \
+        gcovr
+
     - name: Build Google Test
       run: |
         cd /usr/src/googletest
