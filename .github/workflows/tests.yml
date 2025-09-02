@@ -59,9 +59,6 @@ jobs:
         -DBUILD_TESTS=ON \
         -DCMAKE_C_COMPILER=$CC \
         -DCMAKE_CXX_COMPILER=$CXX
-    
-    - name: Grant execute permission to test script
-      run: chmod +x ../tests/run_tests.sh
 
     - name: Build
       run: |
@@ -70,8 +67,8 @@ jobs:
     
     - name: Run tests
       run: |
-        cd build
-        ../tests/run_tests.sh
+        chmod +x tests/run_tests.sh
+        tests/run_tests.sh
     
     - name: Upload test results
       uses: actions/upload-artifact@v4
