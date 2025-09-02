@@ -49,7 +49,7 @@ jobs:
         sudo make install
     
     - name: Create build directory
-      run: mkdir build
+      run: mkdir -p build
     
     - name: Configure CMake
       run: |
@@ -121,7 +121,7 @@ jobs:
         sudo make install
     
     - name: Create build directory
-      run: mkdir build
+      run: mkdir -p build
     
     - name: Configure CMake with coverage
       run: |
