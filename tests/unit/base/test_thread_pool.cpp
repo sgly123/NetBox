@@ -5,6 +5,7 @@
 #include <vector>
 #include <future>
 #include <chrono>
+#include <algorithm> 
 
 class ThreadPoolTest : public ::testing::Test {
 protected:

@@ -2,6 +2,7 @@
 #include "util/EnhancedConfigReader.h"
 #include "test_utils.h"
 #include <fstream>
+#include <algorithm>
 
 class EnhancedConfigReaderTest : public ::testing::Test {
 protected:
