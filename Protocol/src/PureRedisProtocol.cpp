@@ -4,6 +4,12 @@
 #include <algorithm>
 #include <iomanip>
 #include <sys/socket.h>
+#include <cstring>       
+#include <arpa/inet.h>
+
+// 心跳包魔数定义 - 用于识别和过滤心跳包
+const uint32_t HEARTBEAT_MAGIC = 0xFAFBFCFD;
+const size_t MAGIC_LEN = 4;
 
 // 构造
 PureRedisProtocol::PureRedisProtocol() {
@@ -27,20 +33,43 @@ size_t PureRedisProtocol::onDataReceived(const char* data, size_t len) {
     return onClientDataReceived(0, data, len);
 }
 
+// 简化数据接收处理逻辑，移除魔数过滤
 size_t PureRedisProtocol::onClientDataReceived(int clientFd, const char* data, size_t len) {
-    if (!data || len == 0) return 0;
-    std::string& buf = m_clientBuffers[clientFd];
-    buf.append(data, len);
+    Logger::debug("PureRedisProtocol 接收客户端[" + std::to_string(clientFd) + "]数据，长度: " + std::to_string(len));
+    
+    // 1. 添加数据到缓冲区
+    std::string& buffer = m_clientBuffers[clientFd];
+    buffer.append(data, len);
 
+    // 2. 先过滤心跳包魔数
+    std::string heartbeatFiltered = filterHeartbeat(buffer);
+    
+    // 3. 再过滤空字节
+    std::string cleanBuffer = filterNullBytes(heartbeatFiltered);
+    
+    // 更新缓冲区为清理后的数据
+    if (cleanBuffer.size() != buffer.size()) {
+        buffer = cleanBuffer;
+        Logger::info("客户端[" + std::to_string(clientFd) + "]数据处理完成，剩余长度: " + std::to_string(buffer.size()));
+    }
+    
+    // 3. RESP协议解析（用清理后的数据）
     size_t totalProcessed = 0;
     while (true) {
         size_t consumed = 0;
-        auto [ok, args] = resp_decode(buf, consumed);
-        if (!ok) break;               // 包不完整
-        buf.erase(0, consumed);
-        if (!args.empty()) processRedisCommand(clientFd, args);
+        auto [success, args] = resp_decode(buffer, consumed);
+        if (!success) break;
+        
+        if (!args.empty()) {
+            Logger::info("Pure Redis处理命令: " + args[0]);
+            std::string response = executeRedisCommand(args);
+            sendDirectResponse(clientFd, response);
+        }
+        
+        buffer.erase(0, consumed);
         totalProcessed += consumed;
     }
+    
     return totalProcessed;
 }
 
@@ -77,7 +106,10 @@ PureRedisProtocol::resp_decode(const std::string& buf, size_t& consumed) {
 
 // -------------- 命令处理 --------------
 void PureRedisProtocol::processRedisCommand(int clientFd, const std::vector<std::string>& args) {
-    if (args.empty()) return;
+    if (args.empty()) {
+        Logger::warn("收到空的Redis命令参数");
+        return;
+    }
     std::string response = executeRedisCommand(args);
     sendDirectResponse(clientFd, response);
 }
@@ -91,7 +123,7 @@ std::string PureRedisProtocol::executeRedisCommand(const std::vector<std::string
     if (cmd == "COMMAND") {
     return formatArray({}); 
     }
-    if (cmd == "PING") {
+    if (cmd == "PING") {  // 现在无论输入ping/PING都能匹配
         if (args.size() == 1) return formatSimpleString("PONG");
         if (args.size() == 2) return formatBulkString(args[1]);
         return formatError("ERR wrong number of arguments for 'ping' command");
@@ -142,39 +174,114 @@ std::string PureRedisProtocol::formatNull() {
 
 // -------------- 发送 --------------
 void PureRedisProtocol::sendDirectResponse(int clientFd, const std::string& response) {
-    /*
-    if (packetCallback_) {
-        std::vector<char> pkt(response.begin(), response.end());
-        packetCallback_(pkt);
-    }
-    */
-
-    // ✅ 新增：校验RESP响应首字符是否合法
+    // 1. 校验RESP响应首字符合法性
     if (!response.empty()) {
         char first = response[0];
         if (first != '+' && first != '-' && first != ':' && first != '$' && first != '*') {
-            Logger::error("非法RESP响应首字符: 0x" + 
-                std::to_string(static_cast<unsigned char>(first)));
-            return; // 阻止发送非法响应
+            Logger::error("非法RESP响应首字符: 0x" + std::to_string(static_cast<unsigned char>(first)));
+            return;
         }
     }
     
-    std::lock_guard<std::mutex> lock(m_sendMutex);  // 加锁
-    std::ostringstream hexStream;
-    for (unsigned char c : response) {
-        hexStream << std::hex << std::setw(2) << std::setfill('0') << (int)c << " ";
-    }
-    Logger::debug("响应内容十六进制: " + hexStream.str());
-
-    Logger::debug("响应内容: " + response);
+    // 2. 发送标准RESP响应（不需要额外过滤）
+    std::lock_guard<std::mutex> lock(m_sendMutex);
+    Logger::debug("发送RESP响应: " + response);
+    
     if (clientFd > 0) {
         ssize_t sent = ::send(clientFd, response.c_str(), response.length(), 0);
         if (sent > 0) {
-            Logger::info("PureRedisProtocol 直接发送成功，长度: " + std::to_string(sent));
+            Logger::info("PureRedisProtocol 发送成功，长度: " + std::to_string(sent));
         } else {
             Logger::error("PureRedisProtocol 发送失败，错误码: " + std::to_string(errno));
         }
     } else {
         Logger::error("无效的客户端FD，无法发送响应");
     }
+}
+
+// 心跳包过滤函数 - 识别并移除心跳包，保留Redis命令
+std::string PureRedisProtocol::filterHeartbeat(const std::string& data) {
+    std::string filtered = data;
+    size_t totalRemoved = 0;
+    
+    while (filtered.size() >= MAGIC_LEN) {
+        uint32_t magic;
+        std::memcpy(&magic, filtered.data(), MAGIC_LEN);
+        
+        // 检查是否是心跳包魔数
+        if (ntohl(magic) == HEARTBEAT_MAGIC) {
+            Logger::debug("检测到心跳包魔数，移除4字节");
+            filtered = filtered.substr(MAGIC_LEN);
+            totalRemoved += MAGIC_LEN;
+        } else {
+            // 不是心跳包魔数，停止过滤
+            break;
+        }
+    }
+    
+    if (totalRemoved > 0) {
+        Logger::info("过滤心跳包完成，移除了 " + std::to_string(totalRemoved) + " 字节，剩余长度: " + std::to_string(filtered.size()));
+    }
+    
+    return filtered;
+}
+
+std::vector<std::string> PureRedisProtocol::parseRedisCommand(const std::string& commandLine) {
+    std::vector<std::string> args;
+    std::string current_arg;
+    bool in_quotes = false; // 标记是否在引号内
+    char quote_char = '\0'; // 记录当前引号类型（单引号或双引号）
+
+    for (char c : commandLine) {
+        if (c == ' ' && !in_quotes) {
+            // 空格且不在引号内，结束当前参数
+            if (!current_arg.empty()) {
+                args.push_back(current_arg);
+                current_arg.clear();
+            }
+        } else if ((c == '"' || c == '\'') && (quote_char == '\0' || c == quote_char)) {
+            // 处理引号（开始或结束）
+            in_quotes = !in_quotes;
+            if (!in_quotes) {
+                quote_char = '\0'; // 结束引号时重置
+            } else {
+                quote_char = c; // 记录开始的引号类型
+            }
+        } else {
+            // 普通字符，添加到当前参数
+            current_arg += c;
+        }
+    }
+
+    // 添加最后一个参数
+    if (!current_arg.empty()) {
+        args.push_back(current_arg);
+    }
+
+    return args;
+}
+
+size_t PureRedisProtocol::isCompleteRedisCommand(const std::string& buffer) {
+    size_t consumed = 0;
+    // 调用resp_decode检查是否能解析出完整命令
+    auto [success, _] = resp_decode(buffer, consumed);
+    return success ? consumed : 0;  // 完整则返回消费长度，否则返回0
+}
+
+std::string PureRedisProtocol::filterNullBytes(const std::string& data) {
+    std::string filtered;
+    filtered.reserve(data.size());  // 预分配空间，提升效率
+    
+    for (char c : data) {
+        if (c != '\0') {  // 跳过空字节，保留其他所有有效字符
+            filtered += c;
+        }
+    }
+    
+    // 日志记录：显示过滤效果
+    if (filtered.size() != data.size()) {
+        Logger::info("过滤空字节完成，原始长度: " + std::to_string(data.size()) + 
+                    ", 过滤后长度: " + std::to_string(filtered.size()));
+    }
+    return filtered;
 }

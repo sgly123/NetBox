@@ -85,7 +85,7 @@ protected:
     std::unordered_map<int, std::chrono::steady_clock::time_point> m_lastActive; // 记录每个连接最后活跃时间
     int m_heartbeatTimeout = 60; // 心跳超时时间（秒）
     bool m_heartbeatEnabled = true; // 心跳开关，默认启用
-    void sendHeartbeat(int client_fd); // 发送心跳包
+    virtual void sendHeartbeat(int client_fd); // 发送心跳包（可被子类重写）
     void checkHeartbeats(); // 检查心跳超时
 
 public:

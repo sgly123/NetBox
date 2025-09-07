@@ -55,6 +55,13 @@ protected:
     void onDataReceived(int clientFd, const char* data, size_t len) override;
     
     /**
+     * @brief 重写心跳包发送方法，Redis服务器不向客户端发送心跳包
+     */
+    void sendHeartbeat(int client_fd) override;
+    
+
+    
+    /**
      * @brief 处理接收到的数据包（核心方法）
      */
     void onPacketReceived(const std::vector<char>& packet);

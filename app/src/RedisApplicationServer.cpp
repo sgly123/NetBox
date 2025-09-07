@@ -12,9 +12,9 @@ RedisApplicationServer::RedisApplicationServer(const std::string& ip, int port,
     Logger::info("RedisApplicationServer 初始化完成");
     Logger::info("支持命令: PING, SET, GET, DEL, KEYS, LPUSH, LPOP, LRANGE, HSET, HGET, HKEYS");
 
-    // 启用心跳：心跳包已在协议层正确识别和过滤
-    setHeartbeatEnabled(false);
-    Logger::info("Redis应用已启用心跳包，心跳包将在协议层被正确过滤");
+    // 启用心跳检测但重写发送逻辑：保持连接监控，但不发送心跳包数据
+    setHeartbeatEnabled(true);
+    Logger::info("Redis应用已启用智能心跳：保持连接监控，但不发送心跳包数据，确保RESP协议纯净");
 }
 
 void RedisApplicationServer::initializeProtocolRouter() {
@@ -71,17 +71,28 @@ bool RedisApplicationServer::parseRequestPath(const std::string& path, std::stri
 }
 
 void RedisApplicationServer::onDataReceived(int clientFd, const char* data, size_t len) {
-    Logger::info("RedisApplicationServer收到客户端" + std::to_string(clientFd) + "的数据，长度: " + std::to_string(len));
+    Logger::info("RedisApplicationServer 收到客户端[" + std::to_string(clientFd) + "]数据，长度: " + std::to_string(len));
+
+    // 移除魔数检测 - Redis协议不需要自定义魔数
+    // Redis协议使用纯RESP格式，不包含自定义魔数
 
     // 记录当前处理的客户端fd
     m_currentClientFd = clientFd;
 
-    // 调用基类方法处理协议分发
+    // 调用基类方法处理协议分发（最终会进入 PureRedisProtocol）
     ApplicationServer::onDataReceived(clientFd, data, len);
 
     // 清除当前客户端fd
     m_currentClientFd = -1;
 }
+
+void RedisApplicationServer::sendHeartbeat(int client_fd) {
+    // Redis服务器不向客户端发送心跳包，避免污染RESP协议流
+    // 保持连接活跃检测，但不发送实际的心跳包数据
+    Logger::debug("Redis服务器跳过向客户端[" + std::to_string(client_fd) + "]发送心跳包，保持RESP协议纯净");
+}
+
+
 
 
 void RedisApplicationServer::onPacketReceived(const std::vector<char>& packet) {

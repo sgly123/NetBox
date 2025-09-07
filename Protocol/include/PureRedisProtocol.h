@@ -35,7 +35,17 @@ private:
     std::string formatArray(const std::vector<std::string>& array);
     std::string formatNull();
 
+
+    std::string filterHeartbeat(const std::string& data);
+
+    size_t isCompleteRedisCommand(const std::string& buffer);
+
+    std::vector<std::string> parseRedisCommand(const std::string& commandLine);
+
     std::mutex m_sendMutex;  // 加锁
+
+    std::string filterNullBytes(const std::string& data);
+
 public:
     // 直接发送
     void sendDirectResponse(int clientFd, const std::string& response);
