@@ -10,7 +10,7 @@
 #include <thread>
 #include "base/HeartbeatThreadPool.h"
 #include <chrono>
-const uint32_t HEARTBEAT_MAGIC = 0x12345678;
+const uint32_t HEARTBEAT_MAGIC = 0xFAFBFCFD;
 
 
 TcpServer::TcpServer(const std::string& ip, int port, IOMultiplexer::IOType io_type)
@@ -93,20 +93,21 @@ bool TcpServer::start() {
 void TcpServer::run() {
     while (m_running) {
         std::vector<std::pair<int, IOMultiplexer::EventType>> activeEvents;
-        int n = m_io->wait(activeEvents, 1000); // 1秒超时
+        int n = m_io->wait(activeEvents, 1000);
         if (n < 0) {
             Logger::error("等待事件失败");
             continue;
         }
         for (auto& [fd, event] : activeEvents) {
             if (fd == m_socket) {
-                // 新连接
                 handleAccept();
             } else if (event & IOMultiplexer::EventType::READ) {
-                // 客户端读事件
                 handleRead(fd);
+            } else if (event & IOMultiplexer::EventType::WRITE) {
+                // 处理写事件，继续发送缓冲区数据
+                std::lock_guard<std::mutex> lock(getSendMutex(fd));
+                flushSendBuffer(fd);
             } else if (event & IOMultiplexer::EventType::ERROR) {
-                // 错误事件，关闭连接
                 handleClose(fd);
             }
         }
@@ -148,12 +149,18 @@ void TcpServer::handleAccept() {
     Logger::info(std::string("[TcpServer] 客户端") + std::to_string(client_fd) + "连接成功（IP:" + ip + "）");
 }
 
+// 发送心跳包（使用新的发送逻辑）
 void TcpServer::sendHeartbeat(int client_fd) {
-    // 智能心跳控制：只有启用心跳时才发送
-    if (m_heartbeatEnabled) {
-        uint32_t magic = htonl(HEARTBEAT_MAGIC); // 网络字节序
-        send(client_fd, &magic, sizeof(magic), 0);
-    }
+    if (!m_heartbeatEnabled) return;
+
+    uint32_t magic = htonl(HEARTBEAT_MAGIC);
+    sendData(client_fd, (char*)&magic, sizeof(magic), true);
+    Logger::debug("[TcpServer] 客户端" + std::to_string(client_fd) + "心跳包加入发送队列");
+}
+
+// 业务数据发送接口（供外部调用）
+void TcpServer::sendBusinessData(int client_fd, const std::string& data) {
+    sendData(client_fd, data.data(), data.size(), false);
 }
 
 void TcpServer::checkHeartbeats() {
@@ -179,46 +186,66 @@ void TcpServer::checkHeartbeats() {
 void TcpServer::handleRead(int client_fd) {
     std::vector<char> buffer(BUFFER_SIZE);
     int bytes_received = recv(client_fd, buffer.data(), buffer.size(), 0);
-    if (bytes_received > 0) {
-        m_lastActive[client_fd] = std::chrono::steady_clock::now();
-        
-        // ==================== 心跳包识别和过滤 ====================
-        // 检查是否为心跳包（4字节魔数）
-        if (bytes_received == sizeof(uint32_t)) {
-            uint32_t magic_recv = 0;
-            memcpy(&magic_recv, buffer.data(), sizeof(magic_recv));
-            magic_recv = ntohl(magic_recv);
-            if (magic_recv == HEARTBEAT_MAGIC) {
-                Logger::debug("[TcpServer] 识别到心跳包，已过滤，不传递给协议层");
-                return; // 心跳包处理完毕，不传递给业务层
-            }
-        }
-        
-        // ==================== 业务数据处理 ====================
-        // 只有非心跳包数据才传递给业务层
-        std::string data(buffer.data(), bytes_received);
-        if (m_onMessage) {
-            m_onMessage(client_fd, data);
-        }
-    } else if (bytes_received == 0) {
-        handleClose(client_fd);
-    } else {
-        if (errno != EAGAIN && errno != EWOULDBLOCK) {
+    if (bytes_received <= 0) {
+        // 处理断开连接或错误，保持原逻辑
+        if (bytes_received == 0) {
+            handleClose(client_fd);
+        } else if (errno != EAGAIN && errno != EWOULDBLOCK) {
             handleClose(client_fd);
         }
+        return;
     }
+
+    // 更新活跃时间
+    m_lastActive[client_fd] = std::chrono::steady_clock::now();
+
+    size_t processed = 0;
+    const char* data = buffer.data();
+    size_t total_len = bytes_received;
+
+    // ==================== 优先过滤所有心跳包（处理粘包） ====================
+    while (processed + sizeof(uint32_t) <= total_len) {
+        uint32_t magic_recv;
+        memcpy(&magic_recv, data + processed, sizeof(magic_recv));
+        magic_recv = ntohl(magic_recv);
+
+        if (magic_recv == HEARTBEAT_MAGIC) {
+            // 识别到心跳包，跳过4字节
+            processed += sizeof(uint32_t);
+            Logger::debug("[TcpServer] 客户端" + std::to_string(client_fd) + "过滤心跳包，累计处理: " + std::to_string(processed) + "字节");
+        } else {
+            // 非心跳包，退出循环
+            break;
+        }
+    }
+
+    // ==================== 处理剩余业务数据 ====================
+    if (processed < total_len) {
+    std::string business_data(data + processed, total_len - processed);
+    if (m_onMessage) {
+        // 业务层应调用 sendBusinessData 发送响应
+        m_onMessage(client_fd, business_data);
+    }
+}
 }
 
 void TcpServer::handleClose(int client_fd) {
     std::lock_guard<std::mutex> lock(m_mutex);
-    if (m_clients.find(client_fd) != m_clients.end()) {
-        m_io->removefd(client_fd);
-        close(client_fd);
-        m_clients.erase(client_fd);
-        m_lastActive.erase(client_fd);
-        if (m_onClose) m_onClose(client_fd);
-        Logger::info(std::string("[TcpServer] 客户端") + std::to_string(client_fd) + "断开连接");
+    if (m_clients.find(client_fd) == m_clients.end()) return;
+
+    // 清理发送缓冲区和锁
+    {
+        std::lock_guard<std::mutex> lock(m_mutexForLocks);
+        m_sendBuffers.erase(client_fd);
+        m_sendMutexes.erase(client_fd);
     }
+
+    m_io->removefd(client_fd);
+    close(client_fd);
+    m_clients.erase(client_fd);
+    m_lastActive.erase(client_fd);
+    if (m_onClose) m_onClose(client_fd);
+    Logger::info("[TcpServer] 客户端" + std::to_string(client_fd) + "断开连接");
 }
 
 void TcpServer::onDataReceived(int, const char*, size_t) {
@@ -232,3 +259,68 @@ void TcpServer::onClientConnected(int) {
 void TcpServer::onClientDisconnected(int) {
     // 默认空实现
 } 
+
+std::mutex& TcpServer::getSendMutex(int client_fd) {
+    std::lock_guard<std::mutex> lock(m_mutexForLocks); // 保护哈希表操作
+    auto it = m_sendMutexes.find(client_fd);
+    if (it == m_sendMutexes.end()) {
+        // 安全插入新锁
+       it = m_sendMutexes.emplace(client_fd, std::make_unique<std::mutex>()).first;
+    }
+    return *it->second;
+}
+
+void TcpServer::sendData(int client_fd, const char* data, size_t len, [[maybe_unused]] bool is_heartbeat) {
+    if (len == 0) return;
+
+    // 获取客户端专属锁
+    std::mutex& sendLock = getSendMutex(client_fd);
+    std::lock_guard<std::mutex> lock(sendLock);
+
+    // 将数据加入发送缓冲区
+    m_sendBuffers[client_fd].emplace_back(data, data + len);
+
+    // 尝试立即发送缓冲区数据
+    flushSendBuffer(client_fd);
+
+    // 若缓冲区仍有数据，注册写事件（通过 IO 多路复用后续发送）
+    if (!m_sendBuffers[client_fd].empty()) {
+        m_io->modifyFd(client_fd, IOMultiplexer::EventType::READ | IOMultiplexer::EventType::WRITE);
+    }
+}
+
+// 发送缓冲区刷新函数
+void TcpServer::flushSendBuffer(int client_fd) {
+    auto it = m_sendBuffers.find(client_fd);
+    if (it == m_sendBuffers.end() || it->second.empty()) return;
+
+    while (!it->second.empty()) {
+        const auto& buffer = it->second.front();
+        ssize_t sent = send(client_fd, buffer.data(), buffer.size(), 0);
+
+        if (sent < 0) {
+            // 非阻塞下暂时无法发送，退出等待下次写事件
+            if (errno == EAGAIN || errno == EWOULDBLOCK) {
+                break;
+            } else {
+                // 发送错误，关闭连接
+                Logger::error("[TcpServer] 发送失败，客户端FD: " + std::to_string(client_fd));
+                handleClose(client_fd);
+                return;
+            }
+        } else if (sent < (ssize_t)buffer.size()) {
+            // 部分发送，保留剩余数据
+            std::vector<char> remaining(buffer.begin() + sent, buffer.end());
+            it->second.front() = std::move(remaining);
+            break;
+        } else {
+            // 完整发送，移除缓冲区数据
+            it->second.pop_front();
+        }
+    }
+
+    // 缓冲区为空时，取消写事件注册
+    if (it->second.empty()) {
+        m_io->modifyFd(client_fd, IOMultiplexer::EventType::READ);
+    }
+}

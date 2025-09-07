@@ -30,7 +30,7 @@ private:
     bool m_debugMode;
     
 public:
-    SmartNetBoxRedisClient(const std::string& host = "192.168.88.135", int port = 6379, bool debugMode = false) 
+    SmartNetBoxRedisClient(const std::string& host = "127.0.0.1", int port = 6379, bool debugMode = false) 
         : m_socket(-1), m_host(host), m_port(port), m_connected(false), m_debugMode(debugMode) {
     }
     

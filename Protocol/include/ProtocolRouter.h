@@ -6,6 +6,7 @@
 #include <vector>
 #include "ProtocolBase.h"
 
+const uint32_t HEARTBEAT_MAGIC = 0xFAFBFCFD;
 /**
  * @brief 协议分发器：根据协议ID将数据分发到对应的协议处理器
  * 
@@ -104,6 +105,11 @@ private:
      * @return 检测到的协议ID
      */
     uint32_t detectProtocol(const char* data, size_t len);
+public:
+    ProtocolBase* getProtocol(uint32_t id) {
+    auto it = protocols_.find(id);            
+    return (it != protocols_.end()) ? it->second.get() : nullptr;
+}
 
     std::unordered_map<uint32_t, ProtocolPtr> protocols_;  // 协议路由表：协议ID -> 协议处理器
     ProtocolBase::ErrorCallback errorCallback_;             // 错误处理回调函数

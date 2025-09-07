@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <atomic>
 #include <mutex>
+#include <deque>
 #include "../IO/IOFactory.h"
 #include "../base/HeartbeatThreadPool.h"
 
@@ -90,5 +91,21 @@ protected:
 public:
     // 智能心跳控制
     void setHeartbeatEnabled(bool enabled) { m_heartbeatEnabled = enabled; }
+
+private:
+    // 客户端发送缓冲区（确保非阻塞发送完整）
+    std::unordered_map<int, std::deque<std::vector<char>>> m_sendBuffers;
+    // 发送锁（需确保初始化线程安全）
+    std::unordered_map<int, std::unique_ptr<std::mutex>> m_sendMutexes;
+    // 保护 m_sendMutexes 自身的锁（关键修复）
+    std::mutex m_mutexForLocks;
+
+    std::mutex& getSendMutex(int client_fd);
+
+    void sendData(int client_fd, const char* data, size_t len, bool is_heartbeat);
+
+    void flushSendBuffer(int client_fd);
+
+    void sendBusinessData(int client_fd, const std::string& data);
 };
 #endif // TCP_SERVER_H

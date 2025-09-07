@@ -2,9 +2,11 @@
 #include <sstream>
 #include <iomanip>
 #include "HttpProtocol.h"
+#include "PureRedisProtocol.h"
 #include <sstream>
 #include <algorithm>
 #include <sys/socket.h>
+#include "ProtocolRouter.h"
 
 ApplicationServer::ApplicationServer(const std::string& ip, int port, IOMultiplexer::IOType io_type, IThreadPool* pool)
     : TcpServer(ip, port, io_type), m_pool(pool) {}
@@ -17,8 +19,10 @@ bool ApplicationServer::start() {
 
     // 设置ProtocolRouter的回调（关键修复！）
     m_router->setPacketCallback([this](uint32_t protoId, const std::vector<char>& packet) {
-        Logger::info("ApplicationServer收到协议" + std::to_string(protoId) + "的数据包，长度: " + std::to_string(packet.size()));
-        this->onProtocolPacket(protoId, packet);
+        if (protoId  != 3) {
+            Logger::info("ApplicationServer收到协议" + std::to_string(protoId) + "的数据包，长度: " + std::to_string(packet.size()));
+            this->onProtocolPacket(protoId, packet);
+        }
     });
 
     initializeProtocolRouter();
@@ -40,10 +44,8 @@ void ApplicationServer::stop() {
 void ApplicationServer::onDataReceived(int clientFd, const char* data, size_t len) {
     Logger::info("ApplicationServer收到客户端" + std::to_string(clientFd) + "的数据，长度: " + std::to_string(len));
 
-    // 保存当前客户端FD，供协议回调使用
     m_currentClientFd = clientFd;
 
-    // 调试：打印原始数据的十六进制
     std::ostringstream hexStream;
     hexStream << "原始数据十六进制: ";
     for (size_t i = 0; i < len && i < 50; ++i) {
@@ -51,41 +53,40 @@ void ApplicationServer::onDataReceived(int clientFd, const char* data, size_t le
     }
     Logger::debug(hexStream.str());
 
-    // 通过协议分发器处理数据
+    // ✅ 优先：如果是 RESP 格式（以 '*' 开头），直接走 PureRedisProtocol
+    if (len > 0 && data[0] == '*') {
+        auto* pureProto = dynamic_cast<PureRedisProtocol*>(m_router->getProtocol(3));
+        if (pureProto) {
+            size_t processed = pureProto->onClientDataReceived(clientFd, data, len);
+            Logger::debug("PureRedisProtocol 直接处理了 " + std::to_string(processed) + " 字节");
+            return; // ✅ 处理完就返回，不再走分发器
+        }
+    }
+
+    // ✅  fallback：非 RESP 再走协议分发器
     if (m_router) {
         size_t processed = m_router->onDataReceived(clientFd, data, len);
         Logger::debug("协议分发器处理了 " + std::to_string(processed) + " 字节");
 
         if (processed == 0 && len > 0) {
-            Logger::warn("协议分发器未处理任何数据，可能数据不完整");
+            Logger::warn("协议分发器未识别，仍尝试 PureRedisProtocol");
+            auto* pureProto = dynamic_cast<PureRedisProtocol*>(m_router->getProtocol(3));
+            if (pureProto) {
+                size_t fallbackProcessed = pureProto->onClientDataReceived(clientFd, data, len);
+                Logger::debug("PureRedisProtocol 兜底处理了 " + std::to_string(fallbackProcessed) + " 字节");
+            } else {
+                Logger::error("PureRedisProtocol 未注册");
+            }
         }
     } else {
         Logger::error("协议分发器未初始化");
     }
-}
+} 
 
-void ApplicationServer::onProtocolPacket(uint32_t protoId, const std::vector<char>& packet) {
-    Logger::info("ApplicationServer::onProtocolPacket 被调用，协议ID: " + std::to_string(protoId));
-
-    // 这里可以根据协议ID进行不同的处理
-    // 对于PureRedisProtocol (ID=3)，直接发送响应
-    if (protoId == 3) {  // PureRedisProtocol
-        std::string response(packet.begin(), packet.end());
-        Logger::info("收到PureRedisProtocol响应: " + response.substr(0, 20) + "...");
-
-        // 直接发送RESP响应
-        if (m_currentClientFd > 0) {
-            ssize_t sent = send(m_currentClientFd, response.c_str(), response.length(), 0);
-            if (sent > 0) {
-                Logger::info("Pure Redis响应已发送到客户端" + std::to_string(m_currentClientFd) + "，长度: " + std::to_string(sent));
-            } else {
-                Logger::error("发送Pure Redis响应失败，错误码: " + std::to_string(errno));
-            }
-        } else {
-            Logger::error("无效的客户端FD，无法发送响应");
-        }
-    } else {
-        Logger::warn("未处理的协议ID: " + std::to_string(protoId));
+void ApplicationServer::onProtocolPacket(uint32_t protoId, [[maybe_unused]] const std::vector<char>& packet) {
+    if (protoId != 3) {  // 跳过 Redis 数据包
+        Logger::info("ApplicationServer::onProtocolPacket 被调用，协议ID: " + std::to_string(protoId));
+        // 处理其他协议
     }
 }
 

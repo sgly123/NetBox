@@ -5,8 +5,6 @@
 #include <algorithm>
 #include <string>
 
-// 心跳包魔数定义（与TcpServer保持一致）
-const uint32_t HEARTBEAT_MAGIC = 0x12345678;
 
 void ProtocolRouter::registerProtocol(uint32_t protoId, std::shared_ptr<ProtocolBase> proto) {
     protocols_[protoId] = proto;
@@ -20,22 +18,28 @@ void ProtocolRouter::registerProtocol(uint32_t protoId, std::shared_ptr<Protocol
 
 size_t ProtocolRouter::onDataReceived(int client_fd, const char* data, size_t len) {
     (void)client_fd; // 避免未使用参数警告
+    if (!data || len == 0) return 0;
 
-    if (!data || len == 0) {
-        return 0;
-    }
 
     // ==================== 心跳包识别和过滤 ====================
-    // 检查是否为心跳包（4字节魔数）
-    if (len == sizeof(uint32_t)) {
-        uint32_t magic_recv = 0;
-        std::memcpy(&magic_recv, data, sizeof(magic_recv));
-        magic_recv = ntohl(magic_recv);
-        
-        if (magic_recv == HEARTBEAT_MAGIC) {
-            Logger::debug("协议路由器识别到心跳包，已过滤");
-            return sizeof(uint32_t); // 返回处理的心跳包长度
+    if (len >= sizeof(uint32_t)) {  // 确保有足够字节解析魔数
+    uint32_t magic_recv = 0;
+    std::memcpy(&magic_recv, data, sizeof(magic_recv));
+    magic_recv = ntohl(magic_recv);  // 网络字节序转主机字节序
+    
+    if (magic_recv == HEARTBEAT_MAGIC) {
+        Logger::debug("协议路由器识别到心跳包，已过滤");
+        return sizeof(uint32_t);  // 返回处理的心跳包长度，不再向下传递
+    }
+}
+
+    // ✅ 如果是 RESP 协议（以 '*' 开头），直接走 PureRedisProtocol
+    if (len > 0 && data[0] == '*') {
+        auto it = protocols_.find(3); // PureRedisProtocol
+        if (it != protocols_.end()) {
+            return it->second->onDataReceived(data, len); // ✅ 完整数据交给 RESP 解码器
         }
+        return 0;
     }
 
     // ==================== 协议路由处理 ====================

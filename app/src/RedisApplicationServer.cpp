@@ -13,7 +13,7 @@ RedisApplicationServer::RedisApplicationServer(const std::string& ip, int port,
     Logger::info("支持命令: PING, SET, GET, DEL, KEYS, LPUSH, LPOP, LRANGE, HSET, HGET, HKEYS");
 
     // 启用心跳：心跳包已在协议层正确识别和过滤
-    setHeartbeatEnabled(true);
+    setHeartbeatEnabled(false);
     Logger::info("Redis应用已启用心跳包，心跳包将在协议层被正确过滤");
 }
 
@@ -24,13 +24,14 @@ void RedisApplicationServer::initializeProtocolRouter() {
     auto redisProto = std::make_shared<PureRedisProtocol>();
     Logger::info("PureRedisProtocol对象创建完成");
 
+/*
     // 设置PureRedisProtocol的回调，用于发送响应
     Logger::info("设置PureRedisProtocol回调函数");
     redisProto->setPacketCallback([this](const std::vector<char>& packet) {
         Logger::info("PureRedisProtocol回调被调用，响应长度: " + std::to_string(packet.size()));
         this->onPureRedisResponse(packet);
     });
-
+*/
     // 协议层错误回调
     redisProto->setErrorCallback([](const std::string& error) {
         Logger::error("Pure Redis协议错误: " + error);
@@ -48,11 +49,13 @@ void RedisApplicationServer::initializeProtocolRouter() {
 }
 
 std::string RedisApplicationServer::handleHttpRequest(const std::string& request, int clientFd) {
+    (void)request;  // 避免未使用参数警告
+    (void)clientFd; // 避免未使用参数警告
     // Redis不处理HTTP请求
     return "HTTP/1.1 400 Bad Request\r\n\r\nRedis server does not support HTTP";
 }
 
-std::string RedisApplicationServer::handleBusinessLogic(const std::string& command, const std::vector<std::string>& args) {
+std::string RedisApplicationServer::handleBusinessLogic([[maybe_unused]] const std::string& command, const std::vector<std::string>& args) {
     // 这个方法在当前架构中不会被直接调用
     return executeRedisCommand(args);
 }
@@ -79,6 +82,7 @@ void RedisApplicationServer::onDataReceived(int clientFd, const char* data, size
     // 清除当前客户端fd
     m_currentClientFd = -1;
 }
+
 
 void RedisApplicationServer::onPacketReceived(const std::vector<char>& packet) {
     Logger::info("RedisApplicationServer::onPacketReceived 被调用！");
@@ -150,50 +154,12 @@ std::string RedisApplicationServer::executeRedisCommand(const std::vector<std::s
 
 void RedisApplicationServer::sendRedisResponse(const std::string& response) {
     Logger::info("准备发送Redis响应: " + response.substr(0, 50) + (response.length() > 50 ? "..." : ""));
-
-    // 检查是否有有效的客户端连接
     if (m_currentClientFd <= 0) {
         Logger::error("无效的客户端FD，无法发送响应");
         return;
     }
-
-    // 调试：显示响应的十六进制
-    std::ostringstream hexStream;
-    hexStream << "响应十六进制: ";
-    for (size_t i = 0; i < response.length() && i < 50; ++i) {
-        hexStream << std::hex << std::setw(2) << std::setfill('0') << (unsigned char)response[i] << " ";
-    }
-    Logger::debug(hexStream.str());
-
-    // 使用PureRedisProtocol进行封包
-    auto redisProto = std::make_shared<PureRedisProtocol>();
-    std::vector<char> responsePacket;
-
-    // Pure Redis协议封包（直接使用RESP格式，无协议头）
-    if (redisProto->pack(response.c_str(), response.length(), responsePacket)) {
-        Logger::debug("Redis协议封包成功，包体长度: " + std::to_string(responsePacket.size()));
-
-        // 添加协议路由头（4字节协议ID，大端序）
-        uint32_t protocolId = redisProto->getProtocolId();
-        std::vector<char> routedResponsePacket;
-        routedResponsePacket.push_back((protocolId >> 24) & 0xFF);
-        routedResponsePacket.push_back((protocolId >> 16) & 0xFF);
-        routedResponsePacket.push_back((protocolId >> 8) & 0xFF);
-        routedResponsePacket.push_back(protocolId & 0xFF);
-        routedResponsePacket.insert(routedResponsePacket.end(), responsePacket.begin(), responsePacket.end());
-
-        Logger::debug("完整Redis响应包长度: " + std::to_string(routedResponsePacket.size()));
-
-        // 发送响应数据
-        ssize_t sent = send(m_currentClientFd, routedResponsePacket.data(), routedResponsePacket.size(), 0);
-        if (sent > 0) {
-            Logger::info("Redis响应已发送，发送长度: " + std::to_string(sent));
-        } else {
-            Logger::error("发送Redis响应失败，错误码: " + std::to_string(errno));
-        }
-    } else {
-        Logger::error("Redis协议封包失败");
-    }
+    // 直接发送原始RESP响应
+    sendRawRedisResponse(response);
 }
 
 void RedisApplicationServer::sendRawRedisResponse(const std::string& response) {
@@ -206,11 +172,11 @@ void RedisApplicationServer::sendRawRedisResponse(const std::string& response) {
     }
 
     // 直接发送RESP格式的响应，不需要协议封包
-    ssize_t sent = send(m_currentClientFd, response.c_str(), response.length(), 0);
-    if (sent > 0) {
-        Logger::info("原始Redis响应已发送，发送长度: " + std::to_string(sent));
+      auto* pureProto = dynamic_cast<PureRedisProtocol*>(m_router->getProtocol(3));
+    if (pureProto) {
+        pureProto->sendDirectResponse(m_currentClientFd, response);
     } else {
-        Logger::error("发送原始Redis响应失败，错误码: " + std::to_string(errno));
+        Logger::error("PureRedisProtocol 未注册");
     }
 }
 
@@ -223,7 +189,10 @@ void RedisApplicationServer::onPureRedisResponse(const std::vector<char>& packet
     Logger::info("收到PureRedisProtocol的RESP响应: " + respResponse.substr(0, 20) + "...");
 
     // 直接发送RESP响应，不需要再次处理
-    sendRawRedisResponse(respResponse);
+    auto* pureProto = dynamic_cast<PureRedisProtocol*>(m_router->getProtocol(3));
+    if (pureProto) {
+        pureProto->sendDirectResponse(m_currentClientFd, std::string(packet.begin(), packet.end()));
+    }
 }
 
 // ==================== Redis命令实现 ====================
@@ -256,7 +225,7 @@ std::string RedisApplicationServer::cmdSet(const std::vector<std::string>& args)
     m_stringData[key] = value;
 
     Logger::info("SET " + key + " = " + value);
-    return formatSimpleString("OK");
+    return formatBulkString("OK");
 }
 
 std::string RedisApplicationServer::cmdGet(const std::vector<std::string>& args) {
