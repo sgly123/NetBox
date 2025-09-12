@@ -1,0 +1,31 @@
+{
+    "server": {
+        "ip": "0.0.0.0",
+        "port": 8081,
+        "io_type": "EPOLL",
+        "heartbeat_enabled": false
+    },
+    "application": {
+        "type": "udp_echo",
+        "name": "UDP_Echo_Server",
+        "description": "UDP Echo服务器 - 回显UDP数据包"
+    },
+    "thread_pool": {
+        "enabled": false,
+        "core_threads": 4,
+        "max_threads": 8,
+        "queue_size": 1000
+    },
+    "logging": {
+        "level": "INFO",
+        "async": true,
+        "file_output": false,
+        "console_output": true
+    },
+    "udp_specific": {
+        "max_packet_size": 1024,
+        "stats_interval": 30,
+        "client_timeout": 300,
+        "enable_stats": true
+    }
+} 

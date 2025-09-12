@@ -102,6 +102,7 @@ add_executable(NetBox
     # macOS平台源文件将在后续添加
     # 服务器库
     NetFramework/src/server/TcpServer.cpp
+    NetFramework/src/server/UdpServer.cpp
         # 协议库
     Protocol/src/ProtocolBase.cpp
     Protocol/src/ProtocolRouter.cpp
@@ -115,12 +116,14 @@ add_executable(NetBox
     app/src/ApplicationServer.cpp
     app/src/RedisApplicationServer.cpp
     app/src/DirectRedisServer.cpp
+    app/src/UdpEchoServer.cpp
     # 插件化框架
     NetFramework/src/app/ApplicationRegistry.cpp
     # 应用插件
     plugins/echo/EchoServerPlugin.cpp
     plugins/redis/RedisApplicationPlugin.cpp
     plugins/redis/DirectRedisPlugin.cpp
+    plugins/udp/UdpEchoPlugin.cpp
 )
 
 # 链接库 - 跨平台支持

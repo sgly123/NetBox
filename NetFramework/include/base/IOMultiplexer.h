@@ -2,9 +2,7 @@
 #define IOMULTIPLEXER_H
 
 #include <vector>
-
-
-
+#include <cstddef>  // for size_t
 
 class IOMultiplexer
 {
@@ -25,6 +23,14 @@ public:
         KQUEUE,     // macOS/BSD kqueue
         IOCP        // Windows I/O Completion Port
     };
+
+    // UDP相关常量
+    enum SocketType {
+        TCP_SOCKET,
+        UDP_SOCKET
+    };
+
+    static const size_t MAX_UDP_PACKET_SIZE = 65507; // UDP最大负载大小
 
     friend EventType operator|(EventType a, EventType b) {
         return static_cast<EventType>(static_cast<int>(a) | static_cast<int>(b));
